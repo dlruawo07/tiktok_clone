@@ -41,32 +41,33 @@ class LogInScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Gaps.v40,
-              AuthButton(
-                text: "Use email & password",
-                icon: FaIcon(FontAwesomeIcons.user),
-              ),
-              Gaps.v16,
-              AuthButton(
-                text: "Continue with Facebook",
-                icon: FaIcon(FontAwesomeIcons.facebook),
-              ),
-              Gaps.v16,
-              AuthButton(
-                text: "Continue with Apple",
-                icon: FaIcon(FontAwesomeIcons.apple),
-              ),
+              // AuthButton(
+              //   text: "Use email & password",
+              //   icon: FaIcon(FontAwesomeIcons.user),
+              // ),
+              // Gaps.v16,
+              // AuthButton(
+              //   text: "Continue with Facebook",
+              //   icon: FaIcon(FontAwesomeIcons.facebook),
+              // ),
+              // Gaps.v16,
+              // AuthButton(
+              //   text: "Continue with Apple",
+              //   icon: FaIcon(FontAwesomeIcons.apple),
+              // ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade100,
+        color: Colors.grey.shade50,
         elevation: 2,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: Sizes.size3,
           ),
           child: Row(
+            // NOTE: mainAxisAlignment는 수직
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("Don't have an account?"),
