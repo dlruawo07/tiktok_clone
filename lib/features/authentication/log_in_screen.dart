@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({super.key});
 
   void onSignUpTap(BuildContext context) {
-    // 가장 최근 위젯 삭제(LogInScreen)
+    // NOTE: 가장 최근 위젯 삭제(LogInScreen)
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // SafeArea: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
+      // NOTE: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
       body: const SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -37,6 +39,21 @@ class LogInScreen extends StatelessWidget {
                   color: Colors.black54,
                 ),
                 textAlign: TextAlign.center,
+              ),
+              Gaps.v40,
+              AuthButton(
+                text: "Use email & password",
+                icon: FaIcon(FontAwesomeIcons.user),
+              ),
+              Gaps.v16,
+              AuthButton(
+                text: "Continue with Facebook",
+                icon: FaIcon(FontAwesomeIcons.facebook),
+              ),
+              Gaps.v16,
+              AuthButton(
+                text: "Continue with Apple",
+                icon: FaIcon(FontAwesomeIcons.apple),
               ),
             ],
           ),

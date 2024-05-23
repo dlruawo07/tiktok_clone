@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/log_in_screen.dart';
@@ -8,7 +9,7 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   void onLoginTap(BuildContext context) {
-    // LoginScreen을 context에 푸쉬
+    // NOTE: LoginScreen을 context에 푸쉬
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const LogInScreen(),
@@ -19,7 +20,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // SafeArea: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
+      // NOTE: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
       body: const SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -46,16 +47,18 @@ class SignUpScreen extends StatelessWidget {
               ),
               Gaps.v40,
               AuthButton(
-                text: "Use phone or email",
-                icon: "temp",
+                text: "Use email & password",
+                icon: FaIcon(FontAwesomeIcons.user),
               ),
+              Gaps.v16,
               AuthButton(
                 text: "Continue with Facebook",
-                icon: "temp",
+                icon: FaIcon(FontAwesomeIcons.facebook),
               ),
+              Gaps.v16,
               AuthButton(
                 text: "Continue with Apple",
-                icon: "temp",
+                icon: FaIcon(FontAwesomeIcons.apple),
               ),
             ],
           ),

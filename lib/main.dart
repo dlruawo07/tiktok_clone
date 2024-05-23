@@ -15,8 +15,8 @@ class TikTokApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFFE9435A),
       ),
-      // Scaffold: 매우 중요
-      // screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
+      // NOTE: Scaffold 매우 중요
+      // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
       home: const SignUpScreen(),
     );
   }
