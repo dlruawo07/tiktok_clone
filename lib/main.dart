@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -14,7 +15,9 @@ class TikTokApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFFE9435A),
       ),
-      home: Container(),
+      // Scaffold: 매우 중요
+      // screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
+      home: const SignUpScreen(),
     );
   }
 }
