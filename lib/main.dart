@@ -27,7 +27,6 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      // NOTE: Scaffold 매우 중요
       // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
       home: const SignUpScreen(),
     );

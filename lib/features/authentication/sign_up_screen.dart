@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/email_screen.dart';
+import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/features/authentication/log_in_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
@@ -22,13 +22,14 @@ class SignUpScreen extends StatelessWidget {
     // NOTE: EmailScreen context에 푸쉬
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const EmailScreen(),
+        builder: (context) => const UsernameScreen(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    // NOTE: Scaffold 매우 중요
     return Scaffold(
       // NOTE: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
       body: SafeArea(
@@ -42,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
               const Text(
                 "Sign up for TikTok",
                 style: TextStyle(
-                  fontSize: Sizes.size24, //
+                  fontSize: Sizes.size24,
                   fontWeight: FontWeight.w700,
                 ),
               ),
