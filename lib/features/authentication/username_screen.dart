@@ -35,7 +35,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
   }
 
   void _onNextTap() {
-    if (_username.isEmpty) return;
+    if (_username.isEmpty) {
+      return;
+    }
     // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -79,12 +81,15 @@ class _UsernameScreenState extends State<UsernameScreen> {
               // NOTE: 입력창
               controller: _usernameController,
               decoration: InputDecoration(
+                // NOTE: placeholder
                 hintText: "Username",
+                // NOTE: underline border
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
                   ),
                 ),
+                // NOTE: underline border
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
@@ -95,8 +100,12 @@ class _UsernameScreenState extends State<UsernameScreen> {
             ),
             Gaps.v16,
             GestureDetector(
-                onTap: _onNextTap,
-                child: FormButton(disabled: _username.isEmpty)),
+              onTap: _onNextTap,
+              child: FormButton(
+                disabled: _username.isEmpty,
+                title: "Next",
+              ),
+            ),
           ],
         ),
       ),

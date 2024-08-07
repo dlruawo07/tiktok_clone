@@ -35,7 +35,9 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   String? _isEmailValid() {
-    if (_email.isEmpty) return null;
+    if (_email.isEmpty) {
+      return null;
+    }
     final regExp = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (!regExp.hasMatch(_email)) {
@@ -50,7 +52,10 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   void _onSubmit() {
-    if (_email.isEmpty || _isEmailValid() != null) return;
+    if (_email.isEmpty || _isEmailValid() != null) {
+      return;
+    }
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -91,7 +96,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 keyboardType: TextInputType.emailAddress,
                 // NOTE: 모바일 키보드에 자동완성 여부
                 autocorrect: false,
-                // NOTE: 값 입력 후 done 누를 시 함수 실행
+                // NOTE: 값 입력 후 키보드에서 done 누를 시 함수 실행
                 onEditingComplete: _onSubmit,
                 decoration: InputDecoration(
                   hintText: "Email",
@@ -115,6 +120,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 child: FormButton(
                   disabled:
                       _email.isEmpty || _isEmailValid() != null ? true : false,
+                  title: "Next",
                 ),
               ),
             ],

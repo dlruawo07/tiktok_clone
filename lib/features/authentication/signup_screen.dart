@@ -3,23 +3,23 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/username_screen.dart';
-import 'package:tiktok_clone/features/authentication/log_in_screen.dart';
+import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
-  void onLoginTap(BuildContext context) {
+  void _onLoginTap(BuildContext context) {
     // NOTE: LoginScreen을 context에 푸쉬
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const LogInScreen(),
+        builder: (context) => const LoginScreen(),
       ),
     );
   }
 
-  void _onEmailTap(BuildContext context) {
-    // NOTE: EmailScreen context에 푸쉬
+  void _onEmailLoginTap(BuildContext context) {
+    // NOTE: UsernameScreen을 context에 푸쉬
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const UsernameScreen(),
@@ -32,6 +32,7 @@ class SignUpScreen extends StatelessWidget {
     // NOTE: Scaffold 매우 중요
     return Scaffold(
       // NOTE: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
+      // (휴대폰의 상태바 등에 가려지지 않을 것을 보장)
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -60,7 +61,7 @@ class SignUpScreen extends StatelessWidget {
               AuthButton(
                 text: "Use email & password",
                 icon: const FaIcon(FontAwesomeIcons.user),
-                onTapFunction: () => _onEmailTap(context),
+                onTapFunction: () => _onEmailLoginTap(context),
               ),
               Gaps.v16,
               // const AuthButton(
@@ -76,6 +77,7 @@ class SignUpScreen extends StatelessWidget {
           ),
         ),
       ),
+      // NOTE: Scaffold에서 아래 바
       bottomNavigationBar: BottomAppBar(
         color: Colors.grey.shade50,
         elevation: 2,
@@ -90,7 +92,7 @@ class SignUpScreen extends StatelessWidget {
               const Text("Already have an account?"),
               Gaps.h5,
               GestureDetector(
-                onTap: () => onLoginTap(context),
+                onTap: () => _onLoginTap(context),
                 child: Text(
                   "Log in",
                   style: TextStyle(

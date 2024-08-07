@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
+import 'package:tiktok_clone/features/authentication/signup_screen.dart';
+import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -16,6 +17,7 @@ class TikTokApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         primaryColor: const Color(0xFFE9435A),
+        // NOTE: 모든 Scaffold의 앱바에 적용되는 테마
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
@@ -26,9 +28,14 @@ class TikTokApp extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.white,
+          elevation: 2,
+        ),
       ),
       // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
-      home: const SignUpScreen(),
+      // home: const SignupScreen(),
+      home: const InterestsScreen(),
     );
   }
 }

@@ -36,10 +36,29 @@ class _PasswordScreenState extends State<PasswordScreen> {
     super.dispose();
   }
 
-  bool _isPasswordValid() {
-    return _password.isNotEmpty &&
-        _password.length > 8 &&
-        _password.length < 20;
+  num _isPasswordValid() {
+    int result = 0;
+
+    final hasLowerCaseLetters = RegExp(r'[a-z]').hasMatch(_password);
+    final hasUpperCaseLetters = RegExp(r'[A-Z]').hasMatch(_password);
+    final hasNumbers = RegExp(r'[0-9]').hasMatch(_password);
+    final hasSpecialChars =
+        RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(_password);
+
+    if (_password.isNotEmpty &&
+        _password.length >= 8 &&
+        _password.length <= 20) {
+      result = 1;
+
+      if (hasLowerCaseLetters &&
+          hasUpperCaseLetters &&
+          hasNumbers &&
+          hasSpecialChars) {
+        result = 2;
+      }
+    }
+
+    return result;
   }
 
   void _onScaffoldTap() {
@@ -48,7 +67,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void _onSubmit() {
-    if (!_isPasswordValid()) return;
+    if (_isPasswordValid() == 0) {
+      return;
+    }
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -94,14 +116,14 @@ class _PasswordScreenState extends State<PasswordScreen> {
               // NOTE: 입력창
               TextField(
                 controller: _passwordController,
-                // NOTE: 모바일 키보드에 자동완성 여부
                 onEditingComplete: _onSubmit,
+                // NOTE: 입력값 안 보이게
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   // NOTE: 앞에 아이콘 위젯 추가
-                  // prefixIcon: const Icon(Icons.ac_unit),
+                  // prefixIcon: const Icon(Icons.ac_unit), (or just prefix)
                   // NOTE: 뒤에 아이콘 위젯 추가
-                  // suffixIcon: const Icon(Icons.cancel_outlined),
+                  // suffixIcon: const Icon(Icons.cancel_outlined), (or jest suffix)
                   suffix: Row(
                     // NOTE: 수평 axis 사이즈를 최소화
                     mainAxisSize: MainAxisSize.min,
@@ -155,7 +177,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   FaIcon(
                     FontAwesomeIcons.circleCheck,
                     size: Sizes.size16,
-                    color: _isPasswordValid()
+                    color: _isPasswordValid() != 0
                         ? Colors.green
                         : Colors.grey.shade400,
                   ),
@@ -163,11 +185,26 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   const Text("8 to 20 characters"),
                 ],
               ),
+              Gaps.v2,
+              Row(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.circleCheck,
+                    size: Sizes.size16,
+                    color: _isPasswordValid() == 2
+                        ? Colors.green
+                        : Colors.grey.shade400,
+                  ),
+                  Gaps.h5,
+                  const Text("Letters, numbers, and special characters"),
+                ],
+              ),
               Gaps.v16,
               GestureDetector(
                 onTap: _onSubmit,
                 child: FormButton(
-                  disabled: !_isPasswordValid(),
+                  disabled: _isPasswordValid() != 2,
+                  title: "Next",
                 ),
               ),
             ],

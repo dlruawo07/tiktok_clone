@@ -17,6 +17,7 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTapFunction,
+      // NOTE: 부모의 크기에 비례해서 크기를 정해주는 위젯
       child: FractionallySizedBox(
         // NOTE: width를 부모의 width의 1배로 설정
         widthFactor: 1,
