@@ -6,7 +6,9 @@ import 'package:tiktok_clone/features/authentication/birthday_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
+  const PasswordScreen({
+    super.key,
+  });
 
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();

@@ -7,7 +7,9 @@ import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+  const SignupScreen({
+    super.key,
+  });
 
   void _onLoginTap(BuildContext context) {
     // NOTE: LoginScreen을 context에 푸쉬

@@ -5,7 +5,9 @@ import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
-  const LoginFormScreen({super.key});
+  const LoginFormScreen({
+    super.key,
+  });
 
   @override
   State<LoginFormScreen> createState() => _LoginFormScreenState();
@@ -29,10 +31,13 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     }
 
     // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
-    Navigator.of(context).push(
+    Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (context) => const InterestsScreen(),
       ),
+      // NOTE: 이전 route를 유지할 지 여부
+      // false: 유지 x
+      (route) => false,
     );
   }
 
@@ -73,6 +78,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 decoration: const InputDecoration(
                   hintText: "Password",
                 ),
+                obscureText: true,
                 // NOTE: 값 검증
                 validator: (value) {
                   if (value != null && value.isEmpty) {

@@ -6,7 +6,9 @@ import 'package:tiktok_clone/features/authentication/email_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
-  const UsernameScreen({super.key});
+  const UsernameScreen({
+    super.key,
+  });
 
   @override
   State<UsernameScreen> createState() => _UsernameScreenState();

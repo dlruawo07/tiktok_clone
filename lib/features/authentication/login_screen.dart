@@ -6,7 +6,9 @@ import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({
+    super.key,
+  });
 
   void _onSignupTap(BuildContext context) {
     // NOTE: 가장 최근 위젯 삭제(LoginScreen)

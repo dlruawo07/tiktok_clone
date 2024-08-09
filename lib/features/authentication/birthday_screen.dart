@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
 class BirthdayScreen extends StatefulWidget {
-  const BirthdayScreen({super.key});
+  const BirthdayScreen({
+    super.key,
+  });
 
   @override
   State<BirthdayScreen> createState() => _BirthdayScreenState();
@@ -34,10 +35,11 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
 
   void _onNextTap() {
     // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
-    Navigator.of(context).push(
+    Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (context) => const InterestsScreen(),
       ),
+      (route) => false,
     );
   }
 
