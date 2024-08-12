@@ -19,18 +19,27 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _textEditingController = TextEditingController(
     text: "Initial Text",
   );
+  // late final TabController _tabController =
+  //     TabController(vsync: this, length: tabs.length);
 
-  void _onSearchChanged(String value) {
-    print(value);
-  }
+  void _onSearchChanged(String value) {}
 
-  void _onSearchSubmitted(String value) {
-    print(value);
+  void _onSearchSubmitted(String value) {}
+
+  @override
+  void initState() {
+    super.initState();
+    // _tabController.addListener(() {
+    //   if (_tabController.indexIsChanging) {
+    //     FocusScope.of(context).unfocus();
+    //   }
+    // });
   }
 
   @override
   void dispose() {
     _textEditingController.dispose();
+    // _tabController.dispose();
     super.dispose();
   }
 
@@ -69,6 +78,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
         ),
         body: TabBarView(
+          // controller: _tabController,
           children: [
             GridView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
