@@ -23,6 +23,8 @@ class VideoPost extends StatefulWidget {
 }
 
 // NOTE: with - class 복사
+// NOTE: ticker - 애니메이션 프레임마다 호출되는 시계
+//       SingleTickerProviderStateMixin - 위젯이 위젯트리에 없을 때 자원을 낭비하지 않도록 함 (위젯이 활성화되어있을 때만 티커 동작)
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _videoPlayerController =

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/birthday_screen.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
+import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 
 void main() {
@@ -15,36 +17,33 @@ class TikTokApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          primaryColor: const Color(0xFFE9435A),
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Color(0xFFE9435A),
-          ),
-          // NOTE: 모든 Scaffold의 앱바에 적용되는 테마
-          appBarTheme: const AppBarTheme(
-            foregroundColor: Colors.black,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            titleTextStyle: TextStyle(
-              color: Colors.black,
-              fontSize: Sizes.size18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          bottomAppBarTheme: const BottomAppBarTheme(
-            color: Colors.white,
-            elevation: 2,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: const Color(0xFFE9435A),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFE9435A),
+        ),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        // NOTE: 모든 Scaffold의 앱바에 적용되는 테마
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: Sizes.size18,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
-        // home: const SignupScreen(),
-        // home: const MainNavigationScreen(),
-        initialRoute: "/",
-        routes: {
-          "/": (context) => const SignupScreen(),
-          "/discover": (context) => const MainNavigationScreen(),
-        });
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.white,
+          elevation: 2,
+        ),
+      ),
+      // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
+      home: const MainNavigationScreen(),
+    );
   }
 }
