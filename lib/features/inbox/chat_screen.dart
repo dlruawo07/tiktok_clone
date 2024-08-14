@@ -4,7 +4,9 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({
+    super.key,
+  });
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

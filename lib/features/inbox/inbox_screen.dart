@@ -5,7 +5,9 @@ import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_screen.dart';
 
 class InboxScreen extends StatelessWidget {
-  const InboxScreen({super.key});
+  const InboxScreen({
+    super.key,
+  });
 
   void _onDmPressed(BuildContext context) {
     Navigator.of(context).push(

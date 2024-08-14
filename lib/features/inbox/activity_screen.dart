@@ -4,7 +4,9 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 
 class ActivityScreen extends StatefulWidget {
-  const ActivityScreen({super.key});
+  const ActivityScreen({
+    super.key,
+  });
 
   @override
   State<ActivityScreen> createState() => _ActivityScreenState();
