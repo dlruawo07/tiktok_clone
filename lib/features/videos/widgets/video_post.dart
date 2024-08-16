@@ -35,6 +35,7 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
   bool _isPaused = false;
   bool _isExpanded = false;
+  bool _isMute = true;
 
   final List<String> tags = [
     'Tag1',
@@ -87,9 +88,23 @@ class _VideoPostState extends State<VideoPost>
   void _initVideoPlayer() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    setState(() {});
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+    }
     // NOTE: 영상 컨트롤러는 영상의 종료를 항상 기다림
     _videoPlayerController.addListener(_onVideoChange);
+    setState(() {});
+  }
+
+  void _onToggleVolume() async {
+    if (_isMute) {
+      await _videoPlayerController.setVolume(100);
+    } else {
+      await _videoPlayerController.setVolume(0);
+    }
+    setState(() {
+      _isMute = !_isMute;
+    });
   }
 
 // NOTE: 화면을 위로 스와이프 했을 때 영상이 100% 보여야 재생되게 하기 위함
@@ -106,12 +121,12 @@ class _VideoPostState extends State<VideoPost>
       _videoPlayerController.play();
     } else if (_videoPlayerController.value.isPlaying &&
         info.visibleFraction == 0) {
-      onTogglePause();
+      _onTogglePause();
     }
   }
 
   // NOTE: 화면 클릭 시 재생/일시정지
-  void onTogglePause() {
+  void _onTogglePause() {
     if (_videoPlayerController.value.isPlaying) {
       _videoPlayerController.pause();
       // NOTE: reverse - lowerBound, upperBound를 반전시킨다
@@ -133,9 +148,9 @@ class _VideoPostState extends State<VideoPost>
     });
   }
 
-  void onCommentsTap(BuildContext context) async {
+  void _onCommentsTap(BuildContext context) async {
     if (_videoPlayerController.value.isPlaying) {
-      onTogglePause();
+      _onTogglePause();
     }
     await showModalBottomSheet(
       // NOTE: BottomSheet의 사이즈 수정 가능하게 하는 옵션. ListView 사용 시 true.
@@ -144,7 +159,7 @@ class _VideoPostState extends State<VideoPost>
       context: context,
       builder: (context) => const VideoComments(),
     );
-    onTogglePause();
+    _onTogglePause();
   }
 
   @override
@@ -170,7 +185,7 @@ class _VideoPostState extends State<VideoPost>
           ),
           Positioned.fill(
             child: GestureDetector(
-              onTap: onTogglePause,
+              onTap: _onTogglePause,
             ),
           ),
           Positioned.fill(
@@ -266,7 +281,7 @@ class _VideoPostState extends State<VideoPost>
                 ),
                 Gaps.v44,
                 GestureDetector(
-                  onTap: () => onCommentsTap(context),
+                  onTap: () => _onCommentsTap(context),
                   child: const VideoButton(
                     icon: FontAwesomeIcons.solidComment,
                     text: "33K",
@@ -278,6 +293,19 @@ class _VideoPostState extends State<VideoPost>
                   text: "Share",
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            top: 20,
+            right: 10,
+            child: GestureDetector(
+              onTap: _onToggleVolume,
+              child: FaIcon(
+                _isMute
+                    ? FontAwesomeIcons.volumeXmark
+                    : FontAwesomeIcons.volumeHigh,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
