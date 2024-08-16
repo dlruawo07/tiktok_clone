@@ -95,6 +95,11 @@ class _VideoPostState extends State<VideoPost>
 // NOTE: 화면을 위로 스와이프 했을 때 영상이 100% 보여야 재생되게 하기 위함
 // NOTE: 영상이 재생 중이나 영상 화면이 사라졌을 때 일시정지
   void _onVisibilityChanged(VisibilityInfo info) {
+    // NOTE: 모든 StatefulWidget은 mounted 옵션이 있음
+    // NOTE: 위젯이 mount 되었는 지(위젯 트리에 있는 지) 확인
+    if (!mounted) {
+      return;
+    }
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
