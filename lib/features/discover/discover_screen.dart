@@ -45,8 +45,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     super.dispose();
   }
 
-  // TODO: custom search in appBar title
-  // TODO: hide keyboard when swiping left/right
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

@@ -257,7 +257,6 @@ class _VideoPostState extends State<VideoPost>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // TODO: hashtags (... See more)
               ],
             ),
           ),

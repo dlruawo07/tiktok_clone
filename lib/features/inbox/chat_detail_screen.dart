@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/utils.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   const ChatDetailScreen({
@@ -161,11 +160,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: FaIcon(
-                      FontAwesomeIcons.paperPlane,
-                      color: Colors.grey.shade600,
-                    ),
+                  FaIcon(
+                    FontAwesomeIcons.paperPlane,
+                    color: Colors.grey.shade600,
                   ),
                 ],
               ),
