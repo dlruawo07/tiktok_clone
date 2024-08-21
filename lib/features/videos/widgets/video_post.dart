@@ -35,6 +35,7 @@ class _VideoPostState extends State<VideoPost>
   );
   late final AnimationController _animationController;
   bool _isPaused = false;
+  // ignore: unused_field
   bool _isExpanded = false;
   bool _isMute = true;
 
