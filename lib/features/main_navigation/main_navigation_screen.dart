@@ -8,6 +8,7 @@ import 'package:tiktok_clone/features/main_navigation/widgets/nav_tab.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok_clone/features/users/user_profile_screen.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
+import 'package:tiktok_clone/utils.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({
@@ -42,11 +43,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
+
     return Scaffold(
       // NOTE: TextField 입력 시 키보드가 올라오고 scaffold는 자동으로 위젯들의 크기를 조정한다
       // NOTE: 이를 방지하기 위한 옵션
       resizeToAvoidBottomInset: false,
-      backgroundColor: _selectedIndex != 0 ? Colors.white : Colors.black,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      // _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
       body: Stack(
         children: [
           // NOTE: 출력하거나 숨기는 위젯. default = offstage: true (숨김)
@@ -72,7 +76,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         height: 80,
-        color: _selectedIndex == 0 ? Colors.black : Colors.white,
+        color: isDark || _selectedIndex == 0 ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: Sizes.size1,

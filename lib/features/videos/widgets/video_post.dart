@@ -296,15 +296,16 @@ class _VideoPostState extends State<VideoPost>
             ),
           ),
           Positioned(
-            top: 20,
             right: 10,
-            child: GestureDetector(
-              onTap: _onToggleVolume,
-              child: FaIcon(
-                _isMute
-                    ? FontAwesomeIcons.volumeXmark
-                    : FontAwesomeIcons.volumeHigh,
-                color: Colors.white,
+            child: SafeArea(
+              child: GestureDetector(
+                onTap: _onToggleVolume,
+                child: FaIcon(
+                  _isMute
+                      ? FontAwesomeIcons.volumeXmark
+                      : FontAwesomeIcons.volumeHigh,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

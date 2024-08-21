@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({
@@ -41,7 +42,6 @@ class _ActivityScreenState extends State<ActivityScreen>
       "icon": FontAwesomeIcons.tiktok,
     },
   ];
-
   // NOTE: 다른 인스턴스를 참조하기 때문에 late 선언 필요
   late final AnimationController _animationController = AnimationController(
     vsync: this,
@@ -97,6 +97,8 @@ class _ActivityScreenState extends State<ActivityScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
+
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
@@ -125,14 +127,14 @@ class _ActivityScreenState extends State<ActivityScreen>
           ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Sizes.size12,
+                padding: const EdgeInsets.all(
+                  Sizes.size12,
                 ),
                 child: Text(
                   "New",
                   style: TextStyle(
                     fontSize: Sizes.size14,
-                    color: Colors.grey.shade400,
+                    color: isDark ? Colors.grey.shade700 : Colors.grey.shade400,
                   ),
                 ),
               ),
@@ -176,16 +178,17 @@ class _ActivityScreenState extends State<ActivityScreen>
                       width: Sizes.size52,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.grey.shade400,
+                          color: isDark
+                              ? Colors.grey.shade800
+                              : Colors.grey.shade400,
                           width: Sizes.size1,
                         ),
                         shape: BoxShape.circle,
-                        color: Colors.white,
+                        color: isDark ? Colors.grey.shade800 : Colors.white,
                       ),
                       child: const Center(
                         child: FaIcon(
                           FontAwesomeIcons.bell,
-                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -193,9 +196,9 @@ class _ActivityScreenState extends State<ActivityScreen>
                     title: RichText(
                       text: TextSpan(
                         text: "Account updated:",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: Colors.black,
+                          color: Theme.of(context).appBarTheme.foregroundColor,
                           fontSize: Sizes.size14,
                         ),
                         // NOTE: TextSpan에 다른 TextSpan을 자식으로 가질 수 있고 별도로 스타일링 가능
@@ -234,9 +237,9 @@ class _ActivityScreenState extends State<ActivityScreen>
           SlideTransition(
             position: _panelAnimation,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(
                     Sizes.size4,
                   ),
@@ -252,9 +255,8 @@ class _ActivityScreenState extends State<ActivityScreen>
                     ListTile(
                       title: Row(
                         children: [
-                          FaIcon(
+                          Icon(
                             tab["icon"],
-                            color: Colors.black,
                             size: Sizes.size16,
                           ),
                           Gaps.h20,

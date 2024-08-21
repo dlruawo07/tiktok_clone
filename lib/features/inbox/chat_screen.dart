@@ -83,7 +83,7 @@ class _ChatScreenState extends State<ChatScreen> {
         (context, animation) => SizeTransition(
           sizeFactor: animation,
           child: Container(
-            color: Colors.red.shade50,
+            color: Colors.red.shade500,
             child: _makeTile(index),
           ),
         ),

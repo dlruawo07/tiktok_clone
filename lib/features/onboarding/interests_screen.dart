@@ -82,7 +82,10 @@ class _InterestsScreenState extends State<InterestsScreen> {
           duration: const Duration(
             milliseconds: 300,
           ),
-          child: const Text("Choose your interests"),
+          child: Text(
+            "Choose your interests",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
       ),
       // NOTE: 오른쪽에 스크롤바 표시
@@ -147,7 +150,10 @@ class _InterestsScreenState extends State<InterestsScreen> {
           child: CupertinoButton(
             onPressed: _onNextTap,
             color: Theme.of(context).primaryColor,
-            child: const Text("Next"),
+            child: Text(
+              "Next",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
           // Container(
           //   padding: const EdgeInsets.symmetric(

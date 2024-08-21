@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({
@@ -36,6 +37,8 @@ class _VideoCommentsState extends State<VideoComments> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isDark = isDarkMode(context);
+
     return Container(
       // NOTE: BottomSheet의 사이즈를 조정하기 위해 height 값 할당
       height: size.height * 0.75,
@@ -46,9 +49,9 @@ class _VideoCommentsState extends State<VideoComments> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
           // NOTE: appBar에서 뒤로가기 버튼 제거
           automaticallyImplyLeading: false,
           title: const Text(
@@ -137,7 +140,6 @@ class _VideoCommentsState extends State<VideoComments> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: Colors.white,
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -169,22 +171,37 @@ class _VideoCommentsState extends State<VideoComments> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.at,
-                                      color: Colors.grey.shade900,
-                                      size: Sizes.size20,
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: FaIcon(
+                                        FontAwesomeIcons.at,
+                                        color: isDark
+                                            ? Colors.grey.shade500
+                                            : Colors.grey.shade900,
+                                        size: Sizes.size20,
+                                      ),
                                     ),
                                     Gaps.h8,
-                                    FaIcon(
-                                      FontAwesomeIcons.gift,
-                                      color: Colors.grey.shade900,
-                                      size: Sizes.size20,
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: FaIcon(
+                                        FontAwesomeIcons.gift,
+                                        color: isDark
+                                            ? Colors.grey.shade500
+                                            : Colors.grey.shade900,
+                                        size: Sizes.size20,
+                                      ),
                                     ),
                                     Gaps.h8,
-                                    FaIcon(
-                                      FontAwesomeIcons.faceSmile,
-                                      color: Colors.grey.shade900,
-                                      size: Sizes.size20,
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: FaIcon(
+                                        FontAwesomeIcons.faceSmile,
+                                        color: isDark
+                                            ? Colors.grey.shade500
+                                            : Colors.grey.shade900,
+                                        size: Sizes.size20,
+                                      ),
                                     ),
                                     Gaps.h8,
                                     if (_isWriting)
@@ -194,6 +211,7 @@ class _VideoCommentsState extends State<VideoComments> {
                                         child: FaIcon(
                                           FontAwesomeIcons.circleArrowUp,
                                           color: Theme.of(context).primaryColor,
+                                          size: Sizes.size20,
                                         ),
                                       ),
                                   ],
@@ -207,7 +225,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                 borderSide: BorderSide.none,
                               ),
                               filled: true,
-                              fillColor: Colors.grey.shade200,
+                              fillColor: isDark
+                                  ? Colors.grey.shade800
+                                  : Colors.grey.shade200,
                               contentPadding: const EdgeInsets.only(
                                 left: Sizes.size12,
                                 right: Sizes.size12,

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 final tabs = ["Top", "Users", "Videos", "Sounds", "LIVE", "Shopping", "Brands"];
 
@@ -63,6 +64,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               controller: _textEditingController,
               onChanged: _onSearchChanged,
               onSubmitted: _onSearchSubmitted,
+              style: TextStyle(
+                color: isDarkMode(context) ? Colors.white : null,
+              ),
             ),
           ),
           // NOTE: PreferredSizeWidget - 특정 크기를 가지려고 하지만 자식 요소들의 크기를 제한하지 않는다
@@ -72,9 +76,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w600,
             ),
-            unselectedLabelColor: Colors.grey.shade500,
-            labelColor: Colors.black,
-            indicatorColor: Colors.black,
+            indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               for (var tab in tabs)
@@ -136,13 +138,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     Gaps.v8,
                     if (constraints.maxWidth < 200 ||
                         constraints.maxWidth > 250)
-                      const DefaultTextStyle(
+                      DefaultTextStyle(
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade400
+                              : Colors.grey.shade700,
                           fontSize: Sizes.size12,
                           fontWeight: FontWeight.bold,
                         ),
-                        child: Row(
+                        child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CircleAvatar(

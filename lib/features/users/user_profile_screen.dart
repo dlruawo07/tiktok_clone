@@ -4,6 +4,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import 'package:tiktok_clone/features/users/widgets/persistent_tab_bar.dart';
+import 'package:tiktok_clone/utils.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({
@@ -33,6 +34,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
+                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
                 title: const Text("Profile"),
                 actions: [
                   IconButton(

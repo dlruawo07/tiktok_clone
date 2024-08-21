@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
@@ -34,7 +35,11 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TikTok Clone',
+      themeMode: ThemeMode.system,
       theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.light,
+        textTheme: Typography.blackMountainView,
         scaffoldBackgroundColor: Colors.white,
         primaryColor: const Color(0xFFE9435A),
         textSelectionTheme: const TextSelectionThemeData(
@@ -53,13 +58,50 @@ class TikTokApp extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        bottomAppBarTheme: const BottomAppBarTheme(
-          color: Colors.white,
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade50,
           elevation: 2,
+        ),
+        tabBarTheme: TabBarTheme(
+          unselectedLabelColor: Colors.grey.shade500,
+          labelColor: Colors.black,
+          indicatorColor: Colors.black,
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.black,
+        ),
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        textTheme: Typography.whiteMountainView,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: const Color(0xFFE9435A),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFE9435A),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade900,
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade900,
+          elevation: 2,
+        ),
+        tabBarTheme: TabBarTheme(
+          unselectedLabelColor: Colors.grey.shade500,
+          labelColor: Colors.white,
+          indicatorColor: Colors.white,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.white,
         ),
       ),
       // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
-      home: const MainNavigationScreen(),
+      // home: const MainNavigationScreen(),
+      home: const SignupScreen(),
       // home: const LayoutBuilderCodeLab(),
     );
   }
