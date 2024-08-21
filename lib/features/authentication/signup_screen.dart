@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
+import 'package:tiktok_clone/constants/routes.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
-import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 
@@ -14,20 +13,48 @@ class SignupScreen extends StatelessWidget {
 
   void _onLoginTap(BuildContext context) {
     // NOTE: LoginScreen을 context에 푸쉬
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => const LoginScreen(),
+    //   ),
+    // );
+    Navigator.of(context).pushNamed(Routes.login);
   }
 
   void _onEmailLoginTap(BuildContext context) {
     // NOTE: UsernameScreen을 context에 푸쉬
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const UsernameScreen(),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => const UsernameScreen(),
+    //   ),
+    // );
+    // NOTE: PageRouteBuilder 사용법
+    // Navigator.of(context).push(
+    //   PageRouteBuilder(
+    //     transitionDuration: const Duration(seconds: 1),
+    //     reverseTransitionDuration: const Duration(seconds: 1),
+    //     pageBuilder: (context, animation, secondaryAnimation) =>
+    //         const UsernameScreen(),
+    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //       final offsetAnimation = Tween(
+    //         begin: const Offset(0, 1),
+    //         end: Offset.zero,
+    //       ).animate(animation);
+    //       final opacityAnimation = Tween(
+    //         begin: 0.5,
+    //         end: 1.0,
+    //       ).animate(animation);
+    //       return SlideTransition(
+    //         position: offsetAnimation,
+    //         child: FadeTransition(
+    //           opacity: opacityAnimation,
+    //           child: child,
+    //         ),
+    //       );
+    //     },
+    //   ),
+    // );
+    Navigator.of(context).pushNamed(Routes.username);
   }
 
   @override
@@ -41,10 +68,7 @@ class SignupScreen extends StatelessWidget {
         //     ),
         //   );
         // }
-        // NOTE: Scaffold 매우 중요
         return Scaffold(
-          // NOTE: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
-          // (휴대폰의 상태바 등에 가려지지 않을 것을 보장)
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -76,10 +100,6 @@ class SignupScreen extends StatelessWidget {
                       onTapFunction: () => _onEmailLoginTap(context),
                     ),
                     Gaps.v16,
-                    // const AuthButton(
-                    //   text: "Continue with Facebook",
-                    //   icon: FaIcon(FontAwesomeIcons.facebook),
-                    // ),
                     AuthButton(
                       text: S.of(context).appleButton,
                       icon: const FaIcon(FontAwesomeIcons.apple),
@@ -97,10 +117,6 @@ class SignupScreen extends StatelessWidget {
                           ),
                         ),
                         Gaps.h16,
-                        // const AuthButton(
-                        //   text: "Continue with Facebook",
-                        //   icon: FaIcon(FontAwesomeIcons.facebook),
-                        // ),
                         Expanded(
                           child: AuthButton(
                             text: S.of(context).appleButton,
@@ -114,7 +130,6 @@ class SignupScreen extends StatelessWidget {
               ),
             ),
           ),
-          // NOTE: Scaffold에서 아래 바
           bottomNavigationBar: BottomAppBar(
             elevation: 2,
             child: Padding(
@@ -122,7 +137,6 @@ class SignupScreen extends StatelessWidget {
                 vertical: Sizes.size3,
               ),
               child: Row(
-                // NOTE: mainAxisAlignment는 수직
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(S.of(context).alreadyHaveAnAccount),

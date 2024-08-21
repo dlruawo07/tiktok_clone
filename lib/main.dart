@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tiktok_clone/constants/routes.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/signup_screen.dart';
-import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 
 void main() async {
@@ -112,9 +111,11 @@ class TikTokApp extends StatelessWidget {
       ),
       // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
       // home: const MainNavigationScreen(),
-      home: const SignupScreen(),
+      // home: const SignupScreen(),
       // home: const SettingsScreen(),
       // home: const LayoutBuilderCodeLab(),
+      initialRoute: Routes.index,
+      routes: Routes.routesMap,
     );
   }
 }

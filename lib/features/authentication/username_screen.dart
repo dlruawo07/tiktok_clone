@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
+import 'package:tiktok_clone/constants/routes.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/email_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
@@ -41,9 +40,15 @@ class _UsernameScreenState extends State<UsernameScreen> {
       return;
     }
     // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const EmailScreen(),
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => const EmailScreen(),
+    //   ),
+    // );
+    Navigator.of(context).pushNamed(
+      Routes.email,
+      arguments: EmailScreenArguments(
+        username: _username,
       ),
     );
   }
@@ -59,7 +64,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
           horizontal: Sizes.size36,
         ),
         child: Column(
-          // NOTE: crossAxisAlignment는 수평
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gaps.v40,

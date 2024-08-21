@@ -25,9 +25,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // NOTE: Scaffold 매우 중요
     return Scaffold(
-      // NOTE: SafeArea 내부에 있는 것은 모두 특정 공간에 있을 것이라는 보장
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -39,7 +37,10 @@ class LoginScreen extends StatelessWidget {
               Text(
                 "Log in to TikTok",
                 // NOTE: copyWith - headlineLarge의 특성 + 새로운 특성이 필요할 때
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(color: Colors.black),
               ),
               Gaps.v20,
               const Opacity(
@@ -59,15 +60,6 @@ class LoginScreen extends StatelessWidget {
                 onTapFunction: () => _onEmailLoginTap(context),
               ),
               Gaps.v16,
-              // AuthButton(
-              //   text: "Continue with Facebook",
-              //   icon: FaIcon(FontAwesomeIcons.facebook),
-              // ),
-              // Gaps.v16,
-              // AuthButton(
-              //   text: "Continue with Apple",
-              //   icon: FaIcon(FontAwesomeIcons.apple),
-              // ),
             ],
           ),
         ),
@@ -78,7 +70,6 @@ class LoginScreen extends StatelessWidget {
             vertical: Sizes.size3,
           ),
           child: Row(
-            // NOTE: mainAxisAlignment는 수직
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("Don't have an account?"),
