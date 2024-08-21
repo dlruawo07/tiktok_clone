@@ -1,0 +1,12 @@
+{
+  "signupTitle": "{nameOfTheApp}에 가입하세요",
+  "@signupTitle": {
+    "description": "앱을 처음 실행했을 때 보여지는 제목.",
+    "placeholders": {
+      "nameOfTheApp": {
+        "type": "String",
+        "example": "TikTok"
+      }
+    }
+  }
+}
