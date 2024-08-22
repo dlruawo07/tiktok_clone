@@ -88,20 +88,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (kDebugMode) {
                   print(date);
                 }
-                if (!mounted) {
-                  return;
-                }
                 final time = await showTimePicker(
+                  // ignore: use_build_context_synchronously
                   context: context,
                   initialTime: TimeOfDay.now(),
                 );
                 if (kDebugMode) {
                   print(time);
                 }
-                if (!mounted) {
-                  return;
-                }
                 final booking = await showDateRangePicker(
+                  // ignore: use_build_context_synchronously
                   context: context,
                   firstDate: DateTime(1980),
                   lastDate: DateTime(2030),
