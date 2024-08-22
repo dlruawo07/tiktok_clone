@@ -49,7 +49,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       // NOTE: TextField 입력 시 키보드가 올라오고 scaffold는 자동으로 위젯들의 크기를 조정한다
       // NOTE: 이를 방지하기 위한 옵션
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      backgroundColor: _selectedIndex != 0
+          ? Theme.of(context).scaffoldBackgroundColor
+          : Theme.of(context).appBarTheme.foregroundColor,
       // _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
       body: Stack(
         children: [

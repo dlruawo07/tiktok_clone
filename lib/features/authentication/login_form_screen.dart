@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
-import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
+import 'package:tiktok_clone/router.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({
@@ -31,13 +32,14 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     }
 
     // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => const InterestsScreen(),
-      ),
-      // NOTE: 이전 route를 유지할 지 여부. false: 유지 x
-      (route) => false,
-    );
+    // Navigator.of(context).pushAndRemoveUntil(
+    //   MaterialPageRoute(
+    //     builder: (context) => const InterestsScreen(),
+    //   ),
+    //   // NOTE: 이전 route를 유지할 지 여부. false: 유지 x
+    //   (route) => false,
+    // );
+    context.goNamed(CustomRouter.navigationName);
   }
 
   @override

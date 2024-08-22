@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({
@@ -132,11 +133,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     content: const Text("Please don't go"),
                     actions: [
                       CupertinoDialogAction(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => context.pop(),
                         child: const Text("No"),
                       ),
                       CupertinoDialogAction(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => context.pop(),
                         isDestructiveAction: true,
                         child: const Text("Yes"),
                       ),
@@ -157,11 +158,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     content: const Text("Please don't go"),
                     actions: [
                       TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => context.pop(),
                         child: const Text("No"),
                       ),
                       TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => context.pop(),
                         child: const Text("Yes"),
                       ),
                     ],

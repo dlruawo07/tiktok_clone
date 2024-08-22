@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/routes.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/password_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
+import 'package:tiktok_clone/router.dart';
 
 class EmailScreen extends StatefulWidget {
   const EmailScreen({
     super.key,
+    required this.username,
   });
+
+  final String username;
 
   @override
   State<EmailScreen> createState() => _EmailScreenState();
@@ -58,18 +61,19 @@ class _EmailScreenState extends State<EmailScreen> {
       return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const PasswordScreen(),
-      ),
-    );
+    context.pushNamed(CustomRouter.passwordName);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const PasswordScreen(),
+    //   ),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as EmailScreenArguments;
+    // final args =
+    //     ModalRoute.of(context)!.settings.arguments as EmailScreenArguments;
 
     return GestureDetector(
       onTap: _onScaffoldTap,
@@ -87,7 +91,7 @@ class _EmailScreenState extends State<EmailScreen> {
             children: [
               Gaps.v40,
               Text(
-                "What is your email, ${args.username}?",
+                "What is your email, ${widget.username}?",
                 style: const TextStyle(
                   fontSize: Sizes.size20 + Sizes.size2,
                   fontWeight: FontWeight.w600,

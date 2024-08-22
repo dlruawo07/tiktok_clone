@@ -173,7 +173,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                     ),
                   ),
                   child: ListTile(
-                    minVerticalPadding: Sizes.size16,
+                    minVerticalPadding: Sizes.size20,
                     leading: Container(
                       width: Sizes.size52,
                       decoration: BoxDecoration(

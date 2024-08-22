@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok_clone/router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
@@ -12,15 +13,16 @@ class LoginScreen extends StatelessWidget {
 
   void _onSignupTap(BuildContext context) {
     // NOTE: 가장 최근 위젯 삭제(LoginScreen)
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LoginFormScreen(),
-      ),
-    );
+    context.pushNamed(CustomRouter.loginFormName);
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => const LoginFormScreen(),
+    //   ),
+    // );
   }
 
   @override
@@ -34,14 +36,11 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               Gaps.v80,
-              Text(
-                "Log in to TikTok",
-                // NOTE: copyWith - headlineLarge의 특성 + 새로운 특성이 필요할 때
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(color: Colors.black),
-              ),
+              Text("Log in to TikTok",
+                  // NOTE: copyWith - headlineLarge의 특성 + 새로운 특성이 필요할 때
+                  style: Theme.of(context).textTheme.headlineSmall!
+                  // .copyWith(color: Colors.black),
+                  ),
               Gaps.v20,
               const Opacity(
                 opacity: 0.7,

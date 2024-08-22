@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/features/authentication/email_screen.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
 import 'package:tiktok_clone/features/authentication/username_screen.dart';
@@ -28,7 +27,7 @@ class Routes {
     Routes.index: (context) => const SignupScreen(),
     Routes.username: (context) => const UsernameScreen(),
     Routes.login: (context) => const LoginScreen(),
-    Routes.email: (context) => const EmailScreen(),
+    // Routes.email: (context) => const EmailScreen(),
   };
 }
 

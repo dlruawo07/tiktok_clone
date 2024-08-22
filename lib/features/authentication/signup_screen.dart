@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/routes.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
+import 'package:tiktok_clone/router.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({
@@ -18,7 +19,9 @@ class SignupScreen extends StatelessWidget {
     //     builder: (context) => const LoginScreen(),
     //   ),
     // );
-    Navigator.of(context).pushNamed(Routes.login);
+    // Navigator.of(context).pushNamed(Routes.login);
+    // NOTE: GoRouter 방법
+    context.pushNamed(CustomRouter.loginName);
   }
 
   void _onEmailLoginTap(BuildContext context) {
@@ -54,7 +57,8 @@ class SignupScreen extends StatelessWidget {
     //     },
     //   ),
     // );
-    Navigator.of(context).pushNamed(Routes.username);
+    // context.push(Routes.username);
+    context.pushNamed(CustomRouter.usernameName);
   }
 
   @override

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import 'package:tiktok_clone/features/users/widgets/persistent_tab_bar.dart';
+import 'package:tiktok_clone/router.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({
@@ -16,11 +17,12 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   void _onGearPressed() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const SettingsScreen(),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => const SettingsScreen(),
+    //   ),
+    // );
+    context.pushNamed(CustomRouter.settingsName);
   }
 
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tiktok_clone/constants/routes.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
+import 'package:tiktok_clone/router.dart';
 
 void main() async {
   // NOTE: 엔진과 위젯의 연결 초기화
@@ -32,7 +32,8 @@ class TikTokApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'TikTok Clone',
       localizationsDelegates: const [
@@ -47,7 +48,7 @@ class TikTokApp extends StatelessWidget {
       ],
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        useMaterial3: true,
+        // useMaterial3: true,
         brightness: Brightness.light,
         textTheme: Typography.blackMountainView,
         scaffoldBackgroundColor: Colors.white,
@@ -114,8 +115,8 @@ class TikTokApp extends StatelessWidget {
       // home: const SignupScreen(),
       // home: const SettingsScreen(),
       // home: const LayoutBuilderCodeLab(),
-      initialRoute: Routes.index,
-      routes: Routes.routesMap,
+      // initialRoute: Routes.index,
+      // routes: Routes.routesMap,
     );
   }
 }
