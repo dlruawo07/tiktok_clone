@@ -17,6 +17,7 @@ import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import 'package:tiktok_clone/features/users/user_profile_screen.dart';
+import 'package:tiktok_clone/features/videos/video_recording_screen.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
 
 class CustomRouter {
@@ -151,6 +152,10 @@ final router = GoRouter(
       name: CustomRouter.timelineName,
       path: CustomRouter.timelinePath,
       builder: (context, state) => const VideoTimelineScreen(),
+    ),
+    GoRoute(
+      path: "/",
+      builder: (context, state) => const VideoRecordingScreen(),
     ),
     // GoRoute(
     //   name: "username",
