@@ -57,104 +57,108 @@ class CustomRouter {
   static String profileName = "profile";
   static String timelinePath = "/timeline";
   static String timelineName = "timeline";
+  static String recordingPath = "/recording";
+  static String recordingName = "recording";
 }
 
 final router = GoRouter(
   routes: [
-    GoRoute(
-      name: CustomRouter.signupName,
-      path: CustomRouter.signupPath,
-      builder: (context, state) => const SignupScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.usernameName,
-      path: CustomRouter.usernamePath,
-      builder: (context, state) => const UsernameScreen(),
-    ),
+    // GoRoute(
+    //   name: CustomRouter.signupName,
+    //   path: CustomRouter.signupPath,
+    //   builder: (context, state) => const SignupScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.usernameName,
+    //   path: CustomRouter.usernamePath,
+    //   builder: (context, state) => const UsernameScreen(),
+    // ),
 
-    GoRoute(
-      name: CustomRouter.emailName,
-      path: CustomRouter.emailPath,
-      builder: (context, state) =>
-          EmailScreen(username: (state.extra as EmailScreenArguments).username),
-    ),
-    GoRoute(
-      name: CustomRouter.passwordName,
-      path: CustomRouter.passwordPath,
-      builder: (context, state) => const PasswordScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.birthdayName,
-      path: CustomRouter.birthdayPath,
-      builder: (context, state) => const BirthdayScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.interestsName,
-      path: CustomRouter.interestsPath,
-      builder: (context, state) => const InterestsScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.tutorialName,
-      path: CustomRouter.tutorialPath,
-      builder: (context, state) => const TutorialScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.loginName,
-      path: CustomRouter.loginPath,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.activityName,
-      path: CustomRouter.activityPath,
-      builder: (context, state) => const ActivityScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.chatName,
-      path: CustomRouter.chatPath,
-      builder: (context, state) => const ChatScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.chatDetailName,
-      path: CustomRouter.chatDetailPath,
-      builder: (context, state) => const ChatDetailScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.discoverName,
-      path: CustomRouter.discoverPath,
-      builder: (context, state) => const DiscoverScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.inboxName,
-      path: CustomRouter.inboxPath,
-      builder: (context, state) => const InboxScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.loginFormName,
-      path: CustomRouter.loginFormPath,
-      builder: (context, state) => const LoginFormScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.navigationName,
-      path: CustomRouter.navigationPath,
-      builder: (context, state) => const MainNavigationScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.profileName,
-      path: CustomRouter.profilePath,
-      builder: (context, state) => const UserProfileScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.settingsName,
-      path: CustomRouter.settingsPath,
-      builder: (context, state) => const SettingsScreen(),
-    ),
-    GoRoute(
-      name: CustomRouter.timelineName,
-      path: CustomRouter.timelinePath,
-      builder: (context, state) => const VideoTimelineScreen(),
-    ),
+    // GoRoute(
+    //   name: CustomRouter.emailName,
+    //   path: CustomRouter.emailPath,
+    //   builder: (context, state) =>
+    //       EmailScreen(username: (state.extra as EmailScreenArguments).username),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.passwordName,
+    //   path: CustomRouter.passwordPath,
+    //   builder: (context, state) => const PasswordScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.birthdayName,
+    //   path: CustomRouter.birthdayPath,
+    //   builder: (context, state) => const BirthdayScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.interestsName,
+    //   path: CustomRouter.interestsPath,
+    //   builder: (context, state) => const InterestsScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.tutorialName,
+    //   path: CustomRouter.tutorialPath,
+    //   builder: (context, state) => const TutorialScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.loginName,
+    //   path: CustomRouter.loginPath,
+    //   builder: (context, state) => const LoginScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.activityName,
+    //   path: CustomRouter.activityPath,
+    //   builder: (context, state) => const ActivityScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.chatName,
+    //   path: CustomRouter.chatPath,
+    //   builder: (context, state) => const ChatScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.chatDetailName,
+    //   path: CustomRouter.chatDetailPath,
+    //   builder: (context, state) => const ChatDetailScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.discoverName,
+    //   path: CustomRouter.discoverPath,
+    //   builder: (context, state) => const DiscoverScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.inboxName,
+    //   path: CustomRouter.inboxPath,
+    //   builder: (context, state) => const InboxScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.loginFormName,
+    //   path: CustomRouter.loginFormPath,
+    //   builder: (context, state) => const LoginFormScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.navigationName,
+    //   path: CustomRouter.navigationPath,
+    //   builder: (context, state) => const MainNavigationScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.profileName,
+    //   path: CustomRouter.profilePath,
+    //   builder: (context, state) => const UserProfileScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.settingsName,
+    //   path: CustomRouter.settingsPath,
+    //   builder: (context, state) => const SettingsScreen(),
+    // ),
+    // GoRoute(
+    //   name: CustomRouter.timelineName,
+    //   path: CustomRouter.timelinePath,
+    //   builder: (context, state) => const VideoTimelineScreen(),
+    // ),
     GoRoute(
       path: "/",
+      // name: CustomRouter.recordingName,
+      // path: CustomRouter.recordingPath,
       builder: (context, state) => const VideoRecordingScreen(),
     ),
     // GoRoute(
