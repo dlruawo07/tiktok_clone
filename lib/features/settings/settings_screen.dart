@@ -1,23 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_viewmodel.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({
     super.key,
   });
 
+  // NOTE: ref - ConsumerWidget 사용 시 build 메소드에 추가되는 인자
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // NOTE: ref -
     return Localizations.override(
       context: context,
       locale: const Locale("es"),
@@ -28,55 +25,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: ListView(
           children: [
             SwitchListTile.adaptive(
-              value: context.watch<PlaybackConfigViewModel>().muted,
+              value: ref.watch(playbackConfigProvider).muted,
               onChanged: (value) =>
-                  context.read<PlaybackConfigViewModel>().setMuted(value),
+                  // NOTE: .notifier를 붙여야 데이터 뿐만 아니라 다른 클래스 메소드에도 접근할 수 있다
+                  ref.read(playbackConfigProvider.notifier).setMuted(value),
               title: const Text("Mute videos"),
               subtitle: const Text("Videos will be muted by default."),
             ),
             SwitchListTile.adaptive(
-              value: context.watch<PlaybackConfigViewModel>().autoplay,
+              value: ref.watch(playbackConfigProvider).autoplay,
               onChanged: (value) =>
-                  context.read<PlaybackConfigViewModel>().setAutoplay(value),
+                  ref.read(playbackConfigProvider.notifier).setAutoplay(value),
               title: const Text("Autoplay videos"),
               subtitle:
                   const Text("Videos will be played automatically by default."),
             ),
-            // CupertinoSwitch(
-            //   value: _notifications,
-            //   onChanged: _onNotificationsChanged,
-            // ),
-            // SwitchListTile(
-            //   value: _notifications,
-            //   onChanged: _onNotificationsChanged,
-            //   activeColor: Colors.black,
-            //   title: const Text("Enable notifications"),
-            // ),
-            // Checkbox(
-            //   value: _notifications,
-            //   onChanged: _onNotificationsChanged,
-            //   activeColor: Colors.black,
-            // ),
-            // CheckboxListTile(
-            //   activeColor: Colors.black,
-            //   value: _notifications,
-            //   onChanged: _onNotificationsChanged,
-            //   title: const Text("Enable notifications"),
-            // ),
-            // ListTile(
-            //   onTap: () => showAboutDialog(
-            //     context: context,
-            //     applicationVersion: "1.0",
-            //     applicationLegalese: "All rights reserved. Please don't copy me.",
-            //   ),
-            //   subtitle: const Text("About this app.."),
-            //   title: const Text(
-            //     "About",
-            //     style: TextStyle(
-            //       fontWeight: FontWeight.w600,
-            //     ),
-            //   ),
-            // ),
             ListTile(
               onTap: () async {
                 final date = await showDatePicker(
@@ -197,41 +160,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const AboutListTile(),
           ],
         ),
-
-        // Column(
-        //   children: [
-        //     // CupertinoActivityIndicator(
-        //     //   radius: 40,
-        //     //   // animating: false,
-        //     // ),
-        //     // CircularProgressIndicator(),
-        //     // NOTE: 디바이스가 어느 플랫폼인지 확인 후 실행
-        //     CircularProgressIndicator.adaptive(),
-        //   ],
-        // )
-
-        // ListWheelScrollView(
-        //   diameterRatio: 1.5,
-        //   // offAxisFraction: 10,
-        //   itemExtent: 200,
-        //   children: [
-        //     for (var x in [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 12])
-        //       FractionallySizedBox(
-        //         widthFactor: 1,
-        //         child: Container(
-        //           color: Colors.teal,
-        //           alignment: Alignment.center,
-        //           child: const Text(
-        //             "Pick me",
-        //             style: TextStyle(
-        //               color: Colors.white,
-        //               fontSize: Sizes.size36,
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //   ],
-        // ),
       ),
     );
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/videos/view_models/playback_config_viewmodel.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
@@ -69,10 +67,6 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
-    context
-        .read<PlaybackConfigViewModel>()
-        .addListener(_onPlaybackConfigChanged);
-
 // TODO: CODE_CHALLENGE: volume icon must unmute only the current video
 
     // // NOTE: ChangeNotifier를 듣는 또다른 방법
@@ -94,14 +88,6 @@ class _VideoPostState extends State<VideoPost>
   void _onPlaybackConfigChanged() {
     if (!mounted) {
       return;
-    }
-
-    final muted = context.read<PlaybackConfigViewModel>().muted;
-
-    if (muted) {
-      _videoPlayerController.setVolume(0);
-    } else {
-      _videoPlayerController.setVolume(1);
     }
   }
 
@@ -141,8 +127,7 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
-      if (autoplay) {
+      if (false) {
         _videoPlayerController.play();
       }
     } else if (_videoPlayerController.value.isPlaying &&
@@ -239,23 +224,6 @@ class _VideoPostState extends State<VideoPost>
                     ),
                   );
                 },
-                // // NOTE: _animatedController.value의 변화를 감지하는 방법 1
-                // child: Transform.scale(
-                //   // NOTE: 위의 _animationController.addLister에서
-                //   // value가 바뀔 때마다 build 되기 때문에 부드러운 렌더링 가능
-                //   scale: _animationController.value,
-                //   child: AnimatedOpacity(
-                //     opacity: _isPaused ? 1 : 0,
-                //     duration: _animationDuration,
-                //     child: const Center(
-                //       child: FaIcon(
-                //         FontAwesomeIcons.play,
-                //         color: Colors.white,
-                //         size: Sizes.size52,
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ),
             ),
           ),
@@ -324,17 +292,13 @@ class _VideoPostState extends State<VideoPost>
             right: 10,
             child: SafeArea(
               child: IconButton(
-                icon: FaIcon(
-                  context.watch<PlaybackConfigViewModel>().muted
+                icon: const FaIcon(
+                  false
                       ? FontAwesomeIcons.volumeXmark
                       : FontAwesomeIcons.volumeHigh,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  context
-                      .read<PlaybackConfigViewModel>()
-                      .setMuted(!context.read<PlaybackConfigViewModel>().muted);
-                },
+                onPressed: () {},
               ),
             ),
           ),
