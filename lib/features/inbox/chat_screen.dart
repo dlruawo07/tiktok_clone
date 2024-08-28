@@ -25,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
   ListTile _makeTile(int index) {
     return ListTile(
       onLongPress: () => _deleteItem(index),
-      onTap: _onChatTap,
+      onTap: () => _onChatTap(index),
       leading: const CircleAvatar(
         radius: 30,
         child: Text("Nico"),
@@ -58,13 +58,16 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  void _onChatTap() {
+  void _onChatTap(int index) {
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (context) => const ChatDetailScreen(),
     //   ),
     // );
-    context.pushNamed(CustomRouter.chatDetailName);
+    context.pushNamed(
+      CustomRouter.chatDetailName,
+      pathParameters: {"chatId": "$index"},
+    );
   }
 
   void _addItem() {

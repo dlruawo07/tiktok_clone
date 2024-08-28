@@ -1,169 +1,176 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/constants/routes.dart';
-import 'package:tiktok_clone/features/authentication/birthday_screen.dart';
-import 'package:tiktok_clone/features/authentication/email_screen.dart';
-import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
-import 'package:tiktok_clone/features/authentication/password_screen.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
-import 'package:tiktok_clone/features/discover/discover_screen.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_screen.dart';
-import 'package:tiktok_clone/features/inbox/inbox_screen.dart';
-import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_clone/common/widgets/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
-import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
-import 'package:tiktok_clone/features/settings/settings_screen.dart';
-import 'package:tiktok_clone/features/users/user_profile_screen.dart';
-import 'package:tiktok_clone/features/videos/video_recording_screen.dart';
-import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
+import 'package:tiktok_clone/features/videos/views/video_recording_screen.dart';
 
 class CustomRouter {
-  static String signupPath = "/";
-  static String signupName = "signup";
-  static String loginPath = "/login";
-  static String loginName = "login";
-  static String usernamePath = "/username";
-  static String usernameName = "username";
-  static String birthdayPath = "/birthday";
-  static String birthdayName = "birthday";
-  static String emailPath = "/email";
-  static String emailName = "email";
-  static String loginFormPath = "/login-form";
-  static String loginFormName = "login-form";
-  static String passwordPath = "/password";
-  static String passwordName = "password";
-  static String discoverPath = "/discover";
-  static String discoverName = "discover";
   static String activityPath = "/activity";
   static String activityName = "activity";
-  static String chatDetailPath = "/chat-detail";
+  static String birthdayPath = "/birthday";
+  static String birthdayName = "birthday";
+  static String chatDetailPath = ":chatId";
   static String chatDetailName = "chat-detail";
-  static String chatPath = "/chat";
-  static String chatName = "chat";
+  static String chatPath = "/chats";
+  static String chatName = "chats";
+  static String discoverPath = "/discover";
+  static String discoverName = "discover";
+  static String emailPath = "/email";
+  static String emailName = "email";
   static String inboxPath = "/inbox";
   static String inboxName = "inbox";
+  static String interestsPath = "/tutorial";
+  static String interestsName = "interests";
+  static String loginFormPath = "/login-form";
+  static String loginFormName = "login-form";
+  static String loginPath = "/login";
+  static String loginName = "login";
   static String navigationPath = "/navigation";
   static String navigationName = "navigation";
-  static String interestsPath = "/interests";
-  static String interestsName = "interests";
-  static String tutorialPath = "/tutorial";
-  static String tutorialName = "tutorial";
-  static String settingsPath = "/settings";
-  static String settingsName = "settings";
+  static String passwordPath = "/password";
+  static String passwordName = "password";
   static String profilePath = "/profile";
   static String profileName = "profile";
+  static String recordingPath = "/upload";
+  static String recordingName = "postVideo";
+  static String settingsPath = "/settings";
+  static String settingsName = "settings";
+  static String signupPath = "/";
+  static String signupName = "signup";
   static String timelinePath = "/timeline";
   static String timelineName = "timeline";
-  static String recordingPath = "/recording";
-  static String recordingName = "recording";
+  static String tutorialPath = "/tutorial";
+  static String tutorialName = "tutorial";
+  static String usernamePath = "/username";
+  static String usernameName = "username";
 }
 
 final router = GoRouter(
+  initialLocation: "/profile",
   routes: [
+    GoRoute(
+      path: CustomRouter.activityPath,
+      name: CustomRouter.activityName,
+      builder: (context, state) => const ActivityScreen(),
+    ),
+    GoRoute(
+      path: CustomRouter.chatPath,
+      name: CustomRouter.chatName,
+      builder: (context, state) => const ChatScreen(),
+      routes: [
+        GoRoute(
+          path: CustomRouter.chatDetailPath,
+          name: CustomRouter.chatDetailName,
+          builder: (context, state) => ChatDetailScreen(
+            chatId: state.pathParameters["chatId"]!,
+          ),
+        ),
+      ],
+    ),
+    GoRoute(
+      path: CustomRouter.interestsPath,
+      name: CustomRouter.interestsName,
+      builder: (context, state) => const InterestsScreen(),
+    ),
+    GoRoute(
+      path: CustomRouter.loginPath,
+      name: CustomRouter.loginName,
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: "/:tab(home|discover|inbox|profile)",
+      name: CustomRouter.navigationName,
+      builder: (context, state) => MainNavigationScreen(
+        tab: state.pathParameters["tab"]!,
+      ),
+    ),
+    GoRoute(
+      path: CustomRouter.recordingPath,
+      name: CustomRouter.recordingName,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        transitionDuration: const Duration(
+          milliseconds: 200,
+        ),
+        child: const VideoRecordingScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            SlideTransition(
+          position: Tween(
+            begin: const Offset(0, 1),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        ),
+      ),
+      builder: (context, state) => const VideoRecordingScreen(),
+    ),
+    GoRoute(
+      path: CustomRouter.signupPath,
+      name: CustomRouter.signupName,
+      builder: (context, state) => const SignupScreen(),
+    ),
     // GoRoute(
-    //   name: CustomRouter.signupName,
-    //   path: CustomRouter.signupPath,
-    //   builder: (context, state) => const SignupScreen(),
-    // ),
-    // GoRoute(
-    //   name: CustomRouter.usernameName,
-    //   path: CustomRouter.usernamePath,
-    //   builder: (context, state) => const UsernameScreen(),
-    // ),
-
-    // GoRoute(
-    //   name: CustomRouter.emailName,
-    //   path: CustomRouter.emailPath,
-    //   builder: (context, state) =>
-    //       EmailScreen(username: (state.extra as EmailScreenArguments).username),
-    // ),
-    // GoRoute(
-    //   name: CustomRouter.passwordName,
     //   path: CustomRouter.passwordPath,
+    //   name: CustomRouter.passwordName,
     //   builder: (context, state) => const PasswordScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.birthdayName,
     //   path: CustomRouter.birthdayPath,
+    //   name: CustomRouter.birthdayName,
     //   builder: (context, state) => const BirthdayScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.interestsName,
-    //   path: CustomRouter.interestsPath,
-    //   builder: (context, state) => const InterestsScreen(),
-    // ),
-    // GoRoute(
-    //   name: CustomRouter.tutorialName,
     //   path: CustomRouter.tutorialPath,
+    //   name: CustomRouter.tutorialName,
     //   builder: (context, state) => const TutorialScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.loginName,
-    //   path: CustomRouter.loginPath,
-    //   builder: (context, state) => const LoginScreen(),
-    // ),
-    // GoRoute(
-    //   name: CustomRouter.activityName,
-    //   path: CustomRouter.activityPath,
-    //   builder: (context, state) => const ActivityScreen(),
-    // ),
-    // GoRoute(
-    //   name: CustomRouter.chatName,
-    //   path: CustomRouter.chatPath,
-    //   builder: (context, state) => const ChatScreen(),
-    // ),
-    // GoRoute(
-    //   name: CustomRouter.chatDetailName,
     //   path: CustomRouter.chatDetailPath,
+    //   name: CustomRouter.chatDetailName,
     //   builder: (context, state) => const ChatDetailScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.discoverName,
     //   path: CustomRouter.discoverPath,
+    //   name: CustomRouter.discoverName,
     //   builder: (context, state) => const DiscoverScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.inboxName,
     //   path: CustomRouter.inboxPath,
+    //   name: CustomRouter.inboxName,
     //   builder: (context, state) => const InboxScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.loginFormName,
     //   path: CustomRouter.loginFormPath,
+    //   name: CustomRouter.loginFormName,
     //   builder: (context, state) => const LoginFormScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.navigationName,
     //   path: CustomRouter.navigationPath,
+    //   name: CustomRouter.navigationName,
     //   builder: (context, state) => const MainNavigationScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.profileName,
     //   path: CustomRouter.profilePath,
+    //   name: CustomRouter.profileName,
     //   builder: (context, state) => const UserProfileScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.settingsName,
     //   path: CustomRouter.settingsPath,
+    //   name: CustomRouter.settingsName,
     //   builder: (context, state) => const SettingsScreen(),
     // ),
     // GoRoute(
-    //   name: CustomRouter.timelineName,
     //   path: CustomRouter.timelinePath,
+    //   name: CustomRouter.timelineName,
     //   builder: (context, state) => const VideoTimelineScreen(),
     // ),
-    GoRoute(
-      path: "/",
-      // name: CustomRouter.recordingName,
-      // path: CustomRouter.recordingPath,
-      builder: (context, state) => const VideoRecordingScreen(),
-    ),
     // GoRoute(
-    //   name: "username",
     //   path: Routes.username,
+    //   name: "username",
     //   builder: (context, state) => const UsernameScreen(),
     //   pageBuilder: (context, state) {
     //     return CustomTransitionPage(

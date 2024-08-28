@@ -28,6 +28,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
       if (_formKey.currentState!.validate()) {
         // NOTE: 모든 FormField 입력에 onSaved 콜백 함수 실행
         _formKey.currentState!.save();
+        context.goNamed(CustomRouter.interestsName);
       }
     }
 
@@ -39,7 +40,6 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     //   // NOTE: 이전 route를 유지할 지 여부. false: 유지 x
     //   (route) => false,
     // );
-    context.goNamed(CustomRouter.navigationName);
   }
 
   @override

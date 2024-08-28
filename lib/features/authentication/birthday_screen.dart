@@ -42,7 +42,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
     //   ),
     //   (route) => false,
     // );
-    context.pushNamed(CustomRouter.interestsName);
+    context.goNamed(CustomRouter.interestsName);
   }
 
   void _setTextFieldDate(DateTime date) {

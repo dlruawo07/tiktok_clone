@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
-import 'package:tiktok_clone/features/videos/widgets/video_comments.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_viewmodel.dart';
+import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
+import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -33,11 +34,12 @@ class _VideoPostState extends State<VideoPost>
   final Duration _animationDuration = const Duration(
     milliseconds: 200,
   );
+
   late final AnimationController _animationController;
+
   bool _isPaused = false;
   // ignore: unused_field
   bool _isExpanded = false;
-  bool _isMute = true;
 
   final List<String> tags = [
     'Tag1',
@@ -66,6 +68,20 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+
+    context
+        .read<PlaybackConfigViewModel>()
+        .addListener(_onPlaybackConfigChanged);
+
+// TODO: CODE_CHALLENGE: volume icon must unmute only the current video
+
+    // // NOTE: ChangeNotifier를 듣는 또다른 방법
+    // videoConfig.addListener(() {
+    //   setState(() {
+    //     _autoMute = videoConfig.value;
+    //   });
+    // });
+
     // NOTE: play/pause 시 lowerBound <-> upperBound 값의 변경이 일어나는데
     // build는 1.0과 1.5 사이의 값들은 알지 못한다.
     // 따라서 setState()로 build를 계속해서 재호출 해야 한다.
@@ -75,7 +91,21 @@ class _VideoPostState extends State<VideoPost>
     // });
   }
 
-  void _onVideoChange() {
+  void _onPlaybackConfigChanged() {
+    if (!mounted) {
+      return;
+    }
+
+    final muted = context.read<PlaybackConfigViewModel>().muted;
+
+    if (muted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
+  }
+
+  void _onVideoChange() async {
     // NOTE: 영상이 초기화되었으면서
     if (_videoPlayerController.value.isInitialized) {
       // NOTE: 현재 시점이 전체 길이와 같다면 (종료)
@@ -90,37 +120,31 @@ class _VideoPostState extends State<VideoPost>
   void _initVideoPlayer() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    if (kIsWeb) {
-      await _videoPlayerController.setVolume(0);
-    }
     // NOTE: 영상 컨트롤러는 영상의 종료를 항상 기다림
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
 
-  void _onToggleVolume() async {
-    if (_isMute) {
-      await _videoPlayerController.setVolume(100);
-    } else {
-      await _videoPlayerController.setVolume(0);
-    }
-    setState(() {
-      _isMute = !_isMute;
-    });
-  }
-
 // NOTE: 화면을 위로 스와이프 했을 때 영상이 100% 보여야 재생되게 하기 위함
 // NOTE: 영상이 재생 중이나 영상 화면이 사라졌을 때 일시정지
-  void _onVisibilityChanged(VisibilityInfo info) {
+  void _onVisibilityChanged(VisibilityInfo info) async {
     // NOTE: 모든 StatefulWidget은 mounted 옵션이 있음
     // NOTE: 위젯이 mount 되었는 지(위젯 트리에 있는 지) 확인
     if (!mounted) {
       return;
     }
+    // if (Provider.of<VideoConfig>(context, listen: false).isMuted) {
+    //   await _videoPlayerController.setVolume(0);
+    // } else {
+    //   await _videoPlayerController.setVolume(100);
+    // }
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      _videoPlayerController.play();
+      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
+      if (autoplay) {
+        _videoPlayerController.play();
+      }
     } else if (_videoPlayerController.value.isPlaying &&
         info.visibleFraction == 0) {
       _onTogglePause();
@@ -128,7 +152,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   // NOTE: 화면 클릭 시 재생/일시정지
-  void _onTogglePause() {
+  void _onTogglePause() async {
     if (_videoPlayerController.value.isPlaying) {
       _videoPlayerController.pause();
       // NOTE: reverse - lowerBound, upperBound를 반전시킨다
@@ -299,14 +323,18 @@ class _VideoPostState extends State<VideoPost>
           Positioned(
             right: 10,
             child: SafeArea(
-              child: GestureDetector(
-                onTap: _onToggleVolume,
-                child: FaIcon(
-                  _isMute
+              child: IconButton(
+                icon: FaIcon(
+                  context.watch<PlaybackConfigViewModel>().muted
                       ? FontAwesomeIcons.volumeXmark
                       : FontAwesomeIcons.volumeHigh,
                   color: Colors.white,
                 ),
+                onPressed: () {
+                  context
+                      .read<PlaybackConfigViewModel>()
+                      .setMuted(!context.read<PlaybackConfigViewModel>().muted);
+                },
               ),
             ),
           ),

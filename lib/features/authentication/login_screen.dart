@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
-import 'package:tiktok_clone/router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
@@ -17,12 +17,13 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    context.pushNamed(CustomRouter.loginFormName);
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const LoginFormScreen(),
-    //   ),
-    // );
+    // context.pushNamed(CustomRouter.loginFormName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginFormScreen(),
+      ),
+    );
   }
 
   @override

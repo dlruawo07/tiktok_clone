@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/videos/video_preview_screen.dart';
-import 'package:tiktok_clone/features/videos/widgets/camera_flash_mode_button.dart';
+import 'package:tiktok_clone/features/videos/views/video_preview_screen.dart';
+import 'package:tiktok_clone/features/videos/views/widgets/camera_flash_mode_button.dart';
 
 // NOTE: 카메라 & 마이크 사용 시 ios/Runner/Info.plist에 아래 줄 추가
 // <key>NSCameraUsageDescription</key>
@@ -38,12 +41,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     FlashMode.torch
   ];
 
-  late DateTime recordingStartTime;
-
   // ignore: unused_field
   bool _hasPermission = false;
 
   bool _isSelfieMode = false;
+
+  late final bool _noCamera = kDebugMode && Platform.isIOS;
 
   late FlashMode _flashMode;
 
@@ -129,6 +132,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   }
 
   Future<void> _startRecording() async {
+    if (_noCamera) {
+      return;
+    }
     if (_cameraController.value.isRecordingVideo) {
       return;
     }
@@ -140,6 +146,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   }
 
   Future<void> _stopRecording() async {
+    if (_noCamera) {
+      return;
+    }
     if (!_cameraController.value.isRecordingVideo) {
       return;
     }
@@ -188,6 +197,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_noCamera) {
+      return;
+    }
     if (!_hasPermission) {
       return;
     }
@@ -204,7 +216,13 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   @override
   void initState() {
     super.initState();
-    initPermissions();
+    if (!_noCamera) {
+      initPermissions();
+    } else {
+      setState(() {
+        _hasPermission = true;
+      });
+    }
 
     // NOTE: application의 state 추적 (사용자가 앱을 나가거나 등)
     WidgetsBinding.instance.addObserver(this);
@@ -224,7 +242,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   void dispose() {
     _progressAnimationController.dispose();
     _buttonAnimationController.dispose();
-    _cameraController.dispose();
+    if (!_noCamera) {
+      _cameraController.dispose();
+    }
     super.dispose();
   }
 
@@ -235,7 +255,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: !_hasPermission || !_cameraController.value.isInitialized
+        child: !_hasPermission
             ? const SafeArea(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -256,33 +276,42 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
             : Stack(
                 alignment: Alignment.center,
                 children: [
-                  Transform.scale(
-                    scale: 1 /
-                        (_cameraController.value.aspectRatio *
-                            MediaQuery.of(context).size.aspectRatio),
-                    child: CameraPreview(_cameraController),
-                  ),
-                  Positioned(
+                  if (!_noCamera && _cameraController.value.isInitialized)
+                    Transform.scale(
+                      scale: 1 /
+                          (_cameraController.value.aspectRatio *
+                              MediaQuery.of(context).size.aspectRatio),
+                      child: CameraPreview(_cameraController),
+                    ),
+                  const Positioned(
                     top: Sizes.size40,
-                    right: Sizes.size5,
-                    child: Column(
-                      children: [
-                        IconButton(
-                          color: Colors.white,
-                          onPressed: _toggleSelfieMode,
-                          icon: const Icon(
-                            Icons.cameraswitch,
-                          ),
-                        ),
-                        for (var i = 0; i < _flashIcons.length; i++)
-                          FlashModeButton(
-                            isSelected: _flashMode == _flashModes[i],
-                            onPressed: () => _setFlashMode(_flashModes[i]),
-                            icon: _flashIcons[i],
-                          ),
-                      ],
+                    left: Sizes.size10,
+                    child: CloseButton(
+                      color: Colors.white,
                     ),
                   ),
+                  if (!_noCamera)
+                    Positioned(
+                      top: Sizes.size40,
+                      right: Sizes.size5,
+                      child: Column(
+                        children: [
+                          IconButton(
+                            color: Colors.white,
+                            onPressed: _toggleSelfieMode,
+                            icon: const Icon(
+                              Icons.cameraswitch,
+                            ),
+                          ),
+                          for (var i = 0; i < _flashIcons.length; i++)
+                            FlashModeButton(
+                              isSelected: _flashMode == _flashModes[i],
+                              onPressed: () => _setFlashMode(_flashModes[i]),
+                              icon: _flashIcons[i],
+                            ),
+                        ],
+                      ),
+                    ),
                   Positioned(
                     width: MediaQuery.of(context).size.width,
                     bottom: Sizes.size40,

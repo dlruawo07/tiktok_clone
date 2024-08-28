@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/repositories/playback_config_repository.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_viewmodel.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/router.dart';
 
@@ -16,13 +20,25 @@ void main() async {
     ],
   );
 
+  final preferences = await SharedPreferences.getInstance();
+  final repository = PlaybackConfigRepository(preferences);
+
   // NOTE: 다크모드 (status bar 등이 바뀜)
   // NOTE: 꼭 main 함수에서 할 필요는 없음
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.dark,
   );
 
-  runApp(const TikTokApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PlaybackConfigViewModel(repository),
+        )
+      ],
+      child: const TikTokApp(),
+    ),
+  );
 }
 
 class TikTokApp extends StatelessWidget {

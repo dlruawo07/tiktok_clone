@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_viewmodel.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({
@@ -14,17 +16,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = false;
-
-  void _onNotificationsChanged(bool? value) {
-    if (value == null) {
-      return;
-    }
-    setState(() {
-      _notifications = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Localizations.override(
@@ -37,32 +28,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: ListView(
           children: [
             SwitchListTile.adaptive(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
-              title: const Text("Enable notifications"),
-              subtitle: const Text("Adaptive OS SwitchListTile"),
+              value: context.watch<PlaybackConfigViewModel>().muted,
+              onChanged: (value) =>
+                  context.read<PlaybackConfigViewModel>().setMuted(value),
+              title: const Text("Mute videos"),
+              subtitle: const Text("Videos will be muted by default."),
             ),
-            CupertinoSwitch(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
+            SwitchListTile.adaptive(
+              value: context.watch<PlaybackConfigViewModel>().autoplay,
+              onChanged: (value) =>
+                  context.read<PlaybackConfigViewModel>().setAutoplay(value),
+              title: const Text("Autoplay videos"),
+              subtitle:
+                  const Text("Videos will be played automatically by default."),
             ),
-            SwitchListTile(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
-              activeColor: Colors.black,
-              title: const Text("Enable notifications"),
-            ),
-            Checkbox(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
-              activeColor: Colors.black,
-            ),
-            CheckboxListTile(
-              activeColor: Colors.black,
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
-              title: const Text("Enable notifications"),
-            ),
+            // CupertinoSwitch(
+            //   value: _notifications,
+            //   onChanged: _onNotificationsChanged,
+            // ),
+            // SwitchListTile(
+            //   value: _notifications,
+            //   onChanged: _onNotificationsChanged,
+            //   activeColor: Colors.black,
+            //   title: const Text("Enable notifications"),
+            // ),
+            // Checkbox(
+            //   value: _notifications,
+            //   onChanged: _onNotificationsChanged,
+            //   activeColor: Colors.black,
+            // ),
+            // CheckboxListTile(
+            //   activeColor: Colors.black,
+            //   value: _notifications,
+            //   onChanged: _onNotificationsChanged,
+            //   title: const Text("Enable notifications"),
+            // ),
             // ListTile(
             //   onTap: () => showAboutDialog(
             //     context: context,
@@ -118,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
                 return;
               },
-              title: const Text("What is your birthday?"),
+              title: const Text("When is your birthday?"),
             ),
             ListTile(
               onTap: () {
