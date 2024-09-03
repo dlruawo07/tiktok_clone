@@ -9,13 +9,20 @@ class PlaybackConfigViewModel extends Notifier<PlaybackConfigModel> {
 
   void setMuted(bool value) {
     _repository.setMuted(value);
-    state = PlaybackConfigModel(muted: value, autoplay: state.autoplay);
+    // state에 모델을 재생성해주어야 함
+    state = PlaybackConfigModel(
+      muted: value,
+      autoplay: state.autoplay,
+    );
   }
 
   void setAutoplay(bool value) {
     _repository.setAutoplay(value);
     state.autoplay = value;
-    state = PlaybackConfigModel(muted: state.muted, autoplay: value);
+    state = PlaybackConfigModel(
+      muted: state.muted,
+      autoplay: value,
+    );
   }
 
   @override

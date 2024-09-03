@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_viewmodel.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   const VideoPost({
     super.key,
     required this.onVideoFinished,
@@ -19,13 +21,13 @@ class VideoPost extends StatefulWidget {
   final int index;
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
 // NOTE: with - class 복사
 // NOTE: ticker - 애니메이션 프레임마다 호출되는 시계
 //       SingleTickerProviderStateMixin - 위젯이 위젯트리에 없을 때 자원을 낭비하지 않도록 함 (위젯이 활성화되어있을 때만 티커 동작)
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset("assets/videos/video.mp4");
@@ -89,6 +91,14 @@ class _VideoPostState extends State<VideoPost>
     if (!mounted) {
       return;
     }
+
+    if (ref.read(playbackConfigProvider).muted) {
+      ref.read(playbackConfigProvider.notifier).setMuted(false);
+      _videoPlayerController.setVolume(1);
+    } else {
+      ref.read(playbackConfigProvider.notifier).setMuted(true);
+      _videoPlayerController.setVolume(0);
+    }
   }
 
   void _onVideoChange() async {
@@ -127,7 +137,10 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      if (false) {
+      if (ref.read(playbackConfigProvider).muted) {
+        _videoPlayerController.setVolume(0);
+      }
+      if (ref.read(playbackConfigProvider).autoplay) {
         _videoPlayerController.play();
       }
     } else if (_videoPlayerController.value.isPlaying &&
@@ -292,13 +305,13 @@ class _VideoPostState extends State<VideoPost>
             right: 10,
             child: SafeArea(
               child: IconButton(
-                icon: const FaIcon(
-                  false
+                icon: FaIcon(
+                  ref.watch(playbackConfigProvider).muted
                       ? FontAwesomeIcons.volumeXmark
                       : FontAwesomeIcons.volumeHigh,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: _onPlaybackConfigChanged,
               ),
             ),
           ),
