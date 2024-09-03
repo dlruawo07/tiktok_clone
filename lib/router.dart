@@ -51,7 +51,7 @@ class CustomRouter {
 }
 
 final router = GoRouter(
-  initialLocation: "/profile",
+  initialLocation: "/home",
   routes: [
     GoRoute(
       path: CustomRouter.activityPath,
