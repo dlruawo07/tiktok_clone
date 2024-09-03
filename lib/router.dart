@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
@@ -50,142 +51,147 @@ class CustomRouter {
   static String usernameName = "username";
 }
 
-final router = GoRouter(
-  initialLocation: "/home",
-  routes: [
-    GoRoute(
-      path: CustomRouter.activityPath,
-      name: CustomRouter.activityName,
-      builder: (context, state) => const ActivityScreen(),
-    ),
-    GoRoute(
-      path: CustomRouter.chatPath,
-      name: CustomRouter.chatName,
-      builder: (context, state) => const ChatScreen(),
+final routerProvider = Provider(
+  (ref) {
+    return GoRouter(
+      initialLocation: "/home",
       routes: [
         GoRoute(
-          path: CustomRouter.chatDetailPath,
-          name: CustomRouter.chatDetailName,
-          builder: (context, state) => ChatDetailScreen(
-            chatId: state.pathParameters["chatId"]!,
+          path: CustomRouter.activityPath,
+          name: CustomRouter.activityName,
+          builder: (context, state) => const ActivityScreen(),
+        ),
+        GoRoute(
+          path: CustomRouter.chatPath,
+          name: CustomRouter.chatName,
+          builder: (context, state) => const ChatScreen(),
+          routes: [
+            GoRoute(
+              path: CustomRouter.chatDetailPath,
+              name: CustomRouter.chatDetailName,
+              builder: (context, state) => ChatDetailScreen(
+                chatId: state.pathParameters["chatId"]!,
+              ),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: CustomRouter.interestsPath,
+          name: CustomRouter.interestsName,
+          builder: (context, state) => const InterestsScreen(),
+        ),
+        GoRoute(
+          path: CustomRouter.loginPath,
+          name: CustomRouter.loginName,
+          builder: (context, state) => const LoginScreen(),
+        ),
+        GoRoute(
+          path: "/:tab(home|discover|inbox|profile)",
+          name: CustomRouter.navigationName,
+          builder: (context, state) => MainNavigationScreen(
+            tab: state.pathParameters["tab"]!,
           ),
         ),
+        GoRoute(
+          path: CustomRouter.recordingPath,
+          name: CustomRouter.recordingName,
+          pageBuilder: (context, state) => CustomTransitionPage(
+            transitionDuration: const Duration(
+              milliseconds: 200,
+            ),
+            child: const VideoRecordingScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+              position: Tween(
+                begin: const Offset(0, 1),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            ),
+          ),
+          builder: (context, state) => const VideoRecordingScreen(),
+        ),
+        GoRoute(
+          path: CustomRouter.signupPath,
+          name: CustomRouter.signupName,
+          builder: (context, state) => const SignupScreen(),
+        ),
+        // GoRoute(
+        //   path: CustomRouter.passwordPath,
+        //   name: CustomRouter.passwordName,
+        //   builder: (context, state) => const PasswordScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.birthdayPath,
+        //   name: CustomRouter.birthdayName,
+        //   builder: (context, state) => const BirthdayScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.tutorialPath,
+        //   name: CustomRouter.tutorialName,
+        //   builder: (context, state) => const TutorialScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.chatDetailPath,
+        //   name: CustomRouter.chatDetailName,
+        //   builder: (context, state) => const ChatDetailScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.discoverPath,
+        //   name: CustomRouter.discoverName,
+        //   builder: (context, state) => const DiscoverScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.inboxPath,
+        //   name: CustomRouter.inboxName,
+        //   builder: (context, state) => const InboxScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.loginFormPath,
+        //   name: CustomRouter.loginFormName,
+        //   builder: (context, state) => const LoginFormScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.navigationPath,
+        //   name: CustomRouter.navigationName,
+        //   builder: (context, state) => const MainNavigationScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.profilePath,
+        //   name: CustomRouter.profileName,
+        //   builder: (context, state) => const UserProfileScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.settingsPath,
+        //   name: CustomRouter.settingsName,
+        //   builder: (context, state) => const SettingsScreen(),
+        // ),
+        // GoRoute(
+        //   path: CustomRouter.timelinePath,
+        //   name: CustomRouter.timelineName,
+        //   builder: (context, state) => const VideoTimelineScreen(),
+        // ),
+        // GoRoute(
+        //   path: Routes.username,
+        //   name: "username",
+        //   builder: (context, state) => const UsernameScreen(),
+        //   pageBuilder: (context, state) {
+        //     return CustomTransitionPage(
+        //       child: const UsernameScreen(),
+        //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        //         return FadeTransition(
+        //           opacity: animation,
+        //           child: ScaleTransition(
+        //             scale: animation,
+        //             child: child,
+        //           ),
+        //         );
+        //       },
+        //     );
+        //   },
+        // ),
       ],
-    ),
-    GoRoute(
-      path: CustomRouter.interestsPath,
-      name: CustomRouter.interestsName,
-      builder: (context, state) => const InterestsScreen(),
-    ),
-    GoRoute(
-      path: CustomRouter.loginPath,
-      name: CustomRouter.loginName,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: "/:tab(home|discover|inbox|profile)",
-      name: CustomRouter.navigationName,
-      builder: (context, state) => MainNavigationScreen(
-        tab: state.pathParameters["tab"]!,
-      ),
-    ),
-    GoRoute(
-      path: CustomRouter.recordingPath,
-      name: CustomRouter.recordingName,
-      pageBuilder: (context, state) => CustomTransitionPage(
-        transitionDuration: const Duration(
-          milliseconds: 200,
-        ),
-        child: const VideoRecordingScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            SlideTransition(
-          position: Tween(
-            begin: const Offset(0, 1),
-            end: Offset.zero,
-          ).animate(animation),
-          child: child,
-        ),
-      ),
-      builder: (context, state) => const VideoRecordingScreen(),
-    ),
-    GoRoute(
-      path: CustomRouter.signupPath,
-      name: CustomRouter.signupName,
-      builder: (context, state) => const SignupScreen(),
-    ),
-    // GoRoute(
-    //   path: CustomRouter.passwordPath,
-    //   name: CustomRouter.passwordName,
-    //   builder: (context, state) => const PasswordScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.birthdayPath,
-    //   name: CustomRouter.birthdayName,
-    //   builder: (context, state) => const BirthdayScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.tutorialPath,
-    //   name: CustomRouter.tutorialName,
-    //   builder: (context, state) => const TutorialScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.chatDetailPath,
-    //   name: CustomRouter.chatDetailName,
-    //   builder: (context, state) => const ChatDetailScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.discoverPath,
-    //   name: CustomRouter.discoverName,
-    //   builder: (context, state) => const DiscoverScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.inboxPath,
-    //   name: CustomRouter.inboxName,
-    //   builder: (context, state) => const InboxScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.loginFormPath,
-    //   name: CustomRouter.loginFormName,
-    //   builder: (context, state) => const LoginFormScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.navigationPath,
-    //   name: CustomRouter.navigationName,
-    //   builder: (context, state) => const MainNavigationScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.profilePath,
-    //   name: CustomRouter.profileName,
-    //   builder: (context, state) => const UserProfileScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.settingsPath,
-    //   name: CustomRouter.settingsName,
-    //   builder: (context, state) => const SettingsScreen(),
-    // ),
-    // GoRoute(
-    //   path: CustomRouter.timelinePath,
-    //   name: CustomRouter.timelineName,
-    //   builder: (context, state) => const VideoTimelineScreen(),
-    // ),
-    // GoRoute(
-    //   path: Routes.username,
-    //   name: "username",
-    //   builder: (context, state) => const UsernameScreen(),
-    //   pageBuilder: (context, state) {
-    //     return CustomTransitionPage(
-    //       child: const UsernameScreen(),
-    //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //         return FadeTransition(
-    //           opacity: animation,
-    //           child: ScaleTransition(
-    //             scale: animation,
-    //             child: child,
-    //           ),
-    //         );
-    //       },
-    //     );
-    //   },
-    // ),
-  ],
+    );
+  },
 );

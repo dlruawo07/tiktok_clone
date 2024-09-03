@@ -1,0 +1,31 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "tik-tok-52296",
+          "appId": "1:213617117395:android:24b1a204c55b5ee4ad6c26",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "tik-tok-52296",
+          "appId": "1:213617117395:ios:cdb766a17ab7415aad6c26",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "tik-tok-52296",
+          "configurations": {
+            "android": "1:213617117395:android:24b1a204c55b5ee4ad6c26",
+            "ios": "1:213617117395:ios:cdb766a17ab7415aad6c26",
+            "web": "1:213617117395:web:25114c10de5fd578ad6c26"
+          }
+        }
+      }
+    }
+  }
+}
