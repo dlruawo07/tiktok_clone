@@ -134,7 +134,7 @@ class TikTokApp extends ConsumerWidget {
       ),
       // screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
       // home: const MainNavigationScreen(),
-      // home: const SignupScreen(),
+      // home: const SignUpScreen(),
       // home: const SettingsScreen(),
       // home: const LayoutBuilderCodeLab(),
       // initialRoute: Routes.index,

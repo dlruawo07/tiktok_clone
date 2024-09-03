@@ -8,8 +8,8 @@ import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/router.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({
     super.key,
   });
 
@@ -89,14 +89,14 @@ class SignupScreen extends StatelessWidget {
                 children: [
                   Gaps.v80,
                   Text(
-                    S.of(context).signupTitle("TikTok", DateTime.now()),
+                    S.of(context).signUpTitle("TikTok", DateTime.now()),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Gaps.v20,
                   Opacity(
                     opacity: 0.8,
                     child: Text(
-                      S.of(context).signupSubtitle(0),
+                      S.of(context).signUpSubtitle(0),
                       style: const TextStyle(
                         fontSize: Sizes.size14,
                       ),

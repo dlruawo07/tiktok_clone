@@ -42,8 +42,8 @@ class CustomRouter {
   static String recordingName = "postVideo";
   static String settingsPath = "/settings";
   static String settingsName = "settings";
-  static String signupPath = "/";
-  static String signupName = "signup";
+  static String signUpPath = "/";
+  static String signUpName = "signUp";
   static String timelinePath = "/timeline";
   static String timelineName = "timeline";
   static String tutorialPath = "/tutorial";
@@ -54,14 +54,17 @@ class CustomRouter {
 
 final routerProvider = Provider(
   (ref) {
+    // // 유저가 로그인을 하거나 로그아웃을 하면 리빌드
+    // ref.watch(authState);
+
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {
         final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
         if (!isLoggedIn) {
-          if (state.matchedLocation != CustomRouter.signupPath &&
+          if (state.matchedLocation != CustomRouter.signUpPath &&
               state.matchedLocation != CustomRouter.loginPath) {
-            return CustomRouter.signupPath;
+            return CustomRouter.signUpPath;
           }
         }
         return null;
@@ -124,9 +127,9 @@ final routerProvider = Provider(
           builder: (context, state) => const VideoRecordingScreen(),
         ),
         GoRoute(
-          path: CustomRouter.signupPath,
-          name: CustomRouter.signupName,
-          builder: (context, state) => const SignupScreen(),
+          path: CustomRouter.signUpPath,
+          name: CustomRouter.signUpName,
+          builder: (context, state) => const SignUpScreen(),
         ),
         // GoRoute(
         //   path: CustomRouter.passwordPath,

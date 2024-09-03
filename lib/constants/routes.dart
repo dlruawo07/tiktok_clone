@@ -24,7 +24,7 @@ class Routes {
   static String timeline = "/timeline";
 
   static Map<String, WidgetBuilder> routesMap = {
-    Routes.index: (context) => const SignupScreen(),
+    Routes.index: (context) => const SignUpScreen(),
     Routes.username: (context) => const UsernameScreen(),
     Routes.login: (context) => const LoginScreen(),
     // Routes.email: (context) => const EmailScreen(),

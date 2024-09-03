@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
     super.key,
   });
 
-  void _onSignupTap(BuildContext context) {
+  void _onSignUpTap(BuildContext context) {
     // 가장 최근 위젯 삭제(LoginScreen)
     context.pop();
   }
@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
               const Text("Don't have an account?"),
               Gaps.h5,
               GestureDetector(
-                onTap: () => _onSignupTap(context),
+                onTap: () => _onSignUpTap(context),
                 child: Text(
                   "Sign up",
                   style: TextStyle(

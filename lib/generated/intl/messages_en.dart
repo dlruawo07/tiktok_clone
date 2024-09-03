@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "likeCount": m2,
         "login": m3,
         "loginTitle": m4,
-        "signupSubtitle": m5,
-        "signupTitle": m6
+        "signUpSubtitle": m5,
+        "signUpTitle": m6
       };
 }
