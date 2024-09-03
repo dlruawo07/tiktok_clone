@@ -68,14 +68,14 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
             ),
           ),
           data: (videos) => RefreshIndicator(
-            // NOTE: onRefresh는 반드시 Future를 반환해야함
+            // onRefresh는 반드시 Future를 반환해야함
             onRefresh: _onRefreshed,
-            // NOTE: RefreshIndicator가 위치하는 지점
+            // RefreshIndicator가 위치하는 지점
             displacement: 50,
-            // NOTE: RefreshIndicator가 시작하는 지점
+            // RefreshIndicator가 시작하는 지점
             edgeOffset: 20,
             color: Theme.of(context).primaryColor,
-            // NOTE: builder: build는 하지만 모두를 동시에 render하지는 않음
+            // builder: build는 하지만 모두를 동시에 render하지는 않음
             child: PageView.builder(
               controller: _pageController,
               scrollDirection: Axis.vertical,

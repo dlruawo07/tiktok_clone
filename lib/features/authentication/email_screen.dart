@@ -24,7 +24,7 @@ class _EmailScreenState extends State<EmailScreen> {
   @override
   void initState() {
     super.initState();
-    // NOTE: 텍스트필드 이벤트리스너
+    // 텍스트필드 이벤트리스너
     _emailController.addListener(() {
       setState(() {
         _email = _emailController.text;
@@ -51,7 +51,7 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   void _onScaffoldTap() {
-    // NOTE: 현재 포커스된 위젯을 포커스 해제하기
+    // 현재 포커스된 위젯을 포커스 해제하기
     FocusScope.of(context).unfocus();
   }
 
@@ -86,7 +86,7 @@ class _EmailScreenState extends State<EmailScreen> {
             horizontal: Sizes.size36,
           ),
           child: Column(
-            // NOTE: crossAxisAlignment는 수평
+            // crossAxisAlignment는 수평
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gaps.v40,
@@ -98,14 +98,14 @@ class _EmailScreenState extends State<EmailScreen> {
                 ),
               ),
               Gaps.v16,
-              // NOTE: 입력창
+              // 입력창
               TextField(
                 controller: _emailController,
-                // NOTE: 모바일 키보드에 자동으로 @가 키보드에 표시됨
+                // 모바일 키보드에 자동으로 @가 키보드에 표시됨
                 keyboardType: TextInputType.emailAddress,
-                // NOTE: 모바일 키보드에 자동완성 여부
+                // 모바일 키보드에 자동완성 여부
                 autocorrect: false,
-                // NOTE: 값 입력 후 키보드에서 done 누를 시 함수 실행
+                // 값 입력 후 키보드에서 done 누를 시 함수 실행
                 onEditingComplete: _onSubmit,
                 decoration: InputDecoration(
                   hintText: "Email",

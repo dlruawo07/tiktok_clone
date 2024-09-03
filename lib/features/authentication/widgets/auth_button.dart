@@ -17,9 +17,9 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTapFunction,
-      // NOTE: 부모의 크기에 비례해서 크기를 정해주는 위젯
+      // 부모의 크기에 비례해서 크기를 정해주는 위젯
       child: FractionallySizedBox(
-        // NOTE: width를 부모의 width의 1배로 설정
+        // width를 부모의 width의 1배로 설정
         widthFactor: 1,
         child: Container(
           padding: const EdgeInsets.all(Sizes.size12),
@@ -29,11 +29,11 @@ class AuthButton extends StatelessWidget {
               width: Sizes.size1,
             ),
           ),
-          // NOTE: Stack: widget 위에 widget을 쌓는 구조
+          // Stack: widget 위에 widget을 쌓는 구조
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // NOTE: 스택에 있는 위젯 중 하나에 alignment 적용하는 위젯
+              // 스택에 있는 위젯 중 하나에 alignment 적용하는 위젯
               Align(
                 alignment: Alignment.centerLeft,
                 child: icon,

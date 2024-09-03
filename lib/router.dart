@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
+import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
@@ -55,6 +56,16 @@ final routerProvider = Provider(
   (ref) {
     return GoRouter(
       initialLocation: "/home",
+      redirect: (context, state) {
+        final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
+        if (!isLoggedIn) {
+          if (state.matchedLocation != CustomRouter.signupPath &&
+              state.matchedLocation != CustomRouter.loginPath) {
+            return CustomRouter.signupPath;
+          }
+        }
+        return null;
+      },
       routes: [
         GoRoute(
           path: CustomRouter.activityPath,

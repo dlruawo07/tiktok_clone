@@ -15,29 +15,29 @@ class LoginFormScreen extends StatefulWidget {
 }
 
 class _LoginFormScreenState extends State<LoginFormScreen> {
-  // NOTE: unique ID + form의 state에 접근 + form의 메소드 트리거 가능
+  // unique ID + form의 state에 접근 + form의 메소드 트리거 가능
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Map<String, String> formData = {};
 
   void _onSubmitTap() {
-    // NOTE: Form의 state에 접근하여 validator 호출
+    // Form의 state에 접근하여 validator 호출
     // 모든 FormField에 에러가 없을 때 true를 반환
     // 하나라도 에러가 있으면 false
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
-        // NOTE: 모든 FormField 입력에 onSaved 콜백 함수 실행
+        // 모든 FormField 입력에 onSaved 콜백 함수 실행
         _formKey.currentState!.save();
         context.goNamed(CustomRouter.interestsName);
       }
     }
 
-    // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
+    // stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
     // Navigator.of(context).pushAndRemoveUntil(
     //   MaterialPageRoute(
     //     builder: (context) => const InterestsScreen(),
     //   ),
-    //   // NOTE: 이전 route를 유지할 지 여부. false: 유지 x
+    //   // 이전 route를 유지할 지 여부. false: 유지 x
     //   (route) => false,
     // );
   }
@@ -53,7 +53,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
           horizontal: Sizes.size36,
         ),
         child: Form(
-          // NOTE: Form에 키 부여
+          // Form에 키 부여
           key: _formKey,
           child: Column(
             children: [
@@ -61,7 +61,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 decoration: const InputDecoration(
                   hintText: "Email",
                 ),
-                // NOTE: 값 검증
+                // 값 검증
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return "Please write your email";
@@ -80,7 +80,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   hintText: "Password",
                 ),
                 obscureText: true,
-                // NOTE: 값 검증
+                // 값 검증
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return "Please write your password";

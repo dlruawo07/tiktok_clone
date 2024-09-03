@@ -11,10 +11,10 @@ class SettingsScreen extends ConsumerWidget {
     super.key,
   });
 
-  // NOTE: ref - ConsumerWidget 사용 시 build 메소드에 추가되는 인자
+  // ref - ConsumerWidget 사용 시 build 메소드에 추가되는 인자
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // NOTE: ref -
+    // ref -
     return Localizations.override(
       context: context,
       locale: const Locale("es"),
@@ -27,7 +27,7 @@ class SettingsScreen extends ConsumerWidget {
             SwitchListTile.adaptive(
               value: ref.watch(playbackConfigProvider).muted,
               onChanged: (value) =>
-                  // NOTE: .notifier를 붙여야 데이터 뿐만 아니라 다른 클래스 메소드에도 접근할 수 있다
+                  // .notifier를 붙여야 데이터 뿐만 아니라 다른 클래스 메소드에도 접근할 수 있다
                   ref.read(playbackConfigProvider.notifier).setMuted(value),
               title: const Text("Mute videos"),
               subtitle: const Text("Videos will be muted by default."),
@@ -156,7 +156,7 @@ class SettingsScreen extends ConsumerWidget {
               title: const Text("Log out (iOS / Bottom)"),
               textColor: Colors.red,
             ),
-            // NOTE: 위와 같음 (자동으로 앱 정보 등 보여줌)
+            // 위와 같음 (자동으로 앱 정보 등 보여줌)
             const AboutListTile(),
           ],
         ),

@@ -42,7 +42,7 @@ class _ActivityScreenState extends State<ActivityScreen>
       "icon": FontAwesomeIcons.tiktok,
     },
   ];
-  // NOTE: 다른 인스턴스를 참조하기 때문에 late 선언 필요
+  // 다른 인스턴스를 참조하기 때문에 late 선언 필요
   late final AnimationController _animationController = AnimationController(
     vsync: this,
     duration: const Duration(
@@ -50,18 +50,18 @@ class _ActivityScreenState extends State<ActivityScreen>
     ),
   );
 
-  // NOTE: 애니메이션을 줄 대상의 타입 명시
-  // NOTE: Tween - 직선적 애니메이션 (바운싱, 이징 x)
+  // 애니메이션을 줄 대상의 타입 명시
+  // Tween - 직선적 애니메이션 (바운싱, 이징 x)
   late final Animation<double> _arrowAnimation = Tween(
     begin: 0.0,
     end: 0.5,
   ).animate(_animationController);
 
   late final Animation<Offset> _panelAnimation = Tween(
-    // NOTE: 위젯의 비율 (-0.5 = 위로 50% 이동)
+    // 위젯의 비율 (-0.5 = 위로 50% 이동)
     //       Offset != pixel. Offset == proportion
     begin: const Offset(0, -1),
-    // NOTE: 0.5, 0.5 = x축으로 50%, y축으로 50% 이동
+    // 0.5, 0.5 = x축으로 50%, y축으로 50% 이동
     end: Offset.zero,
   ).animate(_animationController);
 
@@ -85,7 +85,7 @@ class _ActivityScreenState extends State<ActivityScreen>
 
   void _toggleAnimations() async {
     if (_animationController.isCompleted) {
-      // NOTE: 사라질 때 await 가 없으면 setState가 바로 실행되서 배리어가 바로 없어짐
+      // 사라질 때 await 가 없으면 setState가 바로 실행되서 배리어가 바로 없어짐
       await _animationController.reverse();
     } else {
       _animationController.forward();
@@ -102,7 +102,7 @@ class _ActivityScreenState extends State<ActivityScreen>
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          // NOTE: tap을 하면 _animationController가 관리하는 모든 애니메이션이 동시에 실행됨
+          // tap을 하면 _animationController가 관리하는 모든 애니메이션이 동시에 실행됨
           onTap: _toggleAnimations,
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -110,7 +110,7 @@ class _ActivityScreenState extends State<ActivityScreen>
             children: [
               const Text("All activity"),
               Gaps.h8,
-              // NOTE: 회전 애니메이션을 수행하는 위젯
+              // 회전 애니메이션을 수행하는 위젯
               RotationTransition(
                 turns: _arrowAnimation,
                 child: const FaIcon(
@@ -140,7 +140,7 @@ class _ActivityScreenState extends State<ActivityScreen>
               ),
               Gaps.v12,
               for (var notification in _notifications)
-                // NOTE: 알림 삭제할 때 처럼 좌/우로 스와이프 시 위젯이 제거됨
+                // 알림 삭제할 때 처럼 좌/우로 스와이프 시 위젯이 제거됨
                 Dismissible(
                   onDismissed: (direction) => _onDismissed(notification),
                   key: Key(notification),
@@ -192,7 +192,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                         ),
                       ),
                     ),
-                    // NOTE: 텍스트 위젯에 풍부함을 더해줌
+                    // 텍스트 위젯에 풍부함을 더해줌
                     title: RichText(
                       text: TextSpan(
                         text: "Account updated:",
@@ -201,7 +201,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                           color: Theme.of(context).appBarTheme.foregroundColor,
                           fontSize: Sizes.size14,
                         ),
-                        // NOTE: TextSpan에 다른 TextSpan을 자식으로 가질 수 있고 별도로 스타일링 가능
+                        // TextSpan에 다른 TextSpan을 자식으로 가질 수 있고 별도로 스타일링 가능
                         children: [
                           const TextSpan(
                             text: " Upload longer videos",
@@ -233,7 +233,7 @@ class _ActivityScreenState extends State<ActivityScreen>
               dismissible: true,
               onDismiss: _toggleAnimations,
             ),
-          // NOTE: 슬라이드 애니메이션을 수행하는 위젯
+          // 슬라이드 애니메이션을 수행하는 위젯
           SlideTransition(
             position: _panelAnimation,
             child: Container(

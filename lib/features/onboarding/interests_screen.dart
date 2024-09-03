@@ -88,12 +88,12 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ),
       ),
-      // NOTE: 오른쪽에 스크롤바 표시
+      // 오른쪽에 스크롤바 표시
       body: Scrollbar(
-        // NOTE: 스크롤 컨트롤러
+        // 스크롤 컨트롤러
         controller: _scrollController,
         child: SingleChildScrollView(
-          // NOTE: 스크롤 컨트롤러
+          // 스크롤 컨트롤러
           controller: _scrollController,
           child: Padding(
             padding: const EdgeInsets.only(
@@ -120,11 +120,11 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   ),
                 ),
                 Gaps.v44,
-                // NOTE: 위젯들을 감싸주는 위젯
+                // 위젯들을 감싸주는 위젯
                 Wrap(
-                  // NOTE: 위젯 사이의 공백 (세로)
+                  // 위젯 사이의 공백 (세로)
                   runSpacing: 20,
-                  // NOTE: 위젯 사이의 공백 (가로)
+                  // 위젯 사이의 공백 (가로)
                   spacing: 20,
                   children: [
                     for (var interest in interests)

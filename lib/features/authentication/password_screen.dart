@@ -24,7 +24,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   @override
   void initState() {
     super.initState();
-    // NOTE: 텍스트필드 이벤트리스너
+    // 텍스트필드 이벤트리스너
     _passwordController.addListener(() {
       setState(() {
         _password = _passwordController.text;
@@ -64,7 +64,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void _onScaffoldTap() {
-    // NOTE: 현재 포커스된 위젯을 포커스 해제하기
+    // 현재 포커스된 위젯을 포커스 해제하기
     FocusScope.of(context).unfocus();
   }
 
@@ -103,7 +103,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             horizontal: Sizes.size36,
           ),
           child: Column(
-            // NOTE: crossAxisAlignment는 수평
+            // crossAxisAlignment는 수평
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gaps.v40,
@@ -115,19 +115,19 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 ),
               ),
               Gaps.v16,
-              // NOTE: 입력창
+              // 입력창
               TextField(
                 controller: _passwordController,
                 onEditingComplete: _onSubmit,
-                // NOTE: 입력값 안 보이게
+                // 입력값 안 보이게
                 obscureText: _obscureText,
                 decoration: InputDecoration(
-                  // NOTE: 앞에 아이콘 위젯 추가
+                  // 앞에 아이콘 위젯 추가
                   // prefixIcon: const Icon(Icons.ac_unit), (or just prefix)
-                  // NOTE: 뒤에 아이콘 위젯 추가
+                  // 뒤에 아이콘 위젯 추가
                   // suffixIcon: const Icon(Icons.cancel_outlined), (or jest suffix)
                   suffix: Row(
-                    // NOTE: 수평 axis 사이즈를 최소화
+                    // 수평 axis 사이즈를 최소화
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(

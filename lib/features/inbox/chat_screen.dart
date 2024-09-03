@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_key.currentState != null) {
       _key.currentState!.removeItem(
         index,
-        // NOTE: 사이즈가 바뀌는 애니메이션 위젯
+        // 사이즈가 바뀌는 애니메이션 위젯
         (context, animation) => SizeTransition(
           sizeFactor: animation,
           child: Container(
@@ -115,13 +115,13 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      // NOTE: List의 요소들에 애니메이션 효과를 주는 위젯
+      // List의 요소들에 애니메이션 효과를 주는 위젯
       body: AnimatedList(
         padding: const EdgeInsets.symmetric(
           vertical: Sizes.size10,
         ),
         key: _key,
-        // NOTE: itemBuilder에 기본적으로 animation을 받는다
+        // itemBuilder에 기본적으로 animation을 받는다
         itemBuilder: (context, index, animation) {
           return FadeTransition(
             key: UniqueKey(),

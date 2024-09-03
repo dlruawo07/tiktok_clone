@@ -1,4 +1,4 @@
-// NOTE: predefined size constants by tailwindcss
+// predefined size constants by tailwindcss
 class Sizes {
   static const size1 = 1.0;
   static const size2 = 2.0;

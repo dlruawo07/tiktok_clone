@@ -15,10 +15,10 @@ class VideoConfig extends ChangeNotifier {
   }
 }
 
-// // NOTE: ValueNotifier (Lecture 20.10)
+// // ValueNotifier (Lecture 20.10)
 // final videoConfig = ValueNotifier(false);
 
-// // NOTE: ChangeNotifier (Lecture 20.9)
+// // ChangeNotifier (Lecture 20.9)
 
 // class VideoConfig extends ChangeNotifier {
 //   bool autoMute = false;
@@ -31,7 +31,7 @@ class VideoConfig extends ChangeNotifier {
 
 // final videoConfig = VideoConfig();
 
-// // NOTE: InheritedWidget (Lecture 20.6~20.8)
+// // InheritedWidget (Lecture 20.6~20.8)
 
 // class VideoConfigData extends InheritedWidget {
 //   final bool autoMute;
@@ -47,7 +47,7 @@ class VideoConfig extends ChangeNotifier {
 //   static VideoConfigData of(BuildContext context) =>
 //       context.dependOnInheritedWidgetOfExactType<VideoConfigData>()!;
 
-//   // NOTE: updateShouldNotify - 위젯을 리빌드 할 지 말 지 정할 수 있게 해줌
+//   // updateShouldNotify - 위젯을 리빌드 할 지 말 지 정할 수 있게 해줌
 //   // 위젯의 구버전이 있을 수도 있기 때문
 //   // oldWidget: 구버전 위젯의 state
 //   @override

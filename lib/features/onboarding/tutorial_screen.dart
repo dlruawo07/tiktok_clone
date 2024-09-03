@@ -24,12 +24,12 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
   void _onPanUpdate(DragUpdateDetails details) {
     if (details.delta.dx > 0) {
-      // NOTE: to the right
+      // to the right
       setState(() {
         _direction = Direction.right;
       });
     } else {
-      // NOTE: to the left
+      // to the left
       setState(() {
         _direction = Direction.left;
       });
@@ -61,9 +61,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // NOTE: 드래그 이벤트 발생 시
+      // 드래그 이벤트 발생 시
       onPanUpdate: _onPanUpdate,
-      // NOTE: 드래그 이벤트 종료 시
+      // 드래그 이벤트 종료 시
       onPanEnd: _onPanEnd,
       child: Scaffold(
         body: SafeArea(
@@ -71,7 +71,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: Sizes.size24,
             ),
-            // NOTE: 탭이 2개인 경우에만 사용 가능
+            // 탭이 2개인 경우에만 사용 가능
             child: AnimatedCrossFade(
               firstChild: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,12 +151,12 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 }
 
-// // NOTE: 자식 위젯에 대해 디폴트 탭 컨트롤러를 만들어줌
+// // 자식 위젯에 대해 디폴트 탭 컨트롤러를 만들어줌
 // return DefaultTabController(
 //   length = 3,
 //   child = Scaffold(
 //     body: const SafeArea(
-//       // NOTE: 한 탭 당 하나의 자식 위젯을 가지는 페이지 뷰 위젯
+//       // 한 탭 당 하나의 자식 위젯을 가지는 페이지 뷰 위젯
 //       child: TabBarView(
 //         children: [
 //           Padding(
@@ -239,7 +239,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
 //         child: const Row(
 //           mainAxisAlignment: MainAxisAlignment.center,
 //           children: [
-//             // NOTE: 탭 셀렉터 표시 (TabBarView와 함께 사용 시 DefaultTabController 아래 둘 다 있어아 햠)
+//             // 탭 셀렉터 표시 (TabBarView와 함께 사용 시 DefaultTabController 아래 둘 다 있어아 햠)
 //             TabPageSelector(
 //               color: Colors.white,
 //               selectedColor: Colors.black38,

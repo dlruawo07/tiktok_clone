@@ -12,8 +12,8 @@ import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/router.dart';
 
 void main() async {
-  // NOTE: 엔진과 위젯의 연결 초기화
-  // NOTE: 프레임워크와 플러터 엔진이 연결할 때 모든 것을 초기화
+  // 엔진과 위젯의 연결 초기화
+  // 프레임워크와 플러터 엔진이 연결할 때 모든 것을 초기화
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -29,8 +29,8 @@ void main() async {
   final preferences = await SharedPreferences.getInstance();
   final repository = PlaybackConfigRepository(preferences);
 
-  // NOTE: 다크모드 (status bar 등이 바뀜)
-  // NOTE: 꼭 main 함수에서 할 필요는 없음
+  // 다크모드 (status bar 등이 바뀜)
+  // 꼭 main 함수에서 할 필요는 없음
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.dark,
   );
@@ -80,7 +80,7 @@ class TikTokApp extends ConsumerWidget {
         ),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        // NOTE: 모든 Scaffold의 앱바에 적용되는 테마
+        // 모든 Scaffold의 앱바에 적용되는 테마
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
@@ -132,7 +132,7 @@ class TikTokApp extends ConsumerWidget {
           iconColor: Colors.white,
         ),
       ),
-      // NOTE: screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
+      // screen-based 보다는 feature-based 개발이 좋음 (feature can have multiple screens)
       // home: const MainNavigationScreen(),
       // home: const SignupScreen(),
       // home: const SettingsScreen(),

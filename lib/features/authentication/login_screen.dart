@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   });
 
   void _onSignupTap(BuildContext context) {
-    // NOTE: 가장 최근 위젯 삭제(LoginScreen)
+    // 가장 최근 위젯 삭제(LoginScreen)
     context.pop();
   }
 
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               Gaps.v80,
               Text("Log in to TikTok",
-                  // NOTE: copyWith - headlineLarge의 특성 + 새로운 특성이 필요할 때
+                  // copyWith - headlineLarge의 특성 + 새로운 특성이 필요할 때
                   style: Theme.of(context).textTheme.headlineSmall!
                   // .copyWith(color: Colors.black),
                   ),

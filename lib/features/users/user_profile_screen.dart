@@ -28,7 +28,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return SafeArea(
       child: DefaultTabController(
         length: 2,
-        // NOTE: SliverAppBar, TabBar, TabBarView 등 여러 개의 스크롤 되는 위젯들이 있을 때 사용
+        // SliverAppBar, TabBar, TabBarView 등 여러 개의 스크롤 되는 위젯들이 있을 때 사용
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
@@ -234,22 +234,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 itemCount: 20,
                 padding: EdgeInsets.zero,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  // NOTE: how many columns to have,
+                  // how many columns to have,
                   crossAxisCount: 3,
-                  // NOTE: distance between grids
+                  // distance between grids
                   crossAxisSpacing: Sizes.size2,
                   mainAxisSpacing: Sizes.size2,
-                  // NOTE: ratio of grid (image 아래 text 등 포함하여 좀 더 깊게)
+                  // ratio of grid (image 아래 text 등 포함하여 좀 더 깊게)
                   childAspectRatio: 9 / 15,
                 ),
-                // NOTE: image의 크기를 강제로 맞춤
+                // image의 크기를 강제로 맞춤
                 itemBuilder: (context, index) => Column(
                   children: [
                     AspectRatio(
                       aspectRatio: 9 / 14,
-                      // NOTE: image 로딩 되는 동안 placeholder 렌더
+                      // image 로딩 되는 동안 placeholder 렌더
                       child: FadeInImage.assetNetwork(
-                        // NOTE: 어떻게 맞출 지 옵션
+                        // 어떻게 맞출 지 옵션
                         fit: BoxFit.cover,
                         placeholder: "assets/images/placeholder.jpg",
                         image:
@@ -386,14 +386,14 @@ class UserCount extends StatelessWidget {
   }
 }
 
-//   // NOTE: PersistentHeader가 scroll 이후 변경되는 사이즈
+//   // PersistentHeader가 scroll 이후 변경되는 사이즈
 //   @override
 //   double get maxExtent => 150;
 
 //   @override
 //   double get minExtent => 80;
 
-//   //NOTE: true 를 반환해야함
+//   //true 를 반환해야함
 //   @override
 //   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
 //     return false;

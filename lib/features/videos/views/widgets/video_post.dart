@@ -24,8 +24,8 @@ class VideoPost extends ConsumerStatefulWidget {
   VideoPostState createState() => VideoPostState();
 }
 
-// NOTE: with - class 복사
-// NOTE: ticker - 애니메이션 프레임마다 호출되는 시계
+// with - class 복사
+// ticker - 애니메이션 프레임마다 호출되는 시계
 //       SingleTickerProviderStateMixin - 위젯이 위젯트리에 없을 때 자원을 낭비하지 않도록 함 (위젯이 활성화되어있을 때만 티커 동작)
 class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
@@ -59,9 +59,9 @@ class VideoPostState extends ConsumerState<VideoPost>
     super.initState();
     _initVideoPlayer();
     _animationController = AnimationController(
-      // NOTE: vsync - prevents offscreen animations from consuming unnecessary resources
-      // NOTE: stop animation when widget is unseen
-      // NOTE: SingleTickerProviderStateMixin required.
+      // vsync - prevents offscreen animations from consuming unnecessary resources
+      // stop animation when widget is unseen
+      // SingleTickerProviderStateMixin required.
       vsync: this,
       lowerBound: 1.0,
       upperBound: 1.5,
@@ -71,17 +71,17 @@ class VideoPostState extends ConsumerState<VideoPost>
 
 // TODO: CODE_CHALLENGE: volume icon must unmute only the current video
 
-    // // NOTE: ChangeNotifier를 듣는 또다른 방법
+    // // ChangeNotifier를 듣는 또다른 방법
     // videoConfig.addListener(() {
     //   setState(() {
     //     _autoMute = videoConfig.value;
     //   });
     // });
 
-    // NOTE: play/pause 시 lowerBound <-> upperBound 값의 변경이 일어나는데
+    // play/pause 시 lowerBound <-> upperBound 값의 변경이 일어나는데
     // build는 1.0과 1.5 사이의 값들은 알지 못한다.
     // 따라서 setState()로 build를 계속해서 재호출 해야 한다.
-    // // NOTE: _animatedController.value의 변화를 감지하는 방법 1
+    // // _animatedController.value의 변화를 감지하는 방법 1
     // _animationController.addListener(() {
     //   setState(() {});
     // });
@@ -102,12 +102,12 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _onVideoChange() async {
-    // NOTE: 영상이 초기화되었으면서
+    // 영상이 초기화되었으면서
     if (_videoPlayerController.value.isInitialized) {
-      // NOTE: 현재 시점이 전체 길이와 같다면 (종료)
+      // 현재 시점이 전체 길이와 같다면 (종료)
       if (_videoPlayerController.value.position ==
           _videoPlayerController.value.duration) {
-        // NOTE: 영상 종료 시 호출되는 함수 호출
+        // 영상 종료 시 호출되는 함수 호출
         widget.onVideoFinished();
       }
     }
@@ -116,16 +116,16 @@ class VideoPostState extends ConsumerState<VideoPost>
   void _initVideoPlayer() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    // NOTE: 영상 컨트롤러는 영상의 종료를 항상 기다림
+    // 영상 컨트롤러는 영상의 종료를 항상 기다림
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
 
-// NOTE: 화면을 위로 스와이프 했을 때 영상이 100% 보여야 재생되게 하기 위함
-// NOTE: 영상이 재생 중이나 영상 화면이 사라졌을 때 일시정지
+// 화면을 위로 스와이프 했을 때 영상이 100% 보여야 재생되게 하기 위함
+// 영상이 재생 중이나 영상 화면이 사라졌을 때 일시정지
   void _onVisibilityChanged(VisibilityInfo info) async {
-    // NOTE: 모든 StatefulWidget은 mounted 옵션이 있음
-    // NOTE: 위젯이 mount 되었는 지(위젯 트리에 있는 지) 확인
+    // 모든 StatefulWidget은 mounted 옵션이 있음
+    // 위젯이 mount 되었는 지(위젯 트리에 있는 지) 확인
     if (!mounted) {
       return;
     }
@@ -149,16 +149,16 @@ class VideoPostState extends ConsumerState<VideoPost>
     }
   }
 
-  // NOTE: 화면 클릭 시 재생/일시정지
+  // 화면 클릭 시 재생/일시정지
   void _onTogglePause() async {
     if (_videoPlayerController.value.isPlaying) {
       _videoPlayerController.pause();
-      // NOTE: reverse - lowerBound, upperBound를 반전시킨다
-      // NOTE: reverse와 forward 시 value가 조금씩 바뀐다
+      // reverse - lowerBound, upperBound를 반전시킨다
+      // reverse와 forward 시 value가 조금씩 바뀐다
       _animationController.reverse();
     } else {
       _videoPlayerController.play();
-      // NOTE: forward - lowerBound, upperBound를 복구시킨다
+      // forward - lowerBound, upperBound를 복구시킨다
       _animationController.forward();
     }
     setState(() {
@@ -177,7 +177,7 @@ class VideoPostState extends ConsumerState<VideoPost>
       _onTogglePause();
     }
     await showModalBottomSheet(
-      // NOTE: BottomSheet의 사이즈 수정 가능하게 하는 옵션. ListView 사용 시 true.
+      // BottomSheet의 사이즈 수정 가능하게 하는 옵션. ListView 사용 시 true.
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
@@ -213,17 +213,17 @@ class VideoPostState extends ConsumerState<VideoPost>
             ),
           ),
           Positioned.fill(
-            // NOTE: Event가 Icon으로 가는 것을 무시함
+            // Event가 Icon으로 가는 것을 무시함
             child: IgnorePointer(
-              // NOTE: 사이즈 변화
-              // NOTE: _animationController의 변화를 감지하는 방법 2
+              // 사이즈 변화
+              // _animationController의 변화를 감지하는 방법 2
               child: AnimatedBuilder(
                 animation: _animationController,
-                // NOTE: animation의 변화를 감지하고 무언가를 수행하는 함수
+                // animation의 변화를 감지하고 무언가를 수행하는 함수
                 builder: (context, child) {
                   return Transform.scale(
                     scale: _animationController.value,
-                    // NOTE: child = 아래의 AnimatedOpacity 위젯
+                    // child = 아래의 AnimatedOpacity 위젯
                     child: AnimatedOpacity(
                       opacity: _isPaused ? 1 : 0,
                       duration: _animationDuration,

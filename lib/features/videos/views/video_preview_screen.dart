@@ -8,7 +8,7 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:video_player/video_player.dart';
 
-// NOTE: 라이브러리 시 ios/Runner/Info.plist에 아래 줄 추가
+// 라이브러리 시 ios/Runner/Info.plist에 아래 줄 추가
 // <key>NSPhotoLibraryUsageDescription</key>
 // <string>Allow photo library</string>
 

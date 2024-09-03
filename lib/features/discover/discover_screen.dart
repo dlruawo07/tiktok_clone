@@ -53,7 +53,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          // NOTE: WOW
+          // WOW
           title: ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: Breakpoints.sm,
@@ -67,7 +67,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               ),
             ),
           ),
-          // NOTE: PreferredSizeWidget - 특정 크기를 가지려고 하지만 자식 요소들의 크기를 제한하지 않는다
+          // PreferredSizeWidget - 특정 크기를 가지려고 하지만 자식 요소들의 크기를 제한하지 않는다
           bottom: TabBar(
             splashFactory: NoSplash.splashFactory,
             isScrollable: true,
@@ -92,20 +92,20 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               itemCount: 20,
               padding: const EdgeInsets.all(Sizes.size6),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                // NOTE: how many columns to have,
+                // how many columns to have,
                 crossAxisCount: width > Breakpoints.lg ? 5 : 2,
-                // NOTE: distance between grids
+                // distance between grids
                 crossAxisSpacing: Sizes.size10,
                 mainAxisSpacing: Sizes.size10,
-                // NOTE: ratio of grid (image 아래 text 등 포함하여 좀 더 깊게)
+                // ratio of grid (image 아래 text 등 포함하여 좀 더 깊게)
                 childAspectRatio: 9 / 21,
               ),
-              // NOTE: image의 크기를 강제로 맞춤
+              // image의 크기를 강제로 맞춤
               itemBuilder: (context, index) => LayoutBuilder(
                 builder: (context, constraints) => Column(
                   children: [
                     Container(
-                      // NOTE: 아래 아마자둘운 container를 overflow하기 때문에
+                      // 아래 아마자둘운 container를 overflow하기 때문에
                       // borderRadius를 적용하려면 clip.hardEdge가 필요함
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
@@ -113,9 +113,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       ),
                       child: AspectRatio(
                         aspectRatio: 9 / 16,
-                        // NOTE: image 로딩 되는 동안 placeholder 렌더
+                        // image 로딩 되는 동안 placeholder 렌더
                         child: FadeInImage.assetNetwork(
-                          // NOTE: 어떻게 맞출 지 옵션
+                          // 어떻게 맞출 지 옵션
                           fit: BoxFit.cover,
                           placeholder: "assets/images/placeholder.jpg",
                           image:

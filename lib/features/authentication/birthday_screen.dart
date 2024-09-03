@@ -35,7 +35,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
+    // stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
     // Navigator.of(context).pushAndRemoveUntil(
     //   MaterialPageRoute(
     //     builder: (context) => const InterestsScreen(),
@@ -47,7 +47,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
 
   void _setTextFieldDate(DateTime date) {
     final textDate = date.toString().split(" ").first;
-    // NOTE: 텍스트 필드값 지정
+    // 텍스트 필드값 지정
     _birthdayController.value = TextEditingValue(
       text: textDate,
     );
@@ -64,7 +64,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
           horizontal: Sizes.size36,
         ),
         child: Column(
-          // NOTE: crossAxisAlignment는 수평
+          // crossAxisAlignment는 수평
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gaps.v40,
@@ -86,18 +86,18 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             Gaps.v16,
             TextField(
               enabled: false,
-              // NOTE: 입력창
+              // 입력창
               controller: _birthdayController,
               decoration: InputDecoration(
-                // NOTE: placeholder
+                // placeholder
                 hintText: "Birthday",
-                // NOTE: underline border
+                // underline border
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
                   ),
                 ),
-                // NOTE: underline border
+                // underline border
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
@@ -119,15 +119,15 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         height: 300,
-        // NOTE: Cupertino - 애플 UI 관련 위젯들
+        // Cupertino - 애플 UI 관련 위젯들
         child: CupertinoDatePicker(
-          // NOTE: 최대 날짜값
+          // 최대 날짜값
           maximumDate: initialDate,
-          // NOTE: 초기 날짜값
+          // 초기 날짜값
           initialDateTime: initialDate,
-          // NOTE: 날짜만
+          // 날짜만
           mode: CupertinoDatePickerMode.date,
-          // NOTE: 날짜 변경 시 텍스트 필드값 업데이트
+          // 날짜 변경 시 텍스트 필드값 업데이트
           onDateTimeChanged: _setTextFieldDate,
         ),
       ),

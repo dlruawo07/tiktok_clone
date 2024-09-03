@@ -10,7 +10,7 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/views/video_preview_screen.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/camera_flash_mode_button.dart';
 
-// NOTE: 카메라 & 마이크 사용 시 ios/Runner/Info.plist에 아래 줄 추가
+// 카메라 & 마이크 사용 시 ios/Runner/Info.plist에 아래 줄 추가
 // <key>NSCameraUsageDescription</key>
 // <string>Allow camera</string>
 // <key>NSMicrophoneUsageDescription</key>
@@ -89,7 +89,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     await _cameraController.initialize();
 
-    // NOTE: ONLY FOR iOS (to fix sync issue)
+    // ONLY FOR iOS (to fix sync issue)
     await _cameraController.prepareForVideoRecording();
 
     _flashMode = _cameraController.value.flashMode;
@@ -174,7 +174,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
   Future<void> _onPickVideoPressed() async {
     final video = await ImagePicker().pickVideo(
-      // NOTE: ImageSource.camera - OS 카메라 사용
+      // ImageSource.camera - OS 카메라 사용
       source: ImageSource.gallery,
     );
     if (video == null) {
@@ -224,7 +224,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       });
     }
 
-    // NOTE: application의 state 추적 (사용자가 앱을 나가거나 등)
+    // application의 state 추적 (사용자가 앱을 나가거나 등)
     WidgetsBinding.instance.addObserver(this);
 
     _progressAnimationController.addListener(() {

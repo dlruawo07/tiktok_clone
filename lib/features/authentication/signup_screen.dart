@@ -14,25 +14,25 @@ class SignupScreen extends StatelessWidget {
   });
 
   void _onLoginTap(BuildContext context) {
-    // NOTE: LoginScreen을 context에 푸쉬
+    // LoginScreen을 context에 푸쉬
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (context) => const LoginScreen(),
     //   ),
     // );
     // Navigator.of(context).pushNamed(Routes.login);
-    // NOTE: GoRouter 방법
+    // GoRouter 방법
     context.pushNamed(CustomRouter.loginName);
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    // NOTE: UsernameScreen을 context에 푸쉬
+    // UsernameScreen을 context에 푸쉬
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (context) => const UsernameScreen(),
     //   ),
     // );
-    // NOTE: PageRouteBuilder 사용법
+    // PageRouteBuilder 사용법
     // Navigator.of(context).push(
     //   PageRouteBuilder(
     //     transitionDuration: const Duration(seconds: 1),

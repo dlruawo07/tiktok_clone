@@ -21,7 +21,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
   @override
   void initState() {
     super.initState();
-    // NOTE: 텍스트필드 이벤트리스너
+    // 텍스트필드 이벤트리스너
     _usernameController.addListener(() {
       setState(() {
         _username = _usernameController.text;
@@ -39,7 +39,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
     if (_username.isEmpty) {
       return;
     }
-    // NOTE: stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
+    // stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (context) => const EmailScreen(),
@@ -96,18 +96,18 @@ class _UsernameScreenState extends State<UsernameScreen> {
             ),
             Gaps.v16,
             TextField(
-              // NOTE: 입력창
+              // 입력창
               controller: _usernameController,
               decoration: InputDecoration(
-                // NOTE: placeholder
+                // placeholder
                 hintText: "Username",
-                // NOTE: underline border
+                // underline border
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
                   ),
                 ),
-                // NOTE: underline border
+                // underline border
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,

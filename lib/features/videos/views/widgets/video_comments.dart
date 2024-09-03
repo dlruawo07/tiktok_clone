@@ -41,7 +41,7 @@ class _VideoCommentsState extends State<VideoComments> {
     final isDark = isDarkMode(context);
 
     return Container(
-      // NOTE: BottomSheet의 사이즈를 조정하기 위해 height 값 할당
+      // BottomSheet의 사이즈를 조정하기 위해 height 값 할당
       height: size.height * 0.75,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -53,7 +53,7 @@ class _VideoCommentsState extends State<VideoComments> {
         backgroundColor: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
         appBar: AppBar(
           backgroundColor: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
-          // NOTE: appBar에서 뒤로가기 버튼 제거
+          // appBar에서 뒤로가기 버튼 제거
           automaticallyImplyLeading: false,
           title: Text(
             S.of(context).commentTitle(0, 0),
@@ -75,7 +75,7 @@ class _VideoCommentsState extends State<VideoComments> {
           child: Stack(
             children: [
               Scrollbar(
-                // NOTE: 스크롤바 필요 시
+                // 스크롤바 필요 시
                 controller: _scrollController,
                 child: ListView.separated(
                   controller: _scrollController,
@@ -85,7 +85,7 @@ class _VideoCommentsState extends State<VideoComments> {
                     right: Sizes.size16,
                     bottom: Sizes.size96 + Sizes.size32,
                   ),
-                  // NOTE: itemBuilder로 생기는 item들 사이마다
+                  // itemBuilder로 생기는 item들 사이마다
                   separatorBuilder: (context, index) => Gaps.v20,
                   itemCount: 10,
                   itemBuilder: (context, index) => Row(
@@ -96,7 +96,7 @@ class _VideoCommentsState extends State<VideoComments> {
                         child: Text("A"),
                       ),
                       Gaps.h10,
-                      // NOTE: 줄바꿈
+                      // 줄바꿈
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +136,7 @@ class _VideoCommentsState extends State<VideoComments> {
                   ),
                 ),
               ),
-              // NOTE: bottomNavigationBar로 하면 키보드가 올라왔을 때 숨기 때문에 Positioned로 아래에 붙이기
+              // bottomNavigationBar로 하면 키보드가 올라왔을 때 숨기 때문에 Positioned로 아래에 붙이기
               Positioned(
                 bottom: 0,
                 width: size.width,
@@ -155,12 +155,12 @@ class _VideoCommentsState extends State<VideoComments> {
                           height: Sizes.size48,
                           child: TextField(
                             onTap: _onWriting,
-                            // NOTE: expands 옵션 사용 시 minLines와 maxLines를 설정해야함
+                            // expands 옵션 사용 시 minLines와 maxLines를 설정해야함
                             minLines: null,
                             maxLines: null,
-                            // NOTE: 텍스트 필드가 늘어나게 해줌
+                            // 텍스트 필드가 늘어나게 해줌
                             expands: true,
-                            // NOTE: 키보드의 done 대신 return
+                            // 키보드의 done 대신 return
                             textInputAction: TextInputAction.newline,
                             cursorColor: Theme.of(context).primaryColor,
                             decoration: InputDecoration(
@@ -168,7 +168,7 @@ class _VideoCommentsState extends State<VideoComments> {
                                 padding: const EdgeInsets.only(
                                   right: Sizes.size14,
                                 ),
-                                // NOTE: 아이콘을 전부 왼쪽 정렬
+                                // 아이콘을 전부 왼쪽 정렬
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -207,7 +207,7 @@ class _VideoCommentsState extends State<VideoComments> {
                                     Gaps.h8,
                                     if (_isWriting)
                                       GestureDetector(
-                                        // NOTE: 추후 업로드로 변경
+                                        // 추후 업로드로 변경
                                         onTap: _stopWriting,
                                         child: FaIcon(
                                           FontAwesomeIcons.circleArrowUp,

@@ -45,8 +45,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     final isDark = isDarkMode(context);
 
     return Scaffold(
-      // NOTE: TextField 입력 시 키보드가 올라오고 scaffold는 자동으로 위젯들의 크기를 조정한다
-      // NOTE: 이를 방지하기 위한 옵션
+      // TextField 입력 시 키보드가 올라오고 scaffold는 자동으로 위젯들의 크기를 조정한다
+      // 이를 방지하기 위한 옵션
       resizeToAvoidBottomInset: false,
       backgroundColor: _selectedIndex != 0
           ? Theme.of(context).scaffoldBackgroundColor
@@ -54,9 +54,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       // _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
       body: Stack(
         children: [
-          // NOTE: 출력하거나 숨기는 위젯. default = offstage: true (숨김)
-          // NOTE: 숨김 처리 되어도 state는 그대로 갖고 있음.
-          // NOTE: Offstage를 남발하면 너무 많은 위젯들이 렌더 되기 때문에 느려질 수 있음.
+          // 출력하거나 숨기는 위젯. default = offstage: true (숨김)
+          // 숨김 처리 되어도 state는 그대로 갖고 있음.
+          // Offstage를 남발하면 너무 많은 위젯들이 렌더 되기 때문에 느려질 수 있음.
           Offstage(
             offstage: _selectedIndex != 0,
             child: const VideoTimelineScreen(),
@@ -137,7 +137,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
 
 
-// // NOTE: Cupertino style scaffold
+// // Cupertino style scaffold
 // return CupertinoTabScaffold(
 //   tabBar: CupertinoTabBar(
 //     items: const [
@@ -151,7 +151,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 //       ),
 //     ],
 //   ),
-//   // NOTE: 위젯을 반환하는 함수
+//   // 위젯을 반환하는 함수
 //   tabBuilder: (context, index) => screens[index],
 // );
 
@@ -201,8 +201,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 //       icon: FaIcon(FontAwesomeIcons.house),
 //       label: "Home",
 //       tooltip: "What are you?",
-//       // NOTE: Item이 4개 이상인 경우 탭 시 내비게이션바 전체 배경 색상이 바뀐다
-//       // NOTE: 하지만 BottomNavigationBar의 타입을 shifting으로 변경 시 아이템이 4개 미만이어도 적용 가능하다
+//       // Item이 4개 이상인 경우 탭 시 내비게이션바 전체 배경 색상이 바뀐다
+//       // 하지만 BottomNavigationBar의 타입을 shifting으로 변경 시 아이템이 4개 미만이어도 적용 가능하다
 //       backgroundColor: Colors.amber,
 //     ),
 //     BottomNavigationBarItem(
