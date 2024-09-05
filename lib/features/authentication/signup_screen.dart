@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/username_screen.dart';
+import 'package:tiktok_clone/features/authentication/view_models/social_auth_view_model.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/router.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends ConsumerWidget {
   const SignUpScreen({
     super.key,
   });
@@ -69,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return OrientationBuilder(
       builder: (context, orientation) {
         // if (orientation == Orientation.landscape) {
@@ -112,9 +114,11 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Gaps.v16,
                     AuthButton(
-                      text: S.of(context).appleButton,
-                      icon: const FaIcon(FontAwesomeIcons.apple),
-                      onTapFunction: () {},
+                      text: S.of(context).githubButton,
+                      icon: const FaIcon(FontAwesomeIcons.github),
+                      onTapFunction: () => ref
+                          .read(socialAuthProvider.notifier)
+                          .githubSignIn(context),
                     ),
                   ],
                   if (orientation == Orientation.landscape)
@@ -130,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
                         Gaps.h16,
                         Expanded(
                           child: AuthButton(
-                            text: S.of(context).appleButton,
+                            text: S.of(context).githubButton,
                             icon: const FaIcon(FontAwesomeIcons.apple),
                             onTapFunction: () {},
                           ),

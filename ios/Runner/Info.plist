@@ -22,10 +22,29 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>app-1-213617117395-ios-cdb766a17ab7415aad6c26</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>app-1-213617117395-ios-cdb766a17ab7415aad6c26</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow photo library</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -45,11 +64,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow camera</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow microphone</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow photo library</string>
 </dict>
 </plist>

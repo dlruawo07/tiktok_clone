@@ -37,7 +37,7 @@ android {
         release {
             // TODO: Add your own signIng config for the release build.
             // SignIng with the debug keys for now, so `flutter run --release` works.
-            signIngConfig = signIngConfigs.debug
+            signingConfig = signingConfigs.debug
         }
     }
 }
