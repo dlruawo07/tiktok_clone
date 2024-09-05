@@ -42,6 +42,11 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
     //   ),
     //   (route) => false,
     // );
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      "birthday": _birthdayController.value.text,
+    };
     ref.read(signUpProvider.notifier).signUp(context);
   }
 

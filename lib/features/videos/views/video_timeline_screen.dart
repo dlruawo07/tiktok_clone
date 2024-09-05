@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_post.dart';
 
@@ -57,7 +59,9 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
     // async notifier provider 이기 때문에 when으로 분기처리
     return ref.watch(timelineProvider).when(
           loading: () => const Center(
-            child: CircularProgressIndicator(),
+            child: CupertinoActivityIndicator(
+              radius: Sizes.size20,
+            ),
           ),
           error: (error, stackTrace) => Center(
             child: Text(

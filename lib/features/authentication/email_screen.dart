@@ -63,6 +63,7 @@ class EmailScreenState extends ConsumerState<EmailScreen> {
     }
     ref.read(signUpForm.notifier).state = {
       "email": _email,
+      "username": widget.username,
     };
 
     // context.pushNamed(CustomRouter.passwordName);
