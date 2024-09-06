@@ -21,19 +21,21 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   );
   final Curve _scrollCurve = Curves.linear;
 
-  int _itemCount = 4;
+  int _itemCount = 0;
 
   void _onPageChanged(int page) {
-    setState(() {
-      _pageController.animateToPage(
-        page,
-        duration: _scrollDuration,
-        curve: _scrollCurve,
-      );
-    });
-    if (page == _itemCount - 1) {
-      _itemCount = _itemCount + 4;
-    }
+    setState(
+      () {
+        _pageController.animateToPage(
+          page,
+          duration: _scrollDuration,
+          curve: _scrollCurve,
+        );
+        if (page == _itemCount - 1) {
+          ref.watch(timelineProvider.notifier).fetchNextPage();
+        }
+      },
+    );
   }
 
   void _onVideoFinished() {
@@ -71,26 +73,34 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               ),
             ),
           ),
-          data: (videos) => RefreshIndicator(
-            // onRefresh는 반드시 Future를 반환해야함
-            onRefresh: _onRefreshed,
-            // RefreshIndicator가 위치하는 지점
-            displacement: 50,
-            // RefreshIndicator가 시작하는 지점
-            edgeOffset: 20,
-            color: Theme.of(context).primaryColor,
-            // builder: build는 하지만 모두를 동시에 render하지는 않음
-            child: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              onPageChanged: _onPageChanged,
-              itemCount: videos.length,
-              itemBuilder: (context, index) => VideoPost(
-                onVideoFinished: _onVideoFinished,
-                index: index,
+          data: (videos) {
+            _itemCount = videos.length;
+
+            return RefreshIndicator(
+              // onRefresh는 반드시 Future를 반환해야함
+              onRefresh: _onRefreshed,
+              // RefreshIndicator가 위치하는 지점
+              displacement: 50,
+              // RefreshIndicator가 시작하는 지점
+              edgeOffset: 20,
+              color: Theme.of(context).primaryColor,
+              // builder: build는 하지만 모두를 동시에 render하지는 않음
+              child: PageView.builder(
+                controller: _pageController,
+                scrollDirection: Axis.vertical,
+                onPageChanged: _onPageChanged,
+                itemCount: videos.length,
+                itemBuilder: (context, index) {
+                  final videoData = videos[index];
+                  return VideoPost(
+                    onVideoFinished: _onVideoFinished,
+                    index: index,
+                    videoData: videoData,
+                  );
+                },
               ),
-            ),
-          ),
+            );
+          },
         );
   }
 }

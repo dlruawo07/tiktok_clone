@@ -34,7 +34,7 @@ class UserRepository {
     await _db.collection("users").doc(uid).update(data);
   }
 
-  // update vio
+  // update bio
   // update link
   // update profile
 }

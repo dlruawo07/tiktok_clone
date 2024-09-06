@@ -42,6 +42,7 @@ class InboxScreen extends StatelessWidget {
             icon: const FaIcon(
               FontAwesomeIcons.paperPlane,
             ),
+            splashColor: Colors.red,
           ),
         ],
       ),
