@@ -42,12 +42,8 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
     return;
   }
 
-  Future<void> _onRefreshed() {
-    return Future.delayed(
-      const Duration(
-        seconds: 5,
-      ),
-    );
+  Future<void> _onRefresh() {
+    return ref.watch(timelineProvider.notifier).refresh();
   }
 
   @override
@@ -78,7 +74,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
 
             return RefreshIndicator(
               // onRefresh는 반드시 Future를 반환해야함
-              onRefresh: _onRefreshed,
+              onRefresh: _onRefresh,
               // RefreshIndicator가 위치하는 지점
               displacement: 50,
               // RefreshIndicator가 시작하는 지점

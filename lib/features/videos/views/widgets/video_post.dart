@@ -5,6 +5,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
+import 'package:tiktok_clone/features/videos/view_models/video_post_view_model.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
@@ -43,19 +44,8 @@ class VideoPostState extends ConsumerState<VideoPost>
   bool _isPaused = false;
   // ignore: unused_field
   bool _isExpanded = false;
-
-  final List<String> tags = [
-    'Tag1',
-    'Tag2',
-    'Tag3',
-    'Tag4',
-    'Tag5',
-    'Tag6',
-    'Tag7',
-    'Tag8',
-    'Tag9',
-    'Tag10',
-  ];
+  bool _isLiked = false;
+  late int likeCount = 0;
 
   @override
   void initState() {
@@ -90,6 +80,18 @@ class VideoPostState extends ConsumerState<VideoPost>
     // });
   }
 
+  void _onToggleHeart() async {
+    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+    if (!_isLiked) {
+      likeCount += 1;
+    } else {
+      likeCount -= 1;
+    }
+    setState(() {
+      _isLiked = !_isLiked;
+    });
+  }
+
   void _onPlaybackConfigChanged() {
     if (!mounted) {
       return;
@@ -116,9 +118,13 @@ class VideoPostState extends ConsumerState<VideoPost>
     }
   }
 
-  void _initVideoPlayer() async {
+  Future<void> _initVideoPlayer() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
+    likeCount = widget.videoData.likes;
+    _isLiked = await ref
+        .read(videoPostProvider(widget.videoData.id).notifier)
+        .isLikedVideo();
     // 영상 컨트롤러는 영상의 종료를 항상 기다림
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
@@ -290,9 +296,13 @@ class VideoPostState extends ConsumerState<VideoPost>
                   ),
                 ),
                 Gaps.v44,
-                VideoButton(
-                  icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(widget.videoData.likes),
+                GestureDetector(
+                  onTap: _onToggleHeart,
+                  child: VideoButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    color: _isLiked ? Colors.red : null,
+                    text: S.of(context).likeCount(likeCount),
+                  ),
                 ),
                 Gaps.v44,
                 GestureDetector(
