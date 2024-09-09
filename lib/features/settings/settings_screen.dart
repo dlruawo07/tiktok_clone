@@ -5,7 +5,6 @@ import 'package:tiktok_clone/features/settings/widgets/aos_logout.dart';
 import 'package:tiktok_clone/features/settings/widgets/ios_bottom_logout.dart';
 import 'package:tiktok_clone/features/settings/widgets/ios_logout.dart';
 import 'package:tiktok_clone/features/settings/widgets/setting_tile.dart';
-import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({
