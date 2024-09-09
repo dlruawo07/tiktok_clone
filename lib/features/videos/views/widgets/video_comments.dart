@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/generated/l10n.dart';
-import 'package:tiktok_clone/utils.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+
+import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({
@@ -55,9 +55,9 @@ class _VideoCommentsState extends State<VideoComments> {
           backgroundColor: isDark ? Colors.grey.shade800 : Colors.grey.shade50,
           // appBar에서 뒤로가기 버튼 제거
           automaticallyImplyLeading: false,
-          title: Text(
-            S.of(context).commentTitle(0, 0),
-            style: const TextStyle(
+          title: const Text(
+            "comments",
+            style: TextStyle(
               fontSize: Sizes.size14,
             ),
           ),

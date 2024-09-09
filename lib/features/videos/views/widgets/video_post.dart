@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/video_post_view_model.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
-import 'package:tiktok_clone/generated/l10n.dart';
+
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -301,7 +301,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                   child: VideoButton(
                     icon: FontAwesomeIcons.solidHeart,
                     color: _isLiked ? Colors.red : null,
-                    text: S.of(context).likeCount(likeCount),
+                    text: "$likeCount likes",
                   ),
                 ),
                 Gaps.v44,
@@ -309,7 +309,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                   onTap: () => _onCommentsTap(context),
                   child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
-                    text: S.of(context).commentCount(widget.videoData.comments),
+                    text: "${widget.videoData.comments} comments",
                   ),
                 ),
                 Gaps.v44,

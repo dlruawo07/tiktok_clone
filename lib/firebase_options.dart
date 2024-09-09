@@ -72,5 +72,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'tik-tok-52296.appspot.com',
     iosBundleId: 'com.example.kyumjaeTikTokCloneTest1',
   );
-
 }

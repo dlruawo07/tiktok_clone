@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok_clone/features/users/models/user_profile_model.dart';
 import 'package:tiktok_clone/features/users/repositories/user_repository.dart';
@@ -13,7 +14,7 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
   @override
   FutureOr<UserProfileModel> build() async {
     _usersRepository = ref.read(userRepositoryProvider);
-    _authRepository = ref.read(authRepositoryProvider);
+    _authRepository = ref.read(authenticationRepositoryProvider);
     // fetch user profile
     if (_authRepository.isLoggedIn) {
       final profile = await _usersRepository.findProfile(

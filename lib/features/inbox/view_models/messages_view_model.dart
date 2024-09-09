@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/inbox/models/message_model.dart';
 import 'package:tiktok_clone/features/inbox/repositories/messages_repository.dart';
 
@@ -15,7 +15,7 @@ class MessagesViewModel extends AsyncNotifier<void> {
   }
 
   Future<void> sendMessage(String text) async {
-    final user = ref.read(authRepositoryProvider).user;
+    final user = ref.read(authenticationRepositoryProvider).user;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
       () async {
@@ -39,7 +39,16 @@ final messagesProvider = AsyncNotifierProvider<MessagesViewModel, void>(
 // riverpod will tell us when there is data or new data inserted
 // API is the same as AsyncNotifierProvider. (except that data doesn't come only once, but realtime: at any point)
 // autoDispose: clear messages when user exits chat room (stop listening) (kill connection with firebase when exits screen)
-final chatProvider = StreamProvider.autoDispose<List<MessageModel>>((ref) {
+// .family - can listen to specific chat room
+final chatProvider = StreamProvider.autoDispose
+    // .family
+    <
+        List<MessageModel>
+        // String
+        >((
+  ref,
+  // chatRoomId,
+) {
   final db = FirebaseFirestore.instance;
 
   return db

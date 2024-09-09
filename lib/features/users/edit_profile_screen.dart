@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/users/view_models/users_view_model.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {

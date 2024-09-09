@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/view_models/signup_view_model.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/providers/signup_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class BirthdayScreen extends ConsumerStatefulWidget {
@@ -20,6 +20,22 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
 
   DateTime initialDate = DateTime.now();
 
+  void _onNextTap() {
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      "birthday": _birthdayController.value.text,
+    };
+    ref.read(signUpProvider.notifier).signUp(context);
+  }
+
+  void _setTextFieldDate(DateTime date) {
+    final textDate = date.toString().split(" ").first;
+    _birthdayController.value = TextEditingValue(
+      text: textDate,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -34,30 +50,6 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
     super.dispose();
   }
 
-  void _onNextTap() {
-    // stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
-    // Navigator.of(context).pushAndRemoveUntil(
-    //   MaterialPageRoute(
-    //     builder: (context) => const InterestsScreen(),
-    //   ),
-    //   (route) => false,
-    // );
-    final state = ref.read(signUpForm.notifier).state;
-    ref.read(signUpForm.notifier).state = {
-      ...state,
-      "birthday": _birthdayController.value.text,
-    };
-    ref.read(signUpProvider.notifier).signUp(context);
-  }
-
-  void _setTextFieldDate(DateTime date) {
-    final textDate = date.toString().split(" ").first;
-    // 텍스트 필드값 지정
-    _birthdayController.value = TextEditingValue(
-      text: textDate,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,14 +61,13 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
           horizontal: Sizes.size36,
         ),
         child: Column(
-          // crossAxisAlignment는 수평
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gaps.v40,
             const Text(
               "When is your birthday?",
               style: TextStyle(
-                fontSize: Sizes.size20 + Sizes.size2,
+                fontSize: Sizes.size22,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -91,18 +82,14 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
             Gaps.v16,
             TextField(
               enabled: false,
-              // 입력창
               controller: _birthdayController,
               decoration: InputDecoration(
-                // placeholder
                 hintText: "Birthday",
-                // underline border
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
                   ),
                 ),
-                // underline border
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,

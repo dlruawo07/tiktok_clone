@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/password_screen.dart';
-import 'package:tiktok_clone/features/authentication/view_models/signup_view_model.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/configures/router.dart';
+import 'package:tiktok_clone/features/authentication/providers/signup_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class EmailScreen extends ConsumerStatefulWidget {
@@ -23,10 +24,38 @@ class EmailScreenState extends ConsumerState<EmailScreen> {
 
   String _email = "";
 
+  String? _isEmailValid() {
+    if (_email.isEmpty) {
+      return null;
+    }
+    final regExp = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
+    if (!regExp.hasMatch(_email)) {
+      return "Email not valid";
+    }
+    return null;
+  }
+
+  void _onScaffoldTap() {
+    FocusScope.of(context).unfocus();
+  }
+
+  void _onSubmit() {
+    if (_email.isEmpty || _isEmailValid() != null) {
+      return;
+    }
+    ref.read(signUpForm.notifier).state = {
+      "email": _email,
+      "username": widget.username,
+    };
+
+    context.pushNamed(CustomRouter.passwordName);
+  }
+
   @override
   void initState() {
     super.initState();
-    // 텍스트필드 이벤트리스너
     _emailController.addListener(() {
       setState(() {
         _email = _emailController.text;
@@ -40,47 +69,8 @@ class EmailScreenState extends ConsumerState<EmailScreen> {
     super.dispose();
   }
 
-  String? _isEmailValid() {
-    if (_email.isEmpty) {
-      return null;
-    }
-    final regExp = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    if (!regExp.hasMatch(_email)) {
-      return "Email not valid";
-    }
-    return null;
-  }
-
-  void _onScaffoldTap() {
-    // 현재 포커스된 위젯을 포커스 해제하기
-    FocusScope.of(context).unfocus();
-  }
-
-  void _onSubmit() {
-    if (_email.isEmpty || _isEmailValid() != null) {
-      return;
-    }
-    ref.read(signUpForm.notifier).state = {
-      "email": _email,
-      "username": widget.username,
-    };
-
-    // context.pushNamed(CustomRouter.passwordName);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const PasswordScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    // final args =
-    //     ModalRoute.of(context)!.settings.arguments as EmailScreenArguments;
-
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
@@ -99,7 +89,7 @@ class EmailScreenState extends ConsumerState<EmailScreen> {
               Text(
                 "What is your email, ${widget.username}?",
                 style: const TextStyle(
-                  fontSize: Sizes.size20 + Sizes.size2,
+                  fontSize: Sizes.size22,
                   fontWeight: FontWeight.w600,
                 ),
               ),

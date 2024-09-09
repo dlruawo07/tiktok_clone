@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/router.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/configures/router.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({

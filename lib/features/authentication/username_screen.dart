@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/email_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
@@ -18,10 +18,23 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
   String _username = "";
 
+  void _onNextTap() {
+    if (_username.isEmpty) {
+      return;
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EmailScreen(
+          username: _username,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    // 텍스트필드 이벤트리스너
     _usernameController.addListener(() {
       setState(() {
         _username = _usernameController.text;
@@ -33,36 +46,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
   void dispose() {
     _usernameController.dispose();
     super.dispose();
-  }
-
-  void _onNextTap() {
-    if (_username.isEmpty) {
-      return;
-    }
-    // stateful 위젯 내에서는 어디서든 context를 사용할 수 있다.
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const EmailScreen(),
-    //   ),
-    // );
-    // Navigator.of(context).pushNamed(
-    //   Routes.email,
-    //   arguments: EmailScreenArguments(
-    //     username: _username,
-    //   ),
-    // );
-    // context.pushNamed(
-    //   CustomRouter.emailName,
-    //   extra: EmailScreenArguments(username: _username),
-    // );
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EmailScreen(
-          username: _username,
-        ),
-      ),
-    );
   }
 
   @override
@@ -82,7 +65,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
             const Text(
               "Create username",
               style: TextStyle(
-                fontSize: Sizes.size20 + Sizes.size2,
+                fontSize: Sizes.size22,
                 fontWeight: FontWeight.w600,
               ),
             ),

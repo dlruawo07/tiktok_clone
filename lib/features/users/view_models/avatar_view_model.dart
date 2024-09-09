@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/users/repositories/user_repository.dart';
 import 'package:tiktok_clone/features/users/view_models/users_view_model.dart';
 
@@ -21,7 +21,7 @@ class AvatarViewModel extends AsyncNotifier {
 
   Future<void> uploadAvatar(File file) async {
     state = const AsyncValue.loading();
-    final filename = ref.read(authRepositoryProvider).user!.uid;
+    final filename = ref.read(authenticationRepositoryProvider).user!.uid;
     state = await AsyncValue.guard(
       () async {
         await _repository.uploadAvatar(file, filename);

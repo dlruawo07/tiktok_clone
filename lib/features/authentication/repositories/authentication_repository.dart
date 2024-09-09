@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthenticationRepository {
   // Firebase.initialize한 이후부터 인스턴스 사용 가능 (main.dart에서 함)
@@ -36,14 +35,3 @@ class AuthenticationRepository {
     );
   }
 }
-
-final authRepositoryProvider = Provider(
-  (ref) => AuthenticationRepository(),
-);
-
-final authState = StreamProvider(
-  (ref) {
-    final repo = ref.read(authRepositoryProvider);
-    return repo.authStateChanges();
-  },
-);

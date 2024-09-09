@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tiktok_clone/common/widgets/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
-import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
+import 'package:tiktok_clone/features/authentication/password_screen.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/signup_screen.dart';
+import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_screen.dart';
-import 'package:tiktok_clone/common/widgets/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
+import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok_clone/features/videos/views/video_recording_screen.dart';
 
 class CustomRouter {
@@ -50,17 +54,19 @@ class CustomRouter {
   static String tutorialName = "tutorial";
   static String usernamePath = "/username";
   static String usernameName = "username";
+  static String homePath = "/home";
 }
 
 final routerProvider = Provider(
   (ref) {
-    // // 유저가 로그인을 하거나 로그아웃을 하면 리빌드
+    // TODO: 유저가 로그인을 하거나 로그아웃을 하면 리빌드
     // ref.watch(authState);
 
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {
-        final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
+        final isLoggedIn =
+            ref.read(authenticationRepositoryProvider).isLoggedIn;
         if (!isLoggedIn) {
           if (state.matchedLocation != CustomRouter.signUpPath &&
               state.matchedLocation != CustomRouter.loginPath) {
@@ -131,80 +137,26 @@ final routerProvider = Provider(
           name: CustomRouter.signUpName,
           builder: (context, state) => const SignUpScreen(),
         ),
-        // GoRoute(
-        //   path: CustomRouter.passwordPath,
-        //   name: CustomRouter.passwordName,
-        //   builder: (context, state) => const PasswordScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.birthdayPath,
-        //   name: CustomRouter.birthdayName,
-        //   builder: (context, state) => const BirthdayScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.tutorialPath,
-        //   name: CustomRouter.tutorialName,
-        //   builder: (context, state) => const TutorialScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.chatDetailPath,
-        //   name: CustomRouter.chatDetailName,
-        //   builder: (context, state) => const ChatDetailScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.discoverPath,
-        //   name: CustomRouter.discoverName,
-        //   builder: (context, state) => const DiscoverScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.inboxPath,
-        //   name: CustomRouter.inboxName,
-        //   builder: (context, state) => const InboxScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.loginFormPath,
-        //   name: CustomRouter.loginFormName,
-        //   builder: (context, state) => const LoginFormScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.navigationPath,
-        //   name: CustomRouter.navigationName,
-        //   builder: (context, state) => const MainNavigationScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.profilePath,
-        //   name: CustomRouter.profileName,
-        //   builder: (context, state) => const UserProfileScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.settingsPath,
-        //   name: CustomRouter.settingsName,
-        //   builder: (context, state) => const SettingsScreen(),
-        // ),
-        // GoRoute(
-        //   path: CustomRouter.timelinePath,
-        //   name: CustomRouter.timelineName,
-        //   builder: (context, state) => const VideoTimelineScreen(),
-        // ),
-        // GoRoute(
-        //   path: Routes.username,
-        //   name: "username",
-        //   builder: (context, state) => const UsernameScreen(),
-        //   pageBuilder: (context, state) {
-        //     return CustomTransitionPage(
-        //       child: const UsernameScreen(),
-        //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        //         return FadeTransition(
-        //           opacity: animation,
-        //           child: ScaleTransition(
-        //             scale: animation,
-        //             child: child,
-        //           ),
-        //         );
-        //       },
-        //     );
-        //   },
-        // ),
+        GoRoute(
+          path: CustomRouter.usernamePath,
+          name: CustomRouter.usernameName,
+          builder: (context, state) => const UsernameScreen(),
+        ),
+        GoRoute(
+          path: CustomRouter.loginFormPath,
+          name: CustomRouter.loginFormName,
+          builder: (context, state) => const LoginFormScreen(),
+        ),
+        GoRoute(
+          path: CustomRouter.passwordPath,
+          name: CustomRouter.passwordName,
+          builder: (context, state) => const PasswordScreen(),
+        ),
+        GoRoute(
+          path: CustomRouter.tutorialPath,
+          name: CustomRouter.tutorialName,
+          builder: (context, state) => const TutorialScreen(),
+        ),
       ],
     );
   },

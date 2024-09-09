@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/utils.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class InterestButton extends StatefulWidget {
   const InterestButton({

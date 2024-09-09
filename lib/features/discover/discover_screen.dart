@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/constants/breakpoints.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/utils.dart';
-
-final tabs = ["Top", "Users", "Videos", "Sounds", "LIVE", "Shopping", "Brands"];
+import 'package:tiktok_clone/configures/constants/breakpoints.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/images.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/tabs.dart';
+import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({
@@ -21,8 +21,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _textEditingController = TextEditingController(
     text: "Initial Text",
   );
-  // late final TabController _tabController =
-  //     TabController(vsync: this, length: tabs.length);
 
   void _onSearchChanged(String value) {}
 
@@ -31,17 +29,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   void initState() {
     super.initState();
-    // _tabController.addListener(() {
-    //   if (_tabController.indexIsChanging) {
-    //     FocusScope.of(context).unfocus();
-    //   }
-    // });
   }
 
   @override
   void dispose() {
     _textEditingController.dispose();
-    // _tabController.dispose();
     super.dispose();
   }
 
@@ -49,7 +41,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return DefaultTabController(
-      length: tabs.length,
+      length: discoverTabs.length,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -77,7 +69,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
-              for (var tab in tabs)
+              for (var tab in discoverTabs)
                 Tab(
                   text: tab,
                 ),
@@ -117,9 +109,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         child: FadeInImage.assetNetwork(
                           // 어떻게 맞출 지 옵션
                           fit: BoxFit.cover,
-                          placeholder: "assets/images/placeholder.jpg",
-                          image:
-                              "https://images.unsplash.com/photo-1722925542006-7d9f0ebc4da1?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                          placeholder: defaultImgPlaceholder,
+                          image: defaultGridImg,
                         ),
                       ),
                     ),
@@ -148,9 +139,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://avatars.githubusercontent.com/u/59638614?v=4",
-                              ),
+                              backgroundImage: NetworkImage(defaultImg),
                               radius: 12,
                             ),
                             Gaps.h4,
@@ -181,7 +170,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
               ),
             ),
-            for (var tab in tabs.skip(1))
+            for (var tab in discoverTabs.skip(1))
               Center(
                 child: Text(
                   tab,

@@ -87,3 +87,8 @@ export const onLikedRemoved = functions
         likes: admin.firestore.FieldValue.increment(-1),
       });
   });
+
+// firebase functions 사용법:
+// 1. 함수 생성 (특정 문서 경로 설정 후 반드시 onCreate, onDelete, onUpdate, onWrite 중 하나 구현)
+// 2. onCreate, onDelete, onUpdate, onWrite의 콜백 함수의 첫 번째 인자는 snapshot으로 문서에 대한 정보를 담고 있다
+// 3. 함수 구현할 때마다 firebase deploy --only functions 명령어를 실행해야 한다

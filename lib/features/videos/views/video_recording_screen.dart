@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/views/video_preview_screen.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/camera_flash_mode_button.dart';
 
@@ -329,8 +329,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                               alignment: Alignment.center,
                               children: [
                                 SizedBox(
-                                  width: Sizes.size60 + Sizes.size12,
-                                  height: Sizes.size60 + Sizes.size12,
+                                  width: Sizes.size72,
+                                  height: Sizes.size72,
                                   child: CircularProgressIndicator(
                                     color: Colors.red.shade400,
                                     strokeWidth: Sizes.size5,

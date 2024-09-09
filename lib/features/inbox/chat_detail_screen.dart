@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/inbox/view_models/messages_view_model.dart';
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
@@ -111,7 +111,7 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
                     itemBuilder: (context, index) {
                       final message = data[index];
                       final isMine = message.userId ==
-                          ref.watch(authRepositoryProvider).user!.uid;
+                          ref.watch(authenticationRepositoryProvider).user!.uid;
                       return Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: isMine

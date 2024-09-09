@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/utils.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/configures/router.dart';
+import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 enum Direction { right, left }
 
@@ -49,21 +50,13 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void _onEnterTap() {
-    // Navigator.of(context).pushAndRemoveUntil(
-    //   MaterialPageRoute(
-    //     builder: (context) => const MainNavigationScreen(),
-    //   ),
-    //   (route) => false,
-    // );
-    context.go("/home");
+    context.go(CustomRouter.homePath);
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // 드래그 이벤트 발생 시
       onPanUpdate: _onPanUpdate,
-      // 드래그 이벤트 종료 시
       onPanEnd: _onPanEnd,
       child: Scaffold(
         body: SafeArea(
@@ -80,7 +73,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                   Text(
                     "Watch cool videos!",
                     style: TextStyle(
-                      fontSize: Sizes.size32 + Sizes.size3,
+                      fontSize: Sizes.size34,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -102,7 +95,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     child: Text(
                       "Follow the rules!",
                       style: TextStyle(
-                        fontSize: Sizes.size32 + Sizes.size3,
+                        fontSize: Sizes.size34,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -150,103 +143,3 @@ class _TutorialScreenState extends State<TutorialScreen> {
     );
   }
 }
-
-// // 자식 위젯에 대해 디폴트 탭 컨트롤러를 만들어줌
-// return DefaultTabController(
-//   length = 3,
-//   child = Scaffold(
-//     body: const SafeArea(
-//       // 한 탭 당 하나의 자식 위젯을 가지는 페이지 뷰 위젯
-//       child: TabBarView(
-//         children: [
-//           Padding(
-//             padding: EdgeInsets.symmetric(horizontal: Sizes.size24),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Gaps.v32,
-//                 Text(
-//                   "Watch cool videos!",
-//                   style: TextStyle(
-//                     fontSize: Sizes.size32 + Sizes.size3,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 Gaps.v12,
-//                 Text(
-//                   "Videos are personalized for you based on what you watch, like, and share.",
-//                   style: TextStyle(
-//                     fontSize: Sizes.size16,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Padding(
-//             padding: EdgeInsets.symmetric(horizontal: Sizes.size24),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Gaps.v32,
-//                 Text(
-//                   "Follow the rules!",
-//                   style: TextStyle(
-//                     fontSize: Sizes.size32 + Sizes.size3,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 Gaps.v12,
-//                 Text(
-//                   "Videos are personalized for you based on what you watch, like, and share.",
-//                   style: TextStyle(
-//                     fontSize: Sizes.size16,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Padding(
-//             padding: EdgeInsets.symmetric(horizontal: Sizes.size24),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Gaps.v32,
-//                 Text(
-//                   "Enjoy the ride!",
-//                   style: TextStyle(
-//                     fontSize: Sizes.size32 + Sizes.size3,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 Gaps.v12,
-//                 Text(
-//                   "Videos are personalized for you based on what you watch, like, and share.",
-//                   style: TextStyle(
-//                     fontSize: Sizes.size16,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           )
-//         ],
-//       ),
-//     ),
-//     bottomNavigationBar: BottomAppBar(
-//       child: Container(
-//         padding: const EdgeInsets.symmetric(
-//             // vertical: Sizes.size48,
-//             ),
-//         child: const Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             // 탭 셀렉터 표시 (TabBarView와 함께 사용 시 DefaultTabController 아래 둘 다 있어아 햠)
-//             TabPageSelector(
-//               color: Colors.white,
-//               selectedColor: Colors.black38,
-//             ),
-//           ],
-//         ),
-//       ),
-//     ),
-//   ),
-// );

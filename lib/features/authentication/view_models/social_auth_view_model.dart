@@ -3,14 +3,16 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tiktok_clone/configures/router.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
-import 'package:tiktok_clone/utils.dart';
+import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class SocialAuthViewModel extends AsyncNotifier<void> {
   late final AuthenticationRepository _repository;
   @override
   FutureOr<void> build() {
-    _repository = ref.read(authRepositoryProvider);
+    _repository = ref.read(authenticationRepositoryProvider);
   }
 
   Future<void> githubSignIn(BuildContext context) async {
@@ -22,11 +24,7 @@ class SocialAuthViewModel extends AsyncNotifier<void> {
     if (state.hasError) {
       showFirebaseErrorSnack(context, state.error);
     } else {
-      context.go("/home");
+      context.go(CustomRouter.homePath);
     }
   }
 }
-
-final socialAuthProvider = AsyncNotifierProvider<SocialAuthViewModel, void>(
-  () => SocialAuthViewModel(),
-);

@@ -1,31 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/interests.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/configures/router.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/interest_button.dart';
-
-const interests = [
-  "Daily Life",
-  "Comedy",
-  "Entertainment",
-  "Animals",
-  "Food",
-  "Beauty & Style",
-  "Drama",
-  "Learning",
-  "Talent",
-  "Sports",
-  "Auto",
-  "Family",
-  "Fitness & Health",
-  "DIY & Life Hacks",
-  "Arts & Crafts",
-  "Dance",
-  "Outdoors",
-  "Oddly Satisfying",
-  "Home & Garden"
-];
 
 class InterestsScreen extends StatefulWidget {
   const InterestsScreen({
@@ -50,13 +30,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
   }
 
   void _onNextTap() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const TutorialScreen(),
-      ),
-    );
-    // context.pushNamed(CustomRouter.tutorialName);
+    context.pushNamed(CustomRouter.tutorialName);
   }
 
   @override
@@ -83,7 +57,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
             milliseconds: 300,
           ),
           child: Text(
-            "Choose your interests",
+            interestsTitle,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -106,7 +80,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
               children: [
                 Gaps.v28,
                 const Text(
-                  "Choose your interests",
+                  interestsTitle,
                   style: TextStyle(
                     fontSize: Sizes.size36,
                     fontWeight: FontWeight.bold,
@@ -154,22 +128,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
               "Next",
             ),
           ),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(
-          //     vertical: Sizes.size18,
-          //   ),
-          //   decoration: BoxDecoration(
-          //     color: Theme.of(context).primaryColor,
-          //   ),
-          //   child: const Text(
-          //     "Next",
-          //     textAlign: TextAlign.center,
-          //     style: TextStyle(
-          //       color: Colors.white,
-          //       fontSize: Sizes.size16,
-          //     ),
-          //   ),
-          // ),
         ),
       ),
     );

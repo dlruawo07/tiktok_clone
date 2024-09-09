@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_post.dart';
 

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
-import 'package:tiktok_clone/features/authentication/view_models/social_auth_view_model.dart';
+import 'package:tiktok_clone/features/authentication/providers/social_auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 class LoginScreen extends ConsumerWidget {
@@ -14,18 +14,15 @@ class LoginScreen extends ConsumerWidget {
   });
 
   void _onSignUpTap(BuildContext context) {
-    // 가장 최근 위젯 삭제(LoginScreen)
     context.pop();
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    // context.pushNamed(CustomRouter.loginFormName);
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginFormScreen(),
-      ),
-    );
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginFormScreen(),
+        ));
   }
 
   @override
@@ -39,14 +36,13 @@ class LoginScreen extends ConsumerWidget {
           child: Column(
             children: [
               Gaps.v80,
-              Text("Log in to TikTok",
-                  // copyWith - headlineLarge의 특성 + 새로운 특성이 필요할 때
-                  style: Theme.of(context).textTheme.headlineSmall!
-                  // .copyWith(color: Colors.black),
-                  ),
+              Text(
+                "Log in",
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               Gaps.v20,
               const Opacity(
-                opacity: 0.7,
+                opacity: 0.8,
                 child: Text(
                   "Manage your account, check notifications, comment on videos, and more.",
                   style: TextStyle(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/birthday_screen.dart';
-import 'package:tiktok_clone/features/authentication/view_models/signup_view_model.dart';
+import 'package:tiktok_clone/features/authentication/providers/signup_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class PasswordScreen extends ConsumerStatefulWidget {
@@ -18,27 +18,8 @@ class PasswordScreen extends ConsumerStatefulWidget {
 
 class PasswordScreenState extends ConsumerState<PasswordScreen> {
   final TextEditingController _passwordController = TextEditingController();
-
   String _password = "";
-
   bool _obscureText = true;
-
-  @override
-  void initState() {
-    super.initState();
-    // 텍스트필드 이벤트리스너
-    _passwordController.addListener(() {
-      setState(() {
-        _password = _passwordController.text;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   num _isPasswordValid() {
     int result = 0;
@@ -99,6 +80,22 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(() {
+      setState(() {
+        _password = _passwordController.text;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _onScaffoldTap,
@@ -111,14 +108,13 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
             horizontal: Sizes.size36,
           ),
           child: Column(
-            // crossAxisAlignment는 수평
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gaps.v40,
               const Text(
                 "Password",
                 style: TextStyle(
-                  fontSize: Sizes.size20 + Sizes.size2,
+                  fontSize: Sizes.size22,
                   fontWeight: FontWeight.w600,
                 ),
               ),

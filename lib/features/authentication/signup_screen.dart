@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/constants/gaps.dart';
-import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
-import 'package:tiktok_clone/features/authentication/view_models/social_auth_view_model.dart';
+import 'package:tiktok_clone/configures/constants/gaps.dart';
+import 'package:tiktok_clone/configures/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/providers/social_auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
-import 'package:tiktok_clone/generated/l10n.dart';
-import 'package:tiktok_clone/router.dart';
+
+import 'package:tiktok_clone/configures/router.dart';
 
 class SignUpScreen extends ConsumerWidget {
   const SignUpScreen({
@@ -16,71 +15,17 @@ class SignUpScreen extends ConsumerWidget {
   });
 
   void _onLoginTap(BuildContext context) {
-    // LoginScreen을 context에 푸쉬
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const LoginScreen(),
-    //   ),
-    // );
-    // Navigator.of(context).pushNamed(Routes.login);
-    // GoRouter 방법
     context.pushNamed(CustomRouter.loginName);
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    // UsernameScreen을 context에 푸쉬
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const UsernameScreen(),
-    //   ),
-    // );
-    // PageRouteBuilder 사용법
-    // Navigator.of(context).push(
-    //   PageRouteBuilder(
-    //     transitionDuration: const Duration(seconds: 1),
-    //     reverseTransitionDuration: const Duration(seconds: 1),
-    //     pageBuilder: (context, animation, secondaryAnimation) =>
-    //         const UsernameScreen(),
-    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //       final offsetAnimation = Tween(
-    //         begin: const Offset(0, 1),
-    //         end: Offset.zero,
-    //       ).animate(animation);
-    //       final opacityAnimation = Tween(
-    //         begin: 0.5,
-    //         end: 1.0,
-    //       ).animate(animation);
-    //       return SlideTransition(
-    //         position: offsetAnimation,
-    //         child: FadeTransition(
-    //           opacity: opacityAnimation,
-    //           child: child,
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
-    // context.push(Routes.username);
-    // context.pushNamed(CustomRouter.usernameName);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const UsernameScreen(),
-      ),
-    );
+    context.pushNamed(CustomRouter.usernameName);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return OrientationBuilder(
       builder: (context, orientation) {
-        // if (orientation == Orientation.landscape) {
-        //   return const Scaffold(
-        //     body: Center(
-        //       child: Text("Please rotate your phone."),
-        //     ),
-        //   );
-        // }
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -91,15 +36,15 @@ class SignUpScreen extends ConsumerWidget {
                 children: [
                   Gaps.v80,
                   Text(
-                    S.of(context).signUpTitle("TikTok", DateTime.now()),
+                    "Sign up",
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Gaps.v20,
-                  Opacity(
+                  const Opacity(
                     opacity: 0.8,
                     child: Text(
-                      S.of(context).signUpSubtitle(0),
-                      style: const TextStyle(
+                      "Create a profile, follow other accounts, make your own videos, and more.",
+                      style: TextStyle(
                         fontSize: Sizes.size14,
                       ),
                       textAlign: TextAlign.center,
@@ -108,13 +53,13 @@ class SignUpScreen extends ConsumerWidget {
                   Gaps.v40,
                   if (orientation == Orientation.portrait) ...[
                     AuthButton(
-                      text: S.of(context).emailPasswordButton,
+                      text: "Use email & password",
                       icon: const FaIcon(FontAwesomeIcons.user),
                       onTapFunction: () => _onEmailLoginTap(context),
                     ),
                     Gaps.v16,
                     AuthButton(
-                      text: S.of(context).githubButton,
+                      text: "Continue with Github",
                       icon: const FaIcon(FontAwesomeIcons.github),
                       onTapFunction: () => ref
                           .read(socialAuthProvider.notifier)
@@ -126,7 +71,7 @@ class SignUpScreen extends ConsumerWidget {
                       children: [
                         Expanded(
                           child: AuthButton(
-                            text: S.of(context).emailPasswordButton,
+                            text: "Use email & password",
                             icon: const FaIcon(FontAwesomeIcons.user),
                             onTapFunction: () => _onEmailLoginTap(context),
                           ),
@@ -134,9 +79,11 @@ class SignUpScreen extends ConsumerWidget {
                         Gaps.h16,
                         Expanded(
                           child: AuthButton(
-                            text: S.of(context).githubButton,
+                            text: "Continue with Github",
                             icon: const FaIcon(FontAwesomeIcons.apple),
-                            onTapFunction: () {},
+                            onTapFunction: () => ref
+                                .read(socialAuthProvider.notifier)
+                                .githubSignIn(context),
                           ),
                         ),
                       ],
@@ -154,12 +101,12 @@ class SignUpScreen extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(S.of(context).alreadyHaveAnAccount),
+                  const Text("Already have an account?"),
                   Gaps.h5,
                   GestureDetector(
                     onTap: () => _onLoginTap(context),
                     child: Text(
-                      S.of(context).login("male"),
+                      "Log in",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
