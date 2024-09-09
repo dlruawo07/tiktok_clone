@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
+import 'package:tiktok_clone/features/inbox/view_models/messages_view_model.dart';
 
-class ChatDetailScreen extends StatefulWidget {
+class ChatDetailScreen extends ConsumerStatefulWidget {
   const ChatDetailScreen({
     super.key,
     required this.chatId,
@@ -12,14 +15,25 @@ class ChatDetailScreen extends StatefulWidget {
   final String chatId;
 
   @override
-  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
+  ChatDetailScreenState createState() => ChatDetailScreenState();
 }
 
-class _ChatDetailScreenState extends State<ChatDetailScreen> {
+class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   final TextEditingController _textController = TextEditingController();
 
   void _unfocus() {
     FocusScope.of(context).unfocus();
+  }
+
+  void _onSendPressed() {
+    final text = _textController.text;
+    if (text == "") {
+      return;
+    }
+
+    ref.read(messagesProvider.notifier).sendMessage(text);
+
+    _textController.text = "";
   }
 
   @override
@@ -30,6 +44,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(messagesProvider).isLoading;
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -83,51 +98,71 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         children: [
           GestureDetector(
             onTap: _unfocus,
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size20,
-                horizontal: Sizes.size14,
-              ),
-              itemBuilder: (context, index) {
-                final isMine = index % 2 == 0;
-                return Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment:
-                      isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(
-                        Sizes.size14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isMine
-                            ? Colors.blue
-                            : Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(Sizes.size20),
-                          topRight: const Radius.circular(Sizes.size20),
-                          bottomLeft: isMine
-                              ? const Radius.circular(Sizes.size20)
-                              : const Radius.circular(Sizes.size2),
-                          bottomRight: isMine
-                              ? const Radius.circular(Sizes.size2)
-                              : const Radius.circular(Sizes.size20),
-                        ),
-                      ),
-                      child: const Text(
-                        "This is a message.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: Sizes.size16,
-                        ),
-                      ),
+            child: ref.watch(chatProvider).when(
+                  data: (data) => ListView.separated(
+                    reverse: true,
+                    padding: EdgeInsets.only(
+                      top: Sizes.size20,
+                      bottom:
+                          MediaQuery.of(context).padding.bottom + Sizes.size96,
+                      left: Sizes.size14,
+                      right: Sizes.size14,
                     ),
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) => Gaps.v10,
-              itemCount: 10,
-            ),
+                    itemBuilder: (context, index) {
+                      final message = data[index];
+                      final isMine = message.userId ==
+                          ref.watch(authRepositoryProvider).user!.uid;
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: isMine
+                            ? MainAxisAlignment.end
+                            : MainAxisAlignment.start,
+                        children: [
+                          // TODO: Code challenge.
+                          // onLongPress: instead of just deleting, replace the text with [Deleted message].
+                          // delete message if the message was created in less than four minutes ago. (only my messages)
+                          Container(
+                            padding: const EdgeInsets.all(
+                              Sizes.size14,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isMine
+                                  ? Colors.blue
+                                  : Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: const Radius.circular(Sizes.size20),
+                                topRight: const Radius.circular(Sizes.size20),
+                                bottomLeft: isMine
+                                    ? const Radius.circular(Sizes.size20)
+                                    : const Radius.circular(Sizes.size2),
+                                bottomRight: isMine
+                                    ? const Radius.circular(Sizes.size2)
+                                    : const Radius.circular(Sizes.size20),
+                              ),
+                            ),
+                            child: Text(
+                              message.text,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: Sizes.size16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (context, index) => Gaps.v10,
+                    itemCount: data.length,
+                  ),
+                  error: (error, stackTrance) => Center(
+                    child: Text(
+                      error.toString(),
+                    ),
+                  ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
           ),
           Positioned(
             bottom: 0,
@@ -163,9 +198,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       ),
                     ),
                   ),
-                  FaIcon(
-                    FontAwesomeIcons.paperPlane,
-                    color: Colors.grey.shade600,
+                  IconButton(
+                    onPressed: isLoading ? null : _onSendPressed,
+                    icon: FaIcon(
+                      isLoading
+                          ? FontAwesomeIcons.hourglass
+                          : FontAwesomeIcons.paperPlane,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),

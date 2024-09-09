@@ -109,6 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
             onPressed: _addItem,
+            // TODO: Code challenge: on press => show all users. and on user tap, create a chat room.
             icon: const FaIcon(
               FontAwesomeIcons.plus,
             ),
