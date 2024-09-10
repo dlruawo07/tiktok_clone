@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/users/models/user_profile_model.dart';
 
 class UserRepository {
@@ -33,12 +32,4 @@ class UserRepository {
   Future<void> updateProfile(String uid, Map<String, dynamic> data) async {
     await _db.collection("users").doc(uid).update(data);
   }
-
-  // update bio
-  // update link
-  // update profile
 }
-
-final userRepositoryProvider = Provider(
-  (ref) => UserRepository(),
-);

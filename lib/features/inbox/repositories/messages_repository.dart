@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/inbox/models/message_model.dart';
 
 class MessagesRepository {
@@ -13,7 +12,3 @@ class MessagesRepository {
         .add(message.toJson());
   }
 }
-
-final messagesRepository = Provider(
-  (ref) => MessagesRepository(),
-);

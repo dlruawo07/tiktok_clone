@@ -26,7 +26,7 @@ class LogoutBottomIOS extends ConsumerWidget {
               ),
               CupertinoActionSheetAction(
                 onPressed: () {
-                  ref.read(signUpProvider.notifier).signOut();
+                  ref.read(signupProvider.notifier).signOut();
                   context.go("/");
                 },
                 isDestructiveAction: true,

@@ -26,7 +26,7 @@ class LogoutAOS extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () {
-                  ref.read(signUpProvider.notifier).signOut();
+                  ref.read(signupProvider.notifier).signOut();
                   context.go("/");
                 },
                 child: const Text("Yes"),

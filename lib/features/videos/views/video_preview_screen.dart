@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:tiktok_clone/features/videos/view_models/upload_video_view_model.dart';
+import 'package:tiktok_clone/features/videos/providers/video_upload_provider.dart';
 import 'package:video_player/video_player.dart';
 
 // 라이브러리 시 ios/Runner/Info.plist에 아래 줄 추가
@@ -13,14 +13,14 @@ import 'package:video_player/video_player.dart';
 // <string>Allow photo library</string>
 
 class VideoPreviewScreen extends ConsumerStatefulWidget {
-  final XFile video;
-  final bool isPicked;
-
   const VideoPreviewScreen({
     super.key,
     required this.video,
     required this.isPicked,
   });
+
+  final XFile video;
+  final bool isPicked;
 
   @override
   VideoPreviewScreenState createState() => VideoPreviewScreenState();
@@ -58,7 +58,7 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
   }
 
   void _onUploadPressed() async {
-    await ref.read(uploadVideoProvider.notifier).uploadVideo(
+    await ref.read(videoUploadProvider.notifier).uploadVideo(
           context,
           File(widget.video.path),
         );
@@ -91,10 +91,10 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
               ),
             ),
           IconButton(
-            onPressed: ref.watch(uploadVideoProvider).isLoading
+            onPressed: ref.watch(videoUploadProvider).isLoading
                 ? () {}
                 : _onUploadPressed,
-            icon: ref.watch(uploadVideoProvider).isLoading
+            icon: ref.watch(videoUploadProvider).isLoading
                 ? const CircularProgressIndicator()
                 : const FaIcon(FontAwesomeIcons.cloudArrowUp),
           ),

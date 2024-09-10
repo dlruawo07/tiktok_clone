@@ -9,11 +9,11 @@ import 'package:tiktok_clone/features/authentication/repositories/authentication
 import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class LoginViewModel extends AsyncNotifier<void> {
-  late final AuthenticationRepository _authRepository;
+  late final AuthRepository _repository;
 
   @override
   FutureOr<void> build() {
-    _authRepository = ref.read(authenticationRepositoryProvider);
+    _repository = ref.read(authRepositoryProvider);
   }
 
   Future<void> login(
@@ -23,7 +23,7 @@ class LoginViewModel extends AsyncNotifier<void> {
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
-      () async => await _authRepository.emailSignIn(
+      () async => await _repository.emailSignIn(
         email,
         password,
       ),

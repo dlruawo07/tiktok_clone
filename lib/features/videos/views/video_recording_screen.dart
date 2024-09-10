@@ -9,6 +9,7 @@ import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/views/video_preview_screen.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/camera_flash_mode_button.dart';
+import 'package:tiktok_clone/utils/get_size.dart';
 
 // 카메라 & 마이크 사용 시 ios/Runner/Info.plist에 아래 줄 추가
 // <key>NSCameraUsageDescription</key>
@@ -253,8 +254,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     return Scaffold(
       backgroundColor: Colors.black,
       body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: getDeviceWidth(context),
+        height: getDeviceHeight(context),
         child: !_hasPermission
             ? const SafeArea(
                 child: Column(
@@ -280,7 +281,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     Transform.scale(
                       scale: 1 /
                           (_cameraController.value.aspectRatio *
-                              MediaQuery.of(context).size.aspectRatio),
+                              getDeviceAspectRatio(context)),
                       child: CameraPreview(_cameraController),
                     ),
                   const Positioned(
@@ -313,7 +314,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                       ),
                     ),
                   Positioned(
-                    width: MediaQuery.of(context).size.width,
+                    width: getDeviceWidth(context),
                     bottom: Sizes.size40,
                     child: Row(
                       children: [

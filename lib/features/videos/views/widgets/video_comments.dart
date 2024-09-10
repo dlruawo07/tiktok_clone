@@ -4,6 +4,7 @@ import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 
 import 'package:tiktok_clone/utils/error_snackbar.dart';
+import 'package:tiktok_clone/utils/get_size.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({
@@ -37,12 +38,11 @@ class _VideoCommentsState extends State<VideoComments> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final isDark = isDarkMode(context);
 
     return Container(
       // BottomSheet의 사이즈를 조정하기 위해 height 값 할당
-      height: size.height * 0.75,
+      height: getDeviceHeight(context) * 0.75,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
@@ -139,7 +139,7 @@ class _VideoCommentsState extends State<VideoComments> {
               // bottomNavigationBar로 하면 키보드가 올라왔을 때 숨기 때문에 Positioned로 아래에 붙이기
               Positioned(
                 bottom: 0,
-                width: size.width,
+                width: getDeviceWidth(context),
                 child: BottomAppBar(
                   child: Row(
                     children: [

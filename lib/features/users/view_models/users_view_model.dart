@@ -5,16 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok_clone/features/users/models/user_profile_model.dart';
+import 'package:tiktok_clone/features/users/providers/users_provider.dart';
 import 'package:tiktok_clone/features/users/repositories/user_repository.dart';
 
 class UsersViewModel extends AsyncNotifier<UserProfileModel> {
   late final UserRepository _usersRepository;
-  late final AuthenticationRepository _authRepository;
+  late final AuthRepository _authRepository;
 
   @override
   FutureOr<UserProfileModel> build() async {
     _usersRepository = ref.read(userRepositoryProvider);
-    _authRepository = ref.read(authenticationRepositoryProvider);
+    _authRepository = ref.read(authRepositoryProvider);
     // fetch user profile
     if (_authRepository.isLoggedIn) {
       final profile = await _usersRepository.findProfile(
@@ -61,7 +62,9 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     }
 
     state = AsyncValue.data(
-      state.value!.copyWith(hasAvatar: true),
+      state.value!.copyWith(
+        hasAvatar: true,
+      ),
     );
 
     await _usersRepository.updateProfile(
@@ -110,7 +113,3 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     );
   }
 }
-
-final usersProvider = AsyncNotifierProvider<UsersViewModel, UserProfileModel>(
-  () => UsersViewModel(),
-);

@@ -9,8 +9,8 @@ import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 import 'package:tiktok_clone/configures/router.dart';
 
-class SignUpScreen extends ConsumerWidget {
-  const SignUpScreen({
+class SignupScreen extends ConsumerWidget {
+  const SignupScreen({
     super.key,
   });
 

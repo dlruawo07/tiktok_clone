@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/common/widgets/main_navigation/main_navigation_screen.dart';
-import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
-import 'package:tiktok_clone/features/authentication/login_screen.dart';
-import 'package:tiktok_clone/features/authentication/password_screen.dart';
+import 'package:tiktok_clone/common/widgets/main_navigation/views/main_navigation_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/login_form_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/login_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/password_screen.dart';
 import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
-import 'package:tiktok_clone/features/authentication/signup_screen.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
-import 'package:tiktok_clone/features/inbox/activity_screen.dart';
-import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
-import 'package:tiktok_clone/features/inbox/chat_screen.dart';
-import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
-import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/signup_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/username_screen.dart';
+import 'package:tiktok_clone/features/inbox/views/activity_screen.dart';
+import 'package:tiktok_clone/features/inbox/views/chat_detail_screen.dart';
+import 'package:tiktok_clone/features/inbox/views/chat_screen.dart';
+import 'package:tiktok_clone/features/onboarding/views/interests_screen.dart';
+import 'package:tiktok_clone/features/onboarding/views/tutorial_screen.dart';
 import 'package:tiktok_clone/features/videos/views/video_recording_screen.dart';
 
 class CustomRouter {
@@ -46,8 +46,8 @@ class CustomRouter {
   static String recordingName = "postVideo";
   static String settingsPath = "/settings";
   static String settingsName = "settings";
-  static String signUpPath = "/";
-  static String signUpName = "signUp";
+  static String signupPath = "/";
+  static String signupName = "signup";
   static String timelinePath = "/timeline";
   static String timelineName = "timeline";
   static String tutorialPath = "/tutorial";
@@ -65,12 +65,11 @@ final routerProvider = Provider(
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {
-        final isLoggedIn =
-            ref.read(authenticationRepositoryProvider).isLoggedIn;
+        final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
         if (!isLoggedIn) {
-          if (state.matchedLocation != CustomRouter.signUpPath &&
+          if (state.matchedLocation != CustomRouter.signupPath &&
               state.matchedLocation != CustomRouter.loginPath) {
-            return CustomRouter.signUpPath;
+            return CustomRouter.signupPath;
           }
         }
         return null;
@@ -133,9 +132,9 @@ final routerProvider = Provider(
           builder: (context, state) => const VideoRecordingScreen(),
         ),
         GoRoute(
-          path: CustomRouter.signUpPath,
-          name: CustomRouter.signUpName,
-          builder: (context, state) => const SignUpScreen(),
+          path: CustomRouter.signupPath,
+          name: CustomRouter.signupName,
+          builder: (context, state) => const SignupScreen(),
         ),
         GoRoute(
           path: CustomRouter.usernamePath,

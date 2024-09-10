@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/features/authentication/login_screen.dart';
-import 'package:tiktok_clone/features/authentication/signup_screen.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/login_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/signup_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/username_screen.dart';
 
 class Routes {
   static String index = "/";
@@ -9,7 +9,7 @@ class Routes {
   static String username = "/username";
   static String birthday = "/birthday";
   static String email = "/email";
-  static String loginForm = "/login-form";
+  static String loginFormProvider = "/login-form";
   static String password = "/password";
   static String discover = "/discover";
   static String activity = "/activity";
@@ -24,7 +24,7 @@ class Routes {
   static String timeline = "/timeline";
 
   static Map<String, WidgetBuilder> routesMap = {
-    Routes.index: (context) => const SignUpScreen(),
+    Routes.index: (context) => const SignupScreen(),
     Routes.username: (context) => const UsernameScreen(),
     Routes.login: (context) => const LoginScreen(),
     // Routes.email: (context) => const EmailScreen(),

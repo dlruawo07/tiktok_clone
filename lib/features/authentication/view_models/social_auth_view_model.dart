@@ -9,10 +9,10 @@ import 'package:tiktok_clone/features/authentication/repositories/authentication
 import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class SocialAuthViewModel extends AsyncNotifier<void> {
-  late final AuthenticationRepository _repository;
+  late final AuthRepository _repository;
   @override
   FutureOr<void> build() {
-    _repository = ref.read(authenticationRepositoryProvider);
+    _repository = ref.read(authRepositoryProvider);
   }
 
   Future<void> githubSignIn(BuildContext context) async {

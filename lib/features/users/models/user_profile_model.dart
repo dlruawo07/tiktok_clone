@@ -1,13 +1,4 @@
 class UserProfileModel {
-  final String uid;
-  final String email;
-  final String name;
-  final String bio;
-  final String link;
-  final String username;
-  final String birthday;
-  final bool hasAvatar;
-
   UserProfileModel({
     required this.uid,
     required this.email,
@@ -18,6 +9,15 @@ class UserProfileModel {
     required this.birthday,
     required this.hasAvatar,
   });
+
+  final String uid;
+  final String email;
+  final String name;
+  final String bio;
+  final String link;
+  final String username;
+  final String birthday;
+  final bool hasAvatar;
 
   UserProfileModel.empty()
       : uid = "",

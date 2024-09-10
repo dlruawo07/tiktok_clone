@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/configures/theme.dart';
+import 'package:tiktok_clone/features/videos/providers/playback_config_provider.dart';
 import 'package:tiktok_clone/features/videos/repositories/playback_config_repository.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
 import 'package:tiktok_clone/firebase_options.dart';

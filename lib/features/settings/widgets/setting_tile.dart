@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
+import 'package:tiktok_clone/features/videos/providers/playback_config_provider.dart';
 
 class VideoSettingListTile extends ConsumerWidget {
-  final String type;
   const VideoSettingListTile({
     super.key,
     required this.type,
   });
+
+  final String type;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

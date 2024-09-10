@@ -45,7 +45,7 @@ class EmailScreenState extends ConsumerState<EmailScreen> {
     if (_email.isEmpty || _isEmailValid() != null) {
       return;
     }
-    ref.read(signUpForm.notifier).state = {
+    ref.read(signupFormProvider.notifier).state = {
       "email": _email,
       "username": widget.username,
     };

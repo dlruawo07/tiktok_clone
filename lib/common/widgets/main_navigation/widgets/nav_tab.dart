@@ -4,6 +4,13 @@ import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/utils/error_snackbar.dart';
 
 class NavTab extends StatelessWidget {
+  final String text;
+  final bool isSelected;
+  final IconData icon;
+  final IconData selectedIcon;
+  final int selectedIndex;
+  final Function onTap;
+
   const NavTab({
     super.key,
     required this.text,
@@ -13,13 +20,6 @@ class NavTab extends StatelessWidget {
     required this.selectedIndex,
     required this.onTap,
   });
-
-  final String text;
-  final bool isSelected;
-  final IconData icon;
-  final IconData selectedIcon;
-  final int selectedIndex;
-  final Function onTap;
 
   @override
   Widget build(BuildContext context) {

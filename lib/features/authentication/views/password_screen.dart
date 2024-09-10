@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/birthday_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/birthday_screen.dart';
 import 'package:tiktok_clone/features/authentication/providers/signup_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
@@ -47,7 +47,6 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
   }
 
   void _onScaffoldTap() {
-    // 현재 포커스된 위젯을 포커스 해제하기
     FocusScope.of(context).unfocus();
   }
 
@@ -56,8 +55,8 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
       return;
     }
 
-    final state = ref.read(signUpForm.notifier).state;
-    ref.read(signUpForm.notifier).state = {
+    final state = ref.read(signupFormProvider.notifier).state;
+    ref.read(signupFormProvider.notifier).state = {
       ...state,
       "password": _password,
     };
@@ -131,7 +130,6 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
                   // 뒤에 아이콘 위젯 추가
                   // suffixIcon: const Icon(Icons.cancel_outlined), (or jest suffix)
                   suffix: Row(
-                    // 수평 axis 사이즈를 최소화
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(

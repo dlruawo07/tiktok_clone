@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/configures/router.dart';
+import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
+import 'package:tiktok_clone/features/inbox/widgets/chat_tile.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen extends ConsumerStatefulWidget {
   const ChatScreen({
     super.key,
   });
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  ChatScreenState createState() => ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class ChatScreenState extends ConsumerState<ChatScreen> {
   final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
 
   final List<int> _items = [];
@@ -22,51 +25,12 @@ class _ChatScreenState extends State<ChatScreen> {
     milliseconds: 300,
   );
 
-  ListTile _makeTile(int index) {
-    return ListTile(
-      onLongPress: () => _deleteItem(index),
-      onTap: () => _onChatTap(index),
-      leading: const CircleAvatar(
-        radius: 30,
-        child: Text("Nico"),
-      ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            "Lynn ($index)",
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Text(
-            "2:16 PM",
-            style: TextStyle(
-              color: Colors.grey.shade500,
-              fontSize: Sizes.size12,
-            ),
-          ),
-        ],
-      ),
-      subtitle: const Text(
-        "Don't forget to make a video",
-        style: TextStyle(
-          color: Colors.grey,
-        ),
-      ),
-    );
-  }
-
-  void _onChatTap(int index) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const ChatDetailScreen(),
-    //   ),
-    // );
+  void _onChatTap(String chatId) {
     context.pushNamed(
       CustomRouter.chatDetailName,
-      pathParameters: {"chatId": "$index"},
+      pathParameters: {
+        "chatId": chatId,
+      },
     );
   }
 
@@ -80,7 +44,13 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _deleteItem(int index) {
+  void _deleteItem({
+    required int index,
+    required String username,
+    String? imageUrl,
+    required int recentChatTime,
+    required String recentChatText,
+  }) {
     if (_key.currentState != null) {
       _key.currentState!.removeItem(
         index,
@@ -89,7 +59,15 @@ class _ChatScreenState extends State<ChatScreen> {
           sizeFactor: animation,
           child: Container(
             color: Colors.red.shade500,
-            child: _makeTile(index),
+            child: ChatTile(
+              index: index,
+              username: username,
+              imageUrl: imageUrl,
+              recentChatTime: recentChatTime,
+              recentChatText: recentChatText,
+              deleteItem: _deleteItem,
+              onTap: _onChatTap,
+            ),
           ),
         ),
         duration: _duration,
@@ -100,6 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.read(authRepositoryProvider).user!;
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -129,7 +108,16 @@ class _ChatScreenState extends State<ChatScreen> {
             opacity: animation,
             child: SizeTransition(
               sizeFactor: animation,
-              child: _makeTile(index),
+              child: ChatTile(
+                index: index,
+                username: "KJ",
+                imageUrl:
+                    "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F${user.uid}?alt=media&token=b79558d3-bf90-4773-a0ff-247ef62e2b31&nocaching=${DateTime.now().toString()}",
+                recentChatTime: 1725929843252,
+                recentChatText: "Don't forget to make a video",
+                deleteItem: _deleteItem,
+                onTap: _onChatTap,
+              ),
             ),
           );
         },

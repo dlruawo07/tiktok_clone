@@ -3,15 +3,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 
 class AuthButton extends StatelessWidget {
+  const AuthButton({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.onTapFunction,
+  });
+
   final String text;
   final FaIcon icon;
   final dynamic onTapFunction;
-
-  const AuthButton(
-      {super.key,
-      required this.text,
-      required this.icon,
-      required this.onTapFunction});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,9 @@ class PlaybackConfigRepository {
 
   final SharedPreferences _preferences;
 
-  PlaybackConfigRepository(this._preferences);
+  PlaybackConfigRepository(
+    this._preferences,
+  );
 
   Future<void> setMuted(bool value) async {
     _preferences.setBool(_muted, value);

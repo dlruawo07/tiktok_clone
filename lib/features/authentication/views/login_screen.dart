@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
+import 'package:tiktok_clone/features/authentication/views/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/providers/social_auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
@@ -13,7 +13,7 @@ class LoginScreen extends ConsumerWidget {
     super.key,
   });
 
-  void _onSignUpTap(BuildContext context) {
+  void _onSignupTap(BuildContext context) {
     context.pop();
   }
 
@@ -80,7 +80,7 @@ class LoginScreen extends ConsumerWidget {
               const Text("Don't have an account?"),
               Gaps.h5,
               GestureDetector(
-                onTap: () => _onSignUpTap(context),
+                onTap: () => _onSignupTap(context),
                 child: Text(
                   "Sign up",
                   style: TextStyle(

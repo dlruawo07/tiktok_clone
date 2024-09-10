@@ -10,23 +10,10 @@ class InboxScreen extends StatelessWidget {
   });
 
   void _onDmPressed(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (
-    //       context,
-    //     ) =>
-    //         const ChatScreen(),
-    //   ),
-    // );
     context.pushNamed(CustomRouter.chatName);
   }
 
   void _onActivityTap(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const ActivityScreen(),
-    //   ),
-    // );
     context.pushNamed(CustomRouter.activityName);
   }
 

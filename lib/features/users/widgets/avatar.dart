@@ -4,19 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_clone/features/users/view_models/avatar_view_model.dart';
+import 'package:tiktok_clone/features/users/providers/avatar_provider.dart';
 
 class Avatar extends ConsumerWidget {
-  final String username;
-  final bool hasAvatar;
-  final String uid;
-
   const Avatar({
     super.key,
     required this.username,
     required this.hasAvatar,
     required this.uid,
   });
+
+  final String username;
+  final bool hasAvatar;
+  final String uid;
 
   Future<void> _onAvatarTap(WidgetRef ref) async {
     final xfile = await ImagePicker().pickImage(

@@ -6,25 +6,25 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/authentication/providers/auth_provider.dart';
 import 'package:tiktok_clone/features/authentication/providers/signup_provider.dart';
 import 'package:tiktok_clone/features/authentication/repositories/authentication_repository.dart';
-import 'package:tiktok_clone/features/users/view_models/users_view_model.dart';
+import 'package:tiktok_clone/features/users/providers/users_provider.dart';
 import 'package:tiktok_clone/configures/router.dart';
 import 'package:tiktok_clone/utils/error_snackbar.dart';
 
-class SignUpViewModel extends AsyncNotifier<void> {
-  late final AuthenticationRepository _authRepository;
+class SignupViewModel extends AsyncNotifier<void> {
+  late final AuthRepository _repository;
 
   @override
   FutureOr<void> build() {
-    _authRepository = ref.read(authenticationRepositoryProvider);
+    _repository = ref.read(authRepositoryProvider);
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<void> signup(BuildContext context) async {
     state = const AsyncValue.loading();
-    final form = ref.read(signUpForm);
+    final form = ref.read(signupFormProvider);
     final users = ref.read(usersProvider.notifier);
     state = await AsyncValue.guard(
       () async {
-        final userCredential = await _authRepository.emailSignUp(
+        final userCredential = await _repository.emailSignup(
           form["email"],
           form["password"],
         );
@@ -44,7 +44,7 @@ class SignUpViewModel extends AsyncNotifier<void> {
 
   Future<void> signOut() async {
     state = await AsyncValue.guard(
-      () async => await _authRepository.signOut(),
+      () async => await _repository.signOut(),
     );
   }
 }

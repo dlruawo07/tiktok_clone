@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthenticationRepository {
+class AuthRepository {
   // Firebase.initialize한 이후부터 인스턴스 사용 가능 (main.dart에서 함)
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -11,7 +11,7 @@ class AuthenticationRepository {
   // Stream이기 때문에 변경 추적 가능
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
-  Future<UserCredential> emailSignUp(String email, String password) async {
+  Future<UserCredential> emailSignup(String email, String password) async {
     return await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -34,4 +34,6 @@ class AuthenticationRepository {
       GithubAuthProvider(),
     );
   }
+
+  Future<void> findUserWithUid() async {}
 }

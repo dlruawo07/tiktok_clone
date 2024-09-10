@@ -21,8 +21,12 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
-          const VideoSettingListTile(type: "mute"),
-          const VideoSettingListTile(type: "autoplay"),
+          const VideoSettingListTile(
+            type: "mute",
+          ),
+          const VideoSettingListTile(
+            type: "autoplay",
+          ),
           ListTile(
             onTap: () async {
               final date = await showDatePicker(
