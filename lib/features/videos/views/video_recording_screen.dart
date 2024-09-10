@@ -42,7 +42,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     FlashMode.torch
   ];
 
-  // ignore: unused_field
   bool _hasPermission = false;
 
   bool _isSelfieMode = false;

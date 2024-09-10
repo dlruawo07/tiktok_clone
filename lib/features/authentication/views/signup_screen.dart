@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/providers/social_auth_provider.dart';
+import 'package:tiktok_clone/features/authentication/views/username_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 import 'package:tiktok_clone/configures/router.dart';
@@ -19,7 +20,13 @@ class SignupScreen extends ConsumerWidget {
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    context.pushNamed(CustomRouter.usernameName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
+      ),
+    );
+    // context.pushNamed(CustomRouter.usernameName);
   }
 
   @override

@@ -51,7 +51,7 @@ class Avatar extends ConsumerWidget {
               radius: 50,
               foregroundImage: hasAvatar
                   ? NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F$uid?alt=media&token=b79558d3-bf90-4773-a0ff-247ef62e2b31&nocaching=${DateTime.now().toString()}",
+                      "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F$uid?alt=media&token=2fd82a62-6107-469b-8a51-e5ff39cb5cde&nocaching=${DateTime.now().millisecondsSinceEpoch.toString()}",
                     )
                   : null,
               backgroundColor: hasAvatar ? null : Colors.teal,

@@ -29,6 +29,10 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     return UserProfileModel.empty();
   }
 
+  Future<Map<String, dynamic>?> findUser(String userId) async {
+    return await _usersRepository.findProfile(userId);
+  }
+
   Future<void> createProfile(
     UserCredential credential, {
     required String username,
@@ -111,5 +115,9 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
         "link": link,
       },
     );
+  }
+
+  Future<List<dynamic>> findAllUsers() async {
+    return await _usersRepository.findAllUsers();
   }
 }

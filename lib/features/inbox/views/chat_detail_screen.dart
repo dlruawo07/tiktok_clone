@@ -32,7 +32,7 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
       return;
     }
 
-    ref.read(messagesProvider.notifier).sendMessage(text);
+    ref.read(messagesProvider(widget.chatId).notifier).sendMessage(text);
 
     _textController.text = "";
   }
@@ -45,20 +45,22 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(messagesProvider).isLoading;
+    final isLoading = ref.watch(messagesProvider(widget.chatId)).isLoading;
+
     return Scaffold(
       appBar: AppBar(
         title: ChatDetailAppBar(
-          widget: widget,
+          chatId: widget.chatId,
         ),
       ),
       body: Stack(
         children: [
           GestureDetector(
             onTap: _unfocus,
-            child: ref.watch(chatProvider).when(
+            child: ref.watch(chatProvider(widget.chatId)).when(
                   data: (data) => ChatDetailChatArea(
                     data: data,
+                    chatId: widget.chatId,
                   ),
                   error: (error, stackTrance) => Center(
                     child: Text(

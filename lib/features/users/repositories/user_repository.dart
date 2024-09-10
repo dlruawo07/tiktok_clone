@@ -21,6 +21,11 @@ class UserRepository {
     return doc.data();
   }
 
+  Future<List<dynamic>> findAllUsers() async {
+    final doc = await _db.collection("users").get();
+    return doc.docs.map((doc) => doc["uid"]).toList();
+  }
+
   // update avatar
   Future<void> uploadAvatar(File file, String filename) async {
     // 파일 저장공간 확보
@@ -31,5 +36,9 @@ class UserRepository {
 
   Future<void> updateProfile(String uid, Map<String, dynamic> data) async {
     await _db.collection("users").doc(uid).update(data);
+  }
+
+  String getAvatarFullPath(String uid) {
+    return _storage.ref().child("avatars/$uid").fullPath;
   }
 }

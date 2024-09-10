@@ -7,21 +7,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/inbox/models/message_model.dart';
 
-final chatProvider = StreamProvider.autoDispose
-    // .family
-    <
-        List<MessageModel>
-        // String
-        >(
+final chatProvider =
+    StreamProvider.autoDispose.family<List<MessageModel>, String>(
   (
     ref,
-    // chatRoomId,
+    chatRoomId,
   ) {
     final db = FirebaseFirestore.instance;
 
     return db
         .collection("chat_rooms")
-        .doc("rFaL700U4XZ67StI4lnV")
+        .doc(chatRoomId)
         .collection("texts")
         .orderBy("createdAt")
         .snapshots()

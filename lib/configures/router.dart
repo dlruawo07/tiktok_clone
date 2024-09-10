@@ -63,7 +63,8 @@ final routerProvider = Provider(
     // ref.watch(authState);
 
     return GoRouter(
-      initialLocation: "/home",
+      initialLocation: CustomRouter.inboxPath,
+      // initialLocation: CustomRouter.homePath,
       redirect: (context, state) {
         final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
         if (!isLoggedIn) {
@@ -86,12 +87,13 @@ final routerProvider = Provider(
           builder: (context, state) => const ChatScreen(),
           routes: [
             GoRoute(
-              path: CustomRouter.chatDetailPath,
-              name: CustomRouter.chatDetailName,
-              builder: (context, state) => ChatDetailScreen(
-                chatId: state.pathParameters["chatId"]!,
-              ),
-            ),
+                path: CustomRouter.chatDetailPath,
+                name: CustomRouter.chatDetailName,
+                builder: (context, state) {
+                  return ChatDetailScreen(
+                    chatId: state.pathParameters["chatId"]!,
+                  );
+                }),
           ],
         ),
         GoRoute(

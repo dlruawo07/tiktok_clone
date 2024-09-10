@@ -6,6 +6,7 @@ final messagesRepositoryProvider = Provider(
   (ref) => MessagesRepository(),
 );
 
-final messagesProvider = AsyncNotifierProvider<MessagesViewModel, void>(
+final messagesProvider =
+    AsyncNotifierProvider.family<MessagesViewModel, void, String>(
   () => MessagesViewModel(),
 );

@@ -38,6 +38,7 @@ class SettingsScreen extends ConsumerWidget {
               if (kDebugMode) {
                 print(date);
               }
+              if (!context.mounted) return;
               final time = await showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.now(),
@@ -45,6 +46,7 @@ class SettingsScreen extends ConsumerWidget {
               if (kDebugMode) {
                 print(time);
               }
+              if (!context.mounted) return;
               final booking = await showDateRangePicker(
                 context: context,
                 firstDate: DateTime(1980),

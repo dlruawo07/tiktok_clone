@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
-import 'package:tiktok_clone/configures/router.dart';
 import 'package:tiktok_clone/features/authentication/providers/signup_provider.dart';
+import 'package:tiktok_clone/features/authentication/views/password_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class EmailScreen extends ConsumerStatefulWidget {
@@ -50,7 +49,13 @@ class EmailScreenState extends ConsumerState<EmailScreen> {
       "username": widget.username,
     };
 
-    context.pushNamed(CustomRouter.passwordName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PasswordScreen(),
+      ),
+    );
+    // context.pushNamed(CustomRouter.passwordName);
   }
 
   @override

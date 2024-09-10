@@ -29,4 +29,8 @@ class AvatarViewModel extends AsyncNotifier {
       },
     );
   }
+
+  Future<void> getAvatarFullPath(String uid) async {
+    _repository.getAvatarFullPath(uid);
+  }
 }
