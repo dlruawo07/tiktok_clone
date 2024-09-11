@@ -41,4 +41,15 @@ class UserRepository {
   String getAvatarFullPath(String uid) {
     return _storage.ref().child("avatars/$uid").fullPath;
   }
+
+  Stream<UserProfileModel> watchUserProfile(String userId) {
+    return _db.collection("users").doc(userId).snapshots().map(
+      (snapshot) {
+        if (!snapshot.exists) {
+          return UserProfileModel.empty();
+        }
+        return UserProfileModel.fromJson(snapshot.data()!);
+      },
+    );
+  }
 }

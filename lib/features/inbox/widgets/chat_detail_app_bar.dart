@@ -37,6 +37,28 @@ class ChatDetailAppBar extends ConsumerWidget {
         } else {
           final user = UserProfileModel.fromJson(snapshot.data!);
 
+          final bool isOnline =
+              ref.watch(userOnlineStatusProvider(user.uid)).value ?? false;
+
+          final timeDiff =
+              DateTime.now().millisecondsSinceEpoch - user.lastSeen;
+          String timeAgo = "ago";
+
+          final toS = (timeDiff / 1000).round();
+          final toM = (toS / 60).round();
+          final toH = (toM / 60).round();
+          final toD = (toH / 24).round();
+
+          if (toS < 60) {
+            timeAgo = "${toS}s $timeAgo";
+          } else if (toM < 60) {
+            timeAgo = "${toM}m $timeAgo";
+          } else if (toH < 24) {
+            timeAgo = "${toH}h $timeAgo";
+          } else {
+            timeAgo = "${toD}d $timeAgo";
+          }
+
           return ListTile(
             contentPadding: EdgeInsets.zero,
             horizontalTitleGap: Sizes.size8,
@@ -44,8 +66,11 @@ class ChatDetailAppBar extends ConsumerWidget {
               children: [
                 CircleAvatar(
                   radius: Sizes.size24,
-                  foregroundImage: NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F${user.uid}?alt=media&token=ec8c0815-601e-488d-9057-161b69d1b834"),
+                  foregroundImage: user.hasAvatar
+                      ? NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F${user.uid}?alt=media&token=ec8c0815-601e-488d-9057-161b69d1b834",
+                        )
+                      : null,
                   child: Text(user.username),
                 ),
                 Positioned.fill(
@@ -53,12 +78,12 @@ class ChatDetailAppBar extends ConsumerWidget {
                   top: 30,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: isOnline ? Colors.green : Colors.grey,
                       shape: BoxShape.circle,
                       border: Border.all(
-                          width: 3,
-                          color:
-                              Theme.of(context).appBarTheme.backgroundColor!),
+                        width: 3,
+                        color: Theme.of(context).appBarTheme.backgroundColor!,
+                      ),
                     ),
                   ),
                 ),
@@ -70,8 +95,9 @@ class ChatDetailAppBar extends ConsumerWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            // TODO: if this user is logged in
-            subtitle: const Text("Active now"),
+            subtitle: Text(
+              isOnline ? "Active now" : timeAgo,
+            ),
             trailing: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [

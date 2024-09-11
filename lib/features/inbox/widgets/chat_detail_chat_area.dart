@@ -17,7 +17,8 @@ class ChatDetailChatArea extends ConsumerWidget {
   final List<MessageModel> data;
   final String chatId;
 
-  void _onLongPress(BuildContext context, WidgetRef ref, MessageModel message) {
+  void _deleteMessage(
+      BuildContext context, WidgetRef ref, MessageModel message) {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
@@ -44,6 +45,21 @@ class ChatDetailChatArea extends ConsumerWidget {
     );
   }
 
+  Radius _getTop(int index, bool isMine, bool prevIsMine) {
+    if (!isMine && (index == data.length - 1 || prevIsMine) ||
+        isMine && !prevIsMine) {
+      return const Radius.circular(Sizes.size20);
+    }
+    return const Radius.circular(Sizes.size2);
+  }
+
+  Radius _getBottom(int index, bool isMine, bool nextIsMine) {
+    if (isMine && (index == 0 || !nextIsMine) || !isMine && nextIsMine) {
+      return const Radius.circular(Sizes.size20);
+    }
+    return const Radius.circular(Sizes.size2);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView.separated(
@@ -54,20 +70,29 @@ class ChatDetailChatArea extends ConsumerWidget {
         left: Sizes.size14,
         right: Sizes.size14,
       ),
+      separatorBuilder: (context, index) => Gaps.v6,
+      itemCount: data.length,
       itemBuilder: (context, index) {
         final message = data[index];
-        final isMine =
+        final prevMessage = index + 1 < data.length ? data[index + 1] : message;
+        final nextMessage = index - 1 >= 0 ? data[index - 1] : message;
+
+        bool isMine =
             message.userId == ref.watch(authRepositoryProvider).user!.uid;
+        bool prevIsMine = index + 1 < data.length
+            ? prevMessage.userId == ref.watch(authRepositoryProvider).user!.uid
+            : false;
+        bool nextIsMine = index - 1 >= 0
+            ? nextMessage.userId == ref.watch(authRepositoryProvider).user!.uid
+            : false;
+
         return Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment:
               isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
-            // TODO: Code challenge.
-            // onLongPress: instead of just deleting, replace the text with [Deleted message].
-            // delete message if the message was created in less than four minutes ago. (only my messages)
             GestureDetector(
-              onLongPress: () => _onLongPress(context, ref, message),
+              onLongPress: () => _deleteMessage(context, ref, message),
               child: Container(
                 padding: const EdgeInsets.all(
                   Sizes.size14,
@@ -75,14 +100,10 @@ class ChatDetailChatArea extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: isMine ? Colors.blue : Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(Sizes.size20),
-                    topRight: const Radius.circular(Sizes.size20),
-                    bottomLeft: isMine
-                        ? const Radius.circular(Sizes.size20)
-                        : const Radius.circular(Sizes.size2),
-                    bottomRight: isMine
-                        ? const Radius.circular(Sizes.size2)
-                        : const Radius.circular(Sizes.size20),
+                    topLeft: _getTop(index, isMine, prevIsMine),
+                    topRight: _getTop(index, isMine, prevIsMine),
+                    bottomLeft: _getBottom(index, isMine, nextIsMine),
+                    bottomRight: _getBottom(index, isMine, nextIsMine),
                   ),
                 ),
                 child: Text(
@@ -97,8 +118,6 @@ class ChatDetailChatArea extends ConsumerWidget {
           ],
         );
       },
-      separatorBuilder: (context, index) => Gaps.v10,
-      itemCount: data.length,
     );
   }
 }

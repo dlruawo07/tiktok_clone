@@ -53,6 +53,8 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
       username: username,
       birthday: birthday,
       hasAvatar: false,
+      isOnline: true,
+      lastSeen: DateTime.now().millisecondsSinceEpoch,
     );
 
     await _usersRepository.createProfile(profile);

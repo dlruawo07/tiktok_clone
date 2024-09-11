@@ -8,6 +8,8 @@ class UserProfileModel {
     required this.username,
     required this.birthday,
     required this.hasAvatar,
+    required this.isOnline,
+    required this.lastSeen,
   });
 
   final String uid;
@@ -18,6 +20,8 @@ class UserProfileModel {
   final String username;
   final String birthday;
   final bool hasAvatar;
+  final bool isOnline;
+  final int lastSeen;
 
   UserProfileModel.empty()
       : uid = "",
@@ -27,7 +31,9 @@ class UserProfileModel {
         link = "",
         username = "",
         birthday = "",
-        hasAvatar = false;
+        hasAvatar = false,
+        isOnline = true,
+        lastSeen = DateTime.now().millisecondsSinceEpoch;
 
   UserProfileModel.fromJson(Map<String, dynamic> json)
       : uid = json["uid"] as String,
@@ -37,7 +43,9 @@ class UserProfileModel {
         link = json["link"] as String,
         username = json["username"] as String,
         birthday = json["birthday"] as String,
-        hasAvatar = json["hasAvatar"] ?? false;
+        hasAvatar = json["hasAvatar"] ?? false,
+        isOnline = json["isOnline"] ?? true,
+        lastSeen = json["lastSeen"] ?? DateTime.now();
 
   Map<String, dynamic> toJson() {
     return {
@@ -49,6 +57,8 @@ class UserProfileModel {
       "username": username,
       "birthday": birthday,
       "hasAvatar": hasAvatar,
+      "isOnline": isOnline,
+      "lastSeen": lastSeen,
     };
   }
 
@@ -61,6 +71,8 @@ class UserProfileModel {
     String? username,
     String? birthday,
     bool? hasAvatar,
+    bool? isOnline,
+    int? lastSeen,
   }) {
     return UserProfileModel(
       uid: uid ?? this.uid,
@@ -71,6 +83,8 @@ class UserProfileModel {
       username: username ?? this.username,
       birthday: birthday ?? this.birthday,
       hasAvatar: hasAvatar ?? this.hasAvatar,
+      isOnline: isOnline ?? this.isOnline,
+      lastSeen: lastSeen ?? this.lastSeen,
     );
   }
 }

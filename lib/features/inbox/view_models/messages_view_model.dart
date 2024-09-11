@@ -46,7 +46,6 @@ class MessagesViewModel extends FamilyAsyncNotifier<void, String> {
       return;
     }
     final messageId = await _repository.getMessageId(_chatRoomId, message);
-    print(messageId);
     await _repository.updateMessage(_chatRoomId, messageId);
   }
 }

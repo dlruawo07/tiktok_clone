@@ -133,7 +133,7 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
 
                 return ChatTile(
                   chatId: chatId,
-                  username: user.username,
+                  user: user,
                   onTap: _onChatTap,
                 );
               },
@@ -142,50 +142,5 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
         },
       ),
     );
-    // final user = ref.read(authRepositoryProvider).user!;
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     elevation: 1,
-    //     title: const Text(
-    //       "Direct messages",
-    //     ),
-    //     actions: [
-    //       IconButton(
-    //         onPressed: _addItem,
-    //         // TODO: Code challenge: on press => show all users. and on user tap, create a chat room.
-    //         icon: const FaIcon(
-    //           FontAwesomeIcons.plus,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    //   // List의 요소들에 애니메이션 효과를 주는 위젯
-    //   body: AnimatedList(
-    //     padding: const EdgeInsets.symmetric(
-    //       vertical: Sizes.size10,
-    //     ),
-    //     key: _key,
-    //     // itemBuilder에 기본적으로 animation을 받는다
-    //     itemBuilder: (context, index, animation) {
-    //       return FadeTransition(
-    //         key: UniqueKey(),
-    //         opacity: animation,
-    //         child: SizeTransition(
-    //           sizeFactor: animation,
-    //           child: ChatTile(
-    //             index: index,
-    //             username: "KJ",
-    //             imageUrl:
-    //                 "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F${user.uid}?alt=media&token=b79558d3-bf90-4773-a0ff-247ef62e2b31&nocaching=${DateTime.now().toString()}",
-    //             recentChatTime: 1725929843252,
-    //             recentChatText: "Don't forget to make a video",
-    //             deleteItem: _deleteItem,
-    //             onTap: _onChatTap,
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 }
