@@ -59,12 +59,8 @@ class CustomRouter {
 
 final routerProvider = Provider(
   (ref) {
-    // TODO: 유저가 로그인을 하거나 로그아웃을 하면 리빌드
-    // ref.watch(authState);
-
     return GoRouter(
-      initialLocation: CustomRouter.inboxPath,
-      // initialLocation: CustomRouter.homePath,
+      initialLocation: CustomRouter.homePath,
       redirect: (context, state) {
         final isLoggedIn = ref.read(authRepositoryProvider).isLoggedIn;
         if (!isLoggedIn) {
