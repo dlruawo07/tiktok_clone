@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/providers/video_timeline_provider.dart';
-import 'package:tiktok_clone/features/videos/views/widgets/video_post.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_post.dart';
 
 class VideoTimelineScreen extends ConsumerStatefulWidget {
   const VideoTimelineScreen({
@@ -20,7 +20,6 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
     milliseconds: 250,
   );
   final Curve _scrollCurve = Curves.linear;
-
   int _itemCount = 0;
 
   void _onPageChanged(int page) {

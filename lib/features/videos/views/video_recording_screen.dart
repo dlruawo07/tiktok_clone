@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/views/video_preview_screen.dart';
-import 'package:tiktok_clone/features/videos/views/widgets/camera_flash_mode_button.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_recording_bottom_bar.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_recording_camera_switch_button.dart';
 import 'package:tiktok_clone/utils/get_size.dart';
 
 // 카메라 & 마이크 사용 시 ios/Runner/Info.plist에 아래 줄 추가
@@ -28,30 +28,12 @@ class VideoRecordingScreen extends StatefulWidget {
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
-  final _flashIcons = [
-    Icons.flash_off_rounded,
-    Icons.flash_on_rounded,
-    Icons.flash_auto_rounded,
-    Icons.flashlight_on_rounded,
-  ];
-
-  final _flashModes = [
-    FlashMode.off,
-    FlashMode.always,
-    FlashMode.auto,
-    FlashMode.torch
-  ];
-
   bool _hasPermission = false;
-
   bool _isSelfieMode = false;
 
   late final bool _noCamera = kDebugMode && Platform.isIOS;
-
   late FlashMode _flashMode;
-
   late CameraController _cameraController;
-
   late final AnimationController _buttonAnimationController =
       AnimationController(
     vsync: this,
@@ -59,7 +41,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       milliseconds: 300,
     ),
   );
-
   late final AnimationController _progressAnimationController =
       AnimationController(
     vsync: this,
@@ -69,7 +50,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     lowerBound: 0.0,
     upperBound: 1.0,
   );
-
   late final Animation<double> _buttonAnimation = Tween(
     begin: 1.0,
     end: 1.3,
@@ -184,6 +164,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     if (!mounted) {
       return;
     }
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -291,78 +272,17 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     ),
                   ),
                   if (!_noCamera)
-                    Positioned(
-                      top: Sizes.size40,
-                      right: Sizes.size5,
-                      child: Column(
-                        children: [
-                          IconButton(
-                            color: Colors.white,
-                            onPressed: _toggleSelfieMode,
-                            icon: const Icon(
-                              Icons.cameraswitch,
-                            ),
-                          ),
-                          for (var i = 0; i < _flashIcons.length; i++)
-                            FlashModeButton(
-                              isSelected: _flashMode == _flashModes[i],
-                              onPressed: () => _setFlashMode(_flashModes[i]),
-                              icon: _flashIcons[i],
-                            ),
-                        ],
-                      ),
+                    VideoRecordingCameraSwitchButton(
+                      flashMode: _flashMode,
+                      toggleSelfieMode: _toggleSelfieMode,
+                      setFlashMode: _setFlashMode,
                     ),
-                  Positioned(
-                    width: getDeviceWidth(context),
-                    bottom: Sizes.size40,
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        GestureDetector(
-                          // TODO: CODE CHALLENGE - ZOOM IN/OUT WHEN SWIPE UP/DOWN WHILE TAPPING DOWN'
-                          // (onVerticalDragUpdate, DragUpdateDetails + _cameraController.getMaxZoomLevel,setZoomLevel)
-                          onTapDown: (details) => _startRecording(),
-                          onTapUp: (details) => _stopRecording(),
-                          child: ScaleTransition(
-                            scale: _buttonAnimation,
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                SizedBox(
-                                  width: Sizes.size72,
-                                  height: Sizes.size72,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.red.shade400,
-                                    strokeWidth: Sizes.size5,
-                                    value: _progressAnimationController.value,
-                                  ),
-                                ),
-                                Container(
-                                  width: Sizes.size64,
-                                  height: Sizes.size64,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.red.shade400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: IconButton(
-                              onPressed: _onPickVideoPressed,
-                              icon: const Icon(
-                                Icons.image,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  VideoRecordingBottomBar(
+                    startRecording: _startRecording,
+                    stopRecording: _stopRecording,
+                    buttonAnimation: _buttonAnimation,
+                    progressAnimationController: _progressAnimationController,
+                    onAlbumTap: _onPickVideoPressed,
                   ),
                 ],
               ),

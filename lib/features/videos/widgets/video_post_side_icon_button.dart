@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/configures/constants/gaps.dart';
 import 'package:tiktok_clone/configures/constants/sizes.dart';
 
-class VideoButton extends StatelessWidget {
-  const VideoButton({
+class VideoPostSideIconButton extends StatelessWidget {
+  const VideoPostSideIconButton({
     super.key,
     required this.icon,
     required this.text,

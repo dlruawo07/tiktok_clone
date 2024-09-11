@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/configures/constants/gaps.dart';
-import 'package:tiktok_clone/configures/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/providers/playback_config_provider.dart';
 import 'package:tiktok_clone/features/videos/providers/video_post_provider.dart';
-import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
-import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_comments.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_post_animated_play_button.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_post_description.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_post_side_icon_bar.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_post_volume_button.dart';
 
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -222,117 +222,23 @@ class VideoPostState extends ConsumerState<VideoPost>
               onTap: _onTogglePause,
             ),
           ),
-          Positioned.fill(
-            // Event가 Icon으로 가는 것을 무시함
-            child: IgnorePointer(
-              // 사이즈 변화
-              // _animationController의 변화를 감지하는 방법 2
-              child: AnimatedBuilder(
-                animation: _animationController,
-                // animation의 변화를 감지하고 무언가를 수행하는 함수
-                builder: (context, child) {
-                  return Transform.scale(
-                    scale: _animationController.value,
-                    // child = 아래의 AnimatedOpacity 위젯
-                    child: AnimatedOpacity(
-                      opacity: _isPaused ? 1 : 0,
-                      duration: _animationDuration,
-                      child: const Center(
-                        child: FaIcon(
-                          FontAwesomeIcons.play,
-                          color: Colors.white,
-                          size: Sizes.size52,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+          VideoPostAnimatedPlayButton(
+            animationController: _animationController,
+            isPaused: _isPaused,
+            animationDuration: _animationDuration,
           ),
-          Positioned(
-            bottom: 20,
-            left: 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "@${widget.videoData.creator}",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: Sizes.size16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Gaps.v6,
-                Text(
-                  widget.videoData.description,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: Sizes.size12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+          VideoPostDescription(
+            videoData: widget.videoData,
           ),
-          Positioned(
-            bottom: 20,
-            right: 10,
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  foregroundImage: NetworkImage(
-                    "https://firebasestorage.googleapis.com/v0/b/tik-tok-52296.appspot.com/o/avatars%2F${widget.videoData.creatorUid}?alt=media&token=b79558d3-bf90-4773-a0ff-247ef62e2b31&nocaching=${DateTime.now().toString()}",
-                  ),
-                  child: Text(
-                    widget.videoData.creator,
-                    style: const TextStyle(
-                      fontSize: Sizes.size8,
-                    ),
-                  ),
-                ),
-                Gaps.v44,
-                GestureDetector(
-                  onTap: _onToggleHeart,
-                  child: VideoButton(
-                    icon: FontAwesomeIcons.solidHeart,
-                    color: _isLiked ? Colors.red : null,
-                    text: "$likeCount likes",
-                  ),
-                ),
-                Gaps.v44,
-                GestureDetector(
-                  onTap: () => _onCommentsTap(context),
-                  child: VideoButton(
-                    icon: FontAwesomeIcons.solidComment,
-                    text: "${widget.videoData.comments} comments",
-                  ),
-                ),
-                Gaps.v44,
-                const VideoButton(
-                  icon: FontAwesomeIcons.share,
-                  text: "Share",
-                ),
-              ],
-            ),
+          VideoPostSideIconBar(
+            videoData: widget.videoData,
+            isLiked: _isLiked,
+            likeCount: likeCount,
+            onToggleHeart: _onToggleHeart,
+            onCommentsTap: _onCommentsTap,
           ),
-          Positioned(
-            right: 10,
-            child: SafeArea(
-              child: IconButton(
-                icon: FaIcon(
-                  ref.watch(playbackConfigProvider).muted
-                      ? FontAwesomeIcons.volumeXmark
-                      : FontAwesomeIcons.volumeHigh,
-                  color: Colors.white,
-                ),
-                onPressed: _onPlaybackConfigChanged,
-              ),
-            ),
+          VideoPostVolumeButton(
+            onPlaybackConfigChanged: _onPlaybackConfigChanged,
           ),
         ],
       ),

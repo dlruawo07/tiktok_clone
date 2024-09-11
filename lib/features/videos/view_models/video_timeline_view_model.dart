@@ -45,6 +45,7 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
     final videos = await _fetchVideos(
       lastItemCreatedAt: null,
     );
+
     _list = videos;
     state = AsyncValue.data(videos);
   }
