@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,8 +47,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDrEAS097NUFoWAn9eZ_Ycx0y9xnk2UtgY',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.env["WEB_API_KEY"]!,
     appId: '1:213617117395:web:25114c10de5fd578ad6c26',
     messagingSenderId: '213617117395',
     projectId: 'tik-tok-52296',
@@ -56,16 +57,16 @@ class DefaultFirebaseOptions {
     measurementId: 'G-C20Y6S2QZX',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAVy7_GQNBd0AFuNlGrV4nOlwEQsvHE89k',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env["ANDROID_API_KEY"]!,
     appId: '1:213617117395:android:24b1a204c55b5ee4ad6c26',
     messagingSenderId: '213617117395',
     projectId: 'tik-tok-52296',
     storageBucket: 'tik-tok-52296.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCnbbZbl5THlvbYCRmuIJcl1rSNqGfMmdM',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env["IOS_API_KEY"]!,
     appId: '1:213617117395:ios:cdb766a17ab7415aad6c26',
     messagingSenderId: '213617117395',
     projectId: 'tik-tok-52296',

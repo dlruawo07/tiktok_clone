@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/configures/theme.dart';
@@ -12,6 +13,7 @@ import 'package:tiktok_clone/firebase_options.dart';
 import 'package:tiktok_clone/configures/router.dart';
 
 void main() async {
+  await dotenv.load();
   // 엔진과 위젯의 연결 초기화
   // 프레임워크와 플러터 엔진이 연결할 때 모든 것을 초기화
   WidgetsFlutterBinding.ensureInitialized();
